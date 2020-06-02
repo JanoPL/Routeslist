@@ -85,8 +85,10 @@ namespace RoutesList
             this.logger.LogDebug(this.table.ToString());
         }
 
-        public async Task<string> GetRoutesList()
+        public async Task<string> AsyncGetRoutesList()
         {
+            table.Rows.Clear();
+
             foreach (var routesInformation in GetAllRoutesInformation())
             {
                 this.table.AddRow(routesInformation.Method_name, routesInformation.Template, routesInformation.Controller_name, routesInformation.Action_name, routesInformation.Display_name);
@@ -94,6 +96,5 @@ namespace RoutesList
 
             return await Task.FromResult(this.table.ToString());
         }
-
     }
 }

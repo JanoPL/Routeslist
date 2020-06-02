@@ -10,7 +10,7 @@ Library show all Routes in table format - methods, Uri, Controller Name, Action,
 
 From nuget.org
 ```
-install-package RoutesList
+Install-Package RoutesList 
 ```
 
 
