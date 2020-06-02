@@ -45,7 +45,7 @@ public void Configure(
 		\\...
 		endpoints.MapGet("/routes", async context =>
 		{
-			await context.Response.WriteAsync(routes.GetRoutesList().Result.ToString());
+			await context.Response.WriteAsync(routes.AsyncGetRoutesList().Result.ToString());
 		});
 	}); 
 	
