@@ -51,10 +51,11 @@ public void Configure(
 	
 }
 ```
+
 <hr>
+
 If you use Microsoft.Extension.Logger, you can add output for logging at the debug level
 ```
-
 var routes = new RoutesList.RoutesList(actionProvider, logger);
 routes.GetLoggerRoutesList();
 ```
