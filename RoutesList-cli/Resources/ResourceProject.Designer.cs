@@ -74,16 +74,13 @@ namespace RoutesList_cli.Resources {
         /// </summary>
         internal static string Error_NoProjectsFound(object projectPath)
             => string.Format(Culture, GetResourceString("Error_NoProjectsFound", new[] { "projectPath" }), projectPath);
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The project file &apos;{path}&apos; does not exist..
         /// </summary>
-        internal static string Error_ProjectPath_NotFound {
-            get {
-                return ResourceManager.GetString("Error_ProjectPath_NotFound", resourceCulture);
-            }
-        }
-        
+        internal static string Error_ProjectPath_NotFound(object projectPath)
+            => string.Format(Culture, GetResourceString("Error_ProjectPath_NotFound", new[] { "projectPath" }), projectPath);
+
         /// <summary>
         ///   Looks up a localized string similar to Cannot specify both &apos;--quiet&apos; and &apos;--verbose&apos; options..
         /// </summary>
@@ -92,6 +89,9 @@ namespace RoutesList_cli.Resources {
                 return ResourceManager.GetString("Error_QuietAndVerboseSpecified", resourceCulture);
             }
         }
+
+        internal static string Error_NoProjectNameFound(object projectPath)
+            => string.Format(Culture, GetResourceString("Error_NoProjectNameFound", new[] { "projectPath" }), projectPath);
 
         internal static string GetResourceString(string resourceKey, string defaultValue = null) => ResourceManager.GetString(resourceKey, Culture);
 

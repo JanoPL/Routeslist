@@ -54,7 +54,7 @@ namespace RoutesList_cli
             } catch (Exception ex)
             {
                 Console.Error.WriteLine("Unexpected error: ");
-                Console.Error.WriteLine(ex.ToString());
+                Console.Error.WriteLine(ex.Message);
                 return 1;
             }
         }
@@ -68,11 +68,16 @@ namespace RoutesList_cli
             try
             {
                 options = CommandLineOptions.Parse(args, project);
+#if DEBUG
                 Debug.WriteLine($"ProjectName: {options.Project}, Help: {options.isHelp.ToString()}, Verbose: {options.isVerbose.ToString()}");
+#endif
+                //TODO Dotnet msbuild
+
                 result = 0;
                 
             } catch (Exception ex)
             {
+                Console.Error.WriteLine("Unexpected error: ");
                 Console.WriteLine(ex.Message);
                 result = 1;
             }

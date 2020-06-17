@@ -27,15 +27,16 @@ namespace RoutesList_cli.Internal
         }
         public static string FindProjectName(string projectPath)
         {
-            string projectName = string.Empty;
-
-            string[] split = projectPath.Split("\\");
-            string projectFile = split.Last();
-            projectName = projectFile.Split(".").First();
-
             if (!File.Exists(projectPath))
             {
-                throw new FileNotFoundException(ResourceProject.Error_ProjectPath_NotFound);
+                throw new FileNotFoundException(ResourceProject.Error_ProjectPath_NotFound(projectPath));
+            }
+
+            string projectName = projectPath.Split("\\").Last().Split(".").FirstOrDefault();
+
+            if (string.IsNullOrEmpty(projectName))
+            {
+                throw new FileNotFoundException(ResourceProject.Error_NoProjectNameFound(projectPath));
             }
 
             return projectName;
