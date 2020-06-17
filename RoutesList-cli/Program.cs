@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RoutesList_cli.Internal;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -30,7 +31,7 @@ namespace RoutesList_cli
             Console.WriteLine($"Description \n {descriptionString}");
             Console.WriteLine("\n------------------");
             Console.WriteLine("\n Usage:");
-            Console.WriteLine("routeslist-cli <command>");
+            Console.WriteLine("routeslist-cli <project> <options>");
             Console.WriteLine("\n------------------");
         }
 
@@ -44,9 +45,11 @@ namespace RoutesList_cli
 
             try
             {
-                var program = new Program(Directory.GetCurrentDirectory());
+                var projectFile = MsBuildProject.FindProjectFile(args);
+
+                var program = new Program(projectFile ?? Directory.GetCurrentDirectory());
                 
-                return program.Run(args);
+                return program.Run(args, projectFile);
                 
             } catch (Exception ex)
             {
@@ -56,27 +59,21 @@ namespace RoutesList_cli
             }
         }
 
-        private int Run(string[] args)
+        private int Run(string[] args, string project)
         {
             int result;
-            if (args.Length > 0)
-            {
-                try
-                {
-                    Debug.WriteLine($"Directory: {this._workingDirectory}");
 
-                    result = 0;
-                }
-                catch (Exception ex)
-                {
-                    Console.Error.WriteLine("Unexpected error:");
-                    Console.Error.WriteLine(ex.ToString());
-                    result = 1;
-                }
-            } else
+            CommandLineOptions options;
+
+            try
             {
-                Console.Error.WriteLine("Parameters error:");
-                Console.Error.WriteLine("Missing Parameters");
+                options = CommandLineOptions.Parse(args, project);
+                Debug.WriteLine($"ProjectName: {options.Project}, Help: {options.isHelp.ToString()}, Verbose: {options.isVerbose.ToString()}");
+                result = 0;
+                
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
                 result = 1;
             }
 
