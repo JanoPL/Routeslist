@@ -1,4 +1,6 @@
 ﻿using RoutesList_cli.Internal;
+using RoutesList_cli.ProcessUtils;
+using RoutesList_cli.Utilities;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -91,6 +93,19 @@ namespace RoutesList_cli
             try
             {
                 //TODO Dotnet msbuild
+
+                var processInfo = new ProcessSpec
+                {
+                    Executable = DotnetUtilities.DotnetPathOrDefault(),
+                    WorkingDirectory = Path.GetDirectoryName(args[0]),
+                    Arguments = args,
+                    EnvironmentVariables =
+                    {
+                        ["DOTNET_MSBUILD"] = "1"
+                    },
+                };
+
+                new DotnetBuild().Build(processInfo);
 
                 result = 0;
                 
