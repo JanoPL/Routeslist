@@ -1,7 +1,8 @@
 {
   "profiles": {
     "RoutesList-cli": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "H:\\Programy\\Projekty\\eShopOnWeb\\src\\Web"
     }
   }
 }

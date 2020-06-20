@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RoutesList_cli.ProcessUtils
+﻿namespace RoutesList_cli.ProcessUtils
 {
     public class DotnetBuild
     {
@@ -13,8 +9,20 @@ namespace RoutesList_cli.ProcessUtils
             this.processRunner = new ProcessRunner();
         }
 
-        public async void Build(ProcessSpec processSpec)
+        public async void Build(ProcessSpec processSpec, CommandLineOptions options = null)
         {
+            processSpec.EnvironmentVariables["DOTNET_MSBUILD"] = "msbuild";
+
+            if (options.isVerbose)
+            {
+                processSpec.EnvironmentVariables["DOTNET_VERBOSE"] = "1";
+            }
+
+            if (options.isHelp)
+            {
+                processSpec.EnvironmentVariables["DOTNET_HELP"] = "1";
+            }
+
             await this.processRunner.RunAsync(processSpec);
         }
     }

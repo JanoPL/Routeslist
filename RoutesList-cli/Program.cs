@@ -19,6 +19,7 @@ namespace RoutesList_cli
         
         static void AppDescription()
         {
+            //TODO Refactor Description to add new parameters, descriptions, options
             var versionString = Assembly.GetEntryAssembly()
                     .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
                     .InformationalVersion
@@ -65,7 +66,8 @@ namespace RoutesList_cli
         {
             int result;
 
-            CommandLineOptions options;
+            //TODO add --help parameters, verbose parameters
+            CommandLineOptions options = null;
 
             try
             {
@@ -97,15 +99,11 @@ namespace RoutesList_cli
                 var processInfo = new ProcessSpec
                 {
                     Executable = DotnetUtilities.DotnetPathOrDefault(),
-                    WorkingDirectory = Path.GetDirectoryName(args[0]),
+                    WorkingDirectory = args[0],
                     Arguments = args,
-                    EnvironmentVariables =
-                    {
-                        ["DOTNET_MSBUILD"] = "1"
-                    },
                 };
 
-                new DotnetBuild().Build(processInfo);
+                new DotnetBuild().Build(processInfo, options);
 
                 result = 0;
                 

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using RoutesList_cli.Internal;
+using System;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RoutesList_cli.ProcessUtils
@@ -17,7 +16,7 @@ namespace RoutesList_cli.ProcessUtils
                 StartInfo =
                 {
                     FileName = processSpec.Executable,
-                    Arguments = "", //TODO add msbuild parameters to dotnet process
+                    Arguments = CommandLineArguments.ConcateArgument(processSpec),
                     UseShellExecute = false,
                     WorkingDirectory = processSpec.WorkingDirectory,
                     RedirectStandardOutput = processSpec.IsOutputCaptured,
