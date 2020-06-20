@@ -16,14 +16,6 @@ Install-Package RoutesList
 
 ## Usage 
 
-```
-\\ RoutesList with ILogger
-RoutesList(IActionDescriptorCollectionProvider actionProvider, ILogger logger)
-
-\\ RoutesList without ILogger
-RoutesList(IActionDescriptorCollectionProvider actionProvider)
-```
-
 Just add IActionDescriptorCollectionProvider to startup.cs to the "Configure" function.
 
 Startup.cs 
@@ -35,17 +27,16 @@ http://yourapplicationaddress/routes
 public void Configure(
 	IApplicationBuilder app,
 	IWebHostEnvironment env,
-	Microsoft.AspNetCore.Mvc.Infrastructure.IActionDescriptorCollectionProvider actionProvider
+	IActionDescriptorCollectionProvider collectionProvider
 )
 {
 	\\...
-	var routes = new RoutesList.RoutesList(actionProvider)
 	app.UseEndpoints(endpoints =>
    {
 		\\...
 		endpoints.MapGet("/routes", async context =>
 		{
-			await context.Response.WriteAsync(routes.AsyncGetRoutesList().Result.ToString());
+			await context.Response.WriteAsync(RoutesList.RoutesList.AsyncGetRoutesList(collectionProvider).Result.ToString());
 		});
 	}); 
 	
@@ -56,6 +47,5 @@ public void Configure(
 
 If you use Microsoft.Extension.Logger, you can add output for logging at the debug level
 ```
-var routes = new RoutesList.RoutesList(actionProvider, logger);
-routes.GetLoggerRoutesList();
+logger.LogDebug(RoutesList.RoutesList.AsyncGetRoutesList(collectionProvider).Result.ToString());
 ```

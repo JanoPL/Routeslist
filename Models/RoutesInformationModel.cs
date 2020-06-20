@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RoutesList.Models
+﻿namespace RoutesList.Models
 {
     public class RoutesInformationModel
     {

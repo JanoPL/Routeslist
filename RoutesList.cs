@@ -4,45 +4,30 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using System.Linq;
 using RoutesList.Models;
-using Microsoft.Extensions.Logging;
 using ConsoleTables;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using System.Threading.Tasks;
 
 namespace RoutesList
 {
-    public class RoutesList
+    public static class RoutesList
     {
-        private readonly IActionDescriptorCollectionProvider ActionProvider;
-        private readonly ILogger logger;
-        private readonly ConsoleTable table = new ConsoleTable("Method", "Uri", "Controller Name", "Action", "Full Name");
+        private static readonly ConsoleTable table = new ConsoleTable("Method", "Uri", "Controller Name", "Action", "Full Name");
 
-        public RoutesList(IActionDescriptorCollectionProvider descriptorCollectionProvider)
+        private static IEnumerable<ActionDescriptor> ListRoutes(IActionDescriptorCollectionProvider collectionProvider)
         {
-            this.ActionProvider = descriptorCollectionProvider;
-        }
-
-        public RoutesList(IActionDescriptorCollectionProvider descriptorCollectionProvider, ILogger logger)
-        {
-            this.ActionProvider = descriptorCollectionProvider;
-            this.logger = logger;
-        }
-
-        public IEnumerable<ActionDescriptor> ListRoutes()
-        {
-            IEnumerable<ActionDescriptor> routes = this.ActionProvider.ActionDescriptors.Items.Where(
+            IEnumerable<ActionDescriptor> routes = collectionProvider.ActionDescriptors.Items.Where(
                 routes => routes.AttributeRouteInfo != null
             );
 
             return routes;
         }
 
-        public List<RoutesInformationModel> GetAllRoutesInformation()
+        private static List<RoutesInformationModel> GetAllRoutesInformation(IActionDescriptorCollectionProvider collectionProvider)
         {
-            var routes = ListRoutes();
             List<RoutesInformationModel> routesInformation = new List<RoutesInformationModel>();
             
-            foreach (var route in routes)
+            foreach (var route in ListRoutes(collectionProvider))
             {
                 string controller_name = String.Empty;
                 string action_name = String.Empty;
@@ -74,27 +59,16 @@ namespace RoutesList
             return routesInformation;
         }
 
-        public void GetLoggerRoutesList()
-        {
-            
-            foreach (var routesInformation in GetAllRoutesInformation())
-            {
-                this.table.AddRow(routesInformation.Method_name, routesInformation.Template, routesInformation.Controller_name, routesInformation.Action_name, routesInformation.Display_name);
-            }
-
-            this.logger.LogDebug(this.table.ToString());
-        }
-
-        public async Task<string> AsyncGetRoutesList()
+        public static async Task<string> AsyncGetRoutesList(IActionDescriptorCollectionProvider collectionProvider)
         {
             table.Rows.Clear();
 
-            foreach (var routesInformation in GetAllRoutesInformation())
+            foreach (var routesInformation in GetAllRoutesInformation(collectionProvider))
             {
-                this.table.AddRow(routesInformation.Method_name, routesInformation.Template, routesInformation.Controller_name, routesInformation.Action_name, routesInformation.Display_name);
+                table.AddRow(routesInformation.Method_name, routesInformation.Template, routesInformation.Controller_name, routesInformation.Action_name, routesInformation.Display_name);
             }
 
-            return await Task.FromResult(this.table.ToString());
+            return await Task.FromResult(table.ToString());
         }
     }
 }
