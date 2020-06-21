@@ -18,6 +18,7 @@ Install-Package RoutesList
 
 Just add IActionDescriptorCollectionProvider to startup.cs to the "Configure" function.
 
+<b>Example:</b>
 Startup.cs 
 ```
 \\...
@@ -49,3 +50,6 @@ If you use Microsoft.Extension.Logger, you can add output for logging at the deb
 ```
 logger.LogDebug(RoutesList.RoutesList.AsyncGetRoutesList(collectionProvider).Result.ToString());
 ```
+
+## Contributing
+Contributions are always welcome, whether adding/suggesting new features, bug fixes, documenting new file formats or simply editing some grammar.
