@@ -13,7 +13,6 @@ namespace RoutesList.Services
 {
     public class TableBuilder : ITableBuilder
     {
-        //TODO do przetestowania generacja tabeli
         private IRoutes _routes;
         private IActionDescriptorCollectionProvider _actionDescriptorCollectionProvider;
         public ConsoleTable Table = new ConsoleTable("Method", "Uri", "Controller Name", "Action", "Full Name");
