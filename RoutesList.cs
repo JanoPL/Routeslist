@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace RoutesList
 {
+    /// <summary>
+    /// Route List Class
+    /// </summary>
     public static class RoutesList
     {
         private static readonly ConsoleTable table = new ConsoleTable("Method", "Uri", "Controller Name", "Action", "Full Name");
@@ -59,6 +62,12 @@ namespace RoutesList
             return routesInformation;
         }
 
+        /// <summary>
+        /// Generate Table as String
+        /// </summary>
+        /// <param name="collectionProvider"></param>
+        /// <returns></returns>
+        [Obsolete]
         public static async Task<string> AsyncGetRoutesList(IActionDescriptorCollectionProvider collectionProvider)
         {
             table.Rows.Clear();
