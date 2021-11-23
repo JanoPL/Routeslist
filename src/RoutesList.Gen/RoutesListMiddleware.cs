@@ -1,17 +1,13 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace RutesList.Gen
+namespace RoutesList.Gen
 {
     public class RoutesListMiddleware
     {
         private readonly RoutesListOptions _options;
-        
+
         public RoutesListMiddleware(RoutesListOptions options)
         {
             _options = options ?? new RoutesListOptions();

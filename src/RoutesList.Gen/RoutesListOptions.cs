@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RutesList.Gen
+﻿namespace RoutesList.Gen
 {
     public class RoutesListOptions
     {
