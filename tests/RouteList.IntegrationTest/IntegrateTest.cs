@@ -28,5 +28,21 @@ namespace RouteList.IntegrationTest
                 response.Content.Headers.ContentType.ToString()
             );
         }
+
+        [Theory]
+        [InlineData("/routes")]
+        public async void EndpointDefaultTest(string url)
+        {
+            var client = _factory.CreateClient();
+
+            var response = await client.GetAsync(url);
+
+            response.EnsureSuccessStatusCode();
+
+            Assert.Equal(
+                "text/html; charset=utf-8",
+                response.Content.Headers.ContentType.ToString()
+            );
+        }
     }
 }

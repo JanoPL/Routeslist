@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using RoutesList.Gen.Extensions;
 using System;
 
 namespace RoutesList.Gen
@@ -23,6 +24,10 @@ namespace RoutesList.Gen
                 options = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot<RoutesListOptions>>().Value;
                 routesListOptions?.Invoke(options);
             }
+
+            app.UseEndpoints(endpoints => {
+                endpoints.MapRouteList($"{options.Endpoint}", options);
+            });
 
             return app.UseRoutesList(options);
         }
