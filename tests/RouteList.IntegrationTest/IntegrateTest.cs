@@ -18,7 +18,7 @@ namespace RouteList.IntegrationTest
         [InlineData("/Home/Privacy")]
         public async void ResponseTest(string url)
         {
-            var client  = _factory.CreateClient();
+            var client = _factory.CreateClient();
 
             var response = await client.GetAsync(url);
 
@@ -40,7 +40,23 @@ namespace RouteList.IntegrationTest
             response.EnsureSuccessStatusCode();
 
             Assert.Equal(
-                "text/html; charset=utf-8",
+                "text/html",
+                response.Content.Headers.ContentType.ToString()
+            );
+        }
+
+        [Theory]
+        [InlineData("/routes/json")]
+        public async void EndpointDefaultJsonTest(string url)
+        {
+            var client = _factory.CreateClient();
+
+            var response = await client.GetAsync(url);
+
+            response.EnsureSuccessStatusCode();
+
+            Assert.Equal(
+                "application/json; charset=utf-8",
                 response.Content.Headers.ContentType.ToString()
             );
         }

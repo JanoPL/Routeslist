@@ -17,7 +17,7 @@ namespace RoutesList.Gen.Extensions
                 .UseMiddleware<RoutesListMiddleware>(options)
                 .Build();
 
-            return endpoints.Map(pattern, pipeline).WithDisplayName("Routes List");
+            return endpoints.Map(pattern, pipeline);
         }
     }
 }

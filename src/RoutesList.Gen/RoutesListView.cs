@@ -12,7 +12,7 @@ namespace RoutesList.Gen
             this IApplicationBuilder app,
             RoutesListOptions options)
         {
-            return app.UseMiddleware<RoutesListMiddleware>(options);
+            return app;
         }
 
         public static IApplicationBuilder UseRoutesList(
@@ -27,6 +27,7 @@ namespace RoutesList.Gen
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapRouteList($"{options.Endpoint}", options);
+                endpoints.MapRouteList($"{options.Endpoint}/json", options);
             });
 
             return app.UseRoutesList(options);

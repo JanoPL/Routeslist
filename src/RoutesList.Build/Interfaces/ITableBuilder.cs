@@ -11,6 +11,6 @@ namespace RoutesList.Interfaces
 {
     public interface ITableBuilder
     {
-        Task<string> AsyncGenerateTable();
+        Task<string> AsyncGenerateTable(bool toJson = false);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using ConsoleTables;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Newtonsoft.Json;
 using RoutesList.Interfaces;
 using RoutesList.Models;
 using System;
@@ -24,11 +25,17 @@ namespace RoutesList.Services
             _routes = routes;
         }
 
-        public async Task<string> AsyncGenerateTable()
+        public async Task<string> AsyncGenerateTable(bool toJson = false)
         {
             Table.Rows.Clear();
 
             ListRoutes = _routes.getRoutesInformation(_actionDescriptorCollectionProvider);
+
+            if (toJson) {
+                string serialize = JsonConvert.SerializeObject(ListRoutes);
+
+                return await Task.FromResult(serialize);
+            }
 
             foreach(var route in ListRoutes) {
                 Table.AddRow(route.Method_name, route.Template, route.Controller_name, route.Action_name, route.Display_name);
