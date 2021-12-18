@@ -16,6 +16,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         protected Dictionary<string, string> _footer;
         //protected Dictionary<string, Func> _conditions;
         private readonly RoutesListOptions _options;
+        public string BodyContent { get; set; }
 
         public IndexCompiler(StringBuilder stringBuilder, RoutesListOptions options)
         {
@@ -31,19 +32,20 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         ) {
             if (compileHeader) {
                 _header = GetIndexHeader();
-                //TODO replace in index words
+                ReplaceTag(_header);
             }
 
             if (compileBody) {
                 _body = GetIndexBody();
-                //TODO replace in index words
+                ReplaceTag(_body);
             }
 
             if (compileHeader && compileBody && compileFooter) {
                 _footer = GetIndexFooter();
-                //TODO replace in index words 
+                ReplaceTag(_footer);
             }
 
+            //TODO add parser for conditions 
             //if (compileCondition) {
             //    _conditions = GetIndexCondition();
             //}
@@ -51,10 +53,18 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             return _stringBuilder;
         }
 
+        private void ReplaceTag(Dictionary<string, string> data)
+        {
+            foreach (var item in data) {
+                _stringBuilder.Replace(item.Key, item.Value);
+            }
+        }
+
         private Dictionary<string, string> GetIndexBody()
         {
+            //TODO replace string to table tags generator
             return new Dictionary<string, string>() {
-                { "$(body)", "" }
+                { "$(body)", BodyContent }
             };
         }
 

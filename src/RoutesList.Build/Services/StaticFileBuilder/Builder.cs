@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ConsoleTables;
+using RoutesList.Build.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -11,6 +13,8 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         StringBuilder _stringBuilder;
         Models.RoutesListOptions _options;
         IndexCompiler _indexCompiler;
+        private string BodyContent { get; set; }
+        public string Result { get; set; }
         public Builder()
         {
             var stream = this.GetType().Assembly.GetManifestResourceStream("RoutesList.Build.Resources.StaticFile.index.html");
@@ -25,7 +29,6 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         {
             if (_indexCompiler == null) {
                 _indexCompiler = new IndexCompiler(_stringBuilder, _options);
-               
             } else {
                 _indexCompiler.CompileIndex(true);
             }
@@ -33,13 +36,34 @@ namespace RoutesList.Build.Services.StaticFileBuilder
 
         public void BuildBody()
         {
-            throw new NotImplementedException();
+            if (_indexCompiler == null) {
+                _indexCompiler = new IndexCompiler(_stringBuilder, _options);
+            } else {
+                _indexCompiler.BodyContent = BodyContent;
+                _indexCompiler.CompileIndex(true, true);
+            }
         }
-
 
         public void BuildMeta()
         {
             throw new NotImplementedException();
         }
+
+#nullable enable
+        public void Build(ConsoleTable? table, RoutesListOptions options)
+        {
+            if (table == null || options == null) {
+                return;
+            }
+
+            _options = options;
+            BodyContent = table.ToString();
+
+            BuildHead();
+            BuildBody();
+
+            Result = _stringBuilder.ToString();
+        }
+#nullable disable
     }
 }

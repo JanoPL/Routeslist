@@ -6,6 +6,7 @@ using RoutesList.Interfaces;
 using RoutesList.Build.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
 
 namespace RoutesList.Services
 {
@@ -37,14 +38,13 @@ namespace RoutesList.Services
                 return await Task.FromResult(serialize);
             }
 
-            //TODO build index file with body content from ListRoutes
-            _builder.BuildHead();
-
             foreach (var route in ListRoutes) {
                 Table.AddRow(route.Method_name, route.Template, route.Controller_name, route.Action_name, route.Display_name);
             }
 
-            return await Task.FromResult(Table.ToString());
+            _builder.Build(Table, options);
+
+            return await Task.FromResult(_builder.Result);
         }
     }
 }
