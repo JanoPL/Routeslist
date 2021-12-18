@@ -1,0 +1,27 @@
+﻿<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="$(charsetEncoding)">
+        <title>$(title)</title>
+
+        @if (styleSheet)
+            <link href="$(stylePath)" rel="stylesheet">
+        @else
+            <style>
+                body {
+                    margin: 15px;
+                }
+            </style>
+        @endif
+
+        $(additionalHead)
+    </head>
+
+    <body>
+        $(body)
+    </body>
+
+    <footer>
+        $(footer)
+    </footer>
+</html>

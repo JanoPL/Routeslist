@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using RoutesList.Build.Services.StaticFileBuilder;
 using RoutesList.Interfaces;
 using RoutesList.Services;
 
@@ -12,6 +13,7 @@ namespace RoutesList.Gen
         {
             services.AddTransient<IRoutes, Routes>();
             services.AddTransient<ITableBuilder, TableBuilder>();
+            services.AddSingleton<IBuilder, Builder>();
 
             return services;
         }

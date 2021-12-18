@@ -1,4 +1,4 @@
-﻿namespace RoutesList.Models
+﻿namespace RoutesList.Build.Models
 {
     public class RoutesInformationModel
     {

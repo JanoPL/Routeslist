@@ -62,18 +62,21 @@ namespace RoutesList.Gen
         }
         private async Task RespondWithHtml(HttpResponse response)
         {
-            response.Clear();
             response.StatusCode = 200;
             response.ContentType = "text/html";
 
-            var htmlBuilderResult = _tableBuilder.AsyncGenerateTable().GetAwaiter().GetResult();
+            Build.Models.RoutesListOptions buildOptions = new Build.Models.RoutesListOptions() {
+                Tittle = _options.Tittle,
+                CharSet = "charset=UTF-8"
+            };
+
+            var htmlBuilderResult = _tableBuilder.AsyncGenerateTable(false, buildOptions).GetAwaiter().GetResult();
 
             await response.WriteAsync(htmlBuilderResult.ToString(), Encoding.UTF8);
         }
 
         private async Task RespondWithJson(HttpResponse response)
         {
-            response.Clear();
             response.StatusCode = 200;
             response.ContentType = "application/json; charset=utf-8";
 

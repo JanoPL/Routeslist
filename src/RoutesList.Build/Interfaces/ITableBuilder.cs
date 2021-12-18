@@ -1,7 +1,7 @@
 ﻿using ConsoleTables;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using RoutesList.Models;
+using RoutesList.Build.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +11,6 @@ namespace RoutesList.Interfaces
 {
     public interface ITableBuilder
     {
-        Task<string> AsyncGenerateTable(bool toJson = false);
+        Task<string> AsyncGenerateTable(bool toJson = false, RoutesListOptions options = null);
     }
 }
