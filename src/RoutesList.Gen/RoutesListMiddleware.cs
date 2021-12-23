@@ -67,7 +67,7 @@ namespace RoutesList.Gen
 
             Build.Models.RoutesListOptions buildOptions = new Build.Models.RoutesListOptions() {
                 Tittle = _options.Tittle,
-                CharSet = "charset=UTF-8"
+                CharSet = "UTF-8"
             };
 
             var htmlBuilderResult = _tableBuilder.AsyncGenerateTable(false, buildOptions).GetAwaiter().GetResult();
