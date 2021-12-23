@@ -23,10 +23,12 @@
 
   <ItemGroup>
     <None Remove="Resources\StaticFile\index.html" />
+    <None Remove="Resources\StaticFile\TablePartialView.html" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\StaticFile\index.html" />
+    <EmbeddedResource Include="Resources\StaticFile\TablePartialView.html" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using ConsoleTables;
 using RoutesList.Build.Models;
+using RoutesList.Build.Services.StaticFileBuilder.HtmlStructures;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -67,6 +68,21 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             }
 
             _options = options;
+
+            if (table != null) {
+                var stream = this.GetType().Assembly.GetManifestResourceStream("RoutesList.Build.Resources.StaticFile.TablePartialView.html");
+                if (stream == null) {
+                    throw new Exception("something wrong with TablePartialView.html");
+                }
+
+                var tableStringBuilder = new StringBuilder(new StreamReader(stream).ReadToEnd());
+
+                //TODO replace data in table string builder from table variable
+
+                //Html structures factory
+                HtmlStructureClient(new HtmlStructuresFactory(), tableStringBuilder);
+            }
+
             BodyContent = table.ToString();
 
             BuildHead();
@@ -74,6 +90,17 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             BuildFooter();
 
             Result = _stringBuilder.ToString();
+        }
+
+        private StringBuilder HtmlStructureClient(
+            IHtmlStructuresFactory factory,
+            StringBuilder tableStringBuilder
+        ) {
+            var htmlTable = factory.CreateTableStructures(tableStringBuilder);
+
+            //TODO return stringBuilder after build all structures
+            StringBuilder sb = new StringBuilder(); // to be removed after the code has been implemented
+            return sb;
         }
 #nullable disable
     }
