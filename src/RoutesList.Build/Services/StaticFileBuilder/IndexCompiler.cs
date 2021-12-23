@@ -78,7 +78,9 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         private Dictionary<string, string> GetIndexFooter()
         {
             return new Dictionary<string, string>() {
-                { "$(footer)", "" }
+                { "$(footer-link)", _options.FooterLink },
+                { "$(footer-text)", _options.FooterText },
+                { "$(footer-year)", DateTime.Now.Year.ToString() }
             };
         }
     }

@@ -25,7 +25,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
 
             _stringBuilder = new StringBuilder(new StreamReader(stream).ReadToEnd());
         }
-        public void BuildHead()
+        private void BuildHead()
         {
             if (_indexCompiler == null) {
                 _indexCompiler = new IndexCompiler(_stringBuilder, _options);
@@ -34,7 +34,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             }
         }
 
-        public void BuildBody()
+        private void BuildBody()
         {
             if (_indexCompiler == null) {
                 _indexCompiler = new IndexCompiler(_stringBuilder, _options);
@@ -44,10 +44,20 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             }
         }
 
-        public void BuildMeta()
+        private void BuildMeta()
         {
             throw new NotImplementedException();
         }
+
+        private void BuildFooter()
+        {
+            if (_indexCompiler == null) {
+                _indexCompiler = new IndexCompiler(_stringBuilder, _options);
+            } else {
+                _indexCompiler.CompileIndex(true, true, true);
+            }
+        }
+
 
 #nullable enable
         public void Build(ConsoleTable? table, RoutesListOptions options)
@@ -61,6 +71,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
 
             BuildHead();
             BuildBody();
+            BuildFooter();
 
             Result = _stringBuilder.ToString();
         }
