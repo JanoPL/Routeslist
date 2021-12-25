@@ -1,0 +1,39 @@
+﻿<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="$(charsetEncoding)">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>$(title)</title>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!--@if (styleSheet)
+            <link href="$(stylePath)" rel="stylesheet">
+        @else-->
+        <style>
+            body {
+                margin: 15px;
+            }
+        </style>
+        <!--@endif-->
+        $(additionalHead)
+    </head>
+
+    <body>
+        <div class="container text-center">
+            <h1>$(title)</h1>
+        </div>
+
+        $(body)
+
+        <footer class="footer border-top text-muted">
+            <div class="text-center p-3 container" style="background-color: rgba(0, 0, 0, 0.2)">
+                &copy; $(footer-year) Copyright:
+                <a class="text-dark" href="$(footer-link)">$(footer-text)</a>
+            </div>
+        </footer>
+
+        <script async src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script async src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body>
+</html>
