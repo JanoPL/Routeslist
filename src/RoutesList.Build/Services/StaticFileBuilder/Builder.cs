@@ -77,13 +77,14 @@ namespace RoutesList.Build.Services.StaticFileBuilder
 
                 var tableStringBuilder = new StringBuilder(new StreamReader(stream).ReadToEnd());
 
-                //TODO replace data in table string builder from table variable
 
                 //Html structures factory
-                HtmlStructureClient(new HtmlStructuresFactory(), tableStringBuilder);
-            }
+                HtmlData.GetInstance();
+                
+                HtmlData.Add<ConsoleTable>(table);
 
-            BodyContent = table.ToString();
+                BodyContent = HtmlStructureBodyCreator(new HtmlStructuresFactory(), tableStringBuilder);
+            }
 
             BuildHead();
             BuildBody();
@@ -92,15 +93,15 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             Result = _stringBuilder.ToString();
         }
 
-        private StringBuilder HtmlStructureClient(
+        private string HtmlStructureBodyCreator(
             IHtmlStructuresFactory factory,
             StringBuilder tableStringBuilder
         ) {
             var htmlTable = factory.CreateTableStructures(tableStringBuilder);
 
-            //TODO return stringBuilder after build all structures
-            StringBuilder sb = new StringBuilder(); // to be removed after the code has been implemented
-            return sb;
+            htmlTable.Build();
+
+            return htmlTable.TableData;
         }
 #nullable disable
     }

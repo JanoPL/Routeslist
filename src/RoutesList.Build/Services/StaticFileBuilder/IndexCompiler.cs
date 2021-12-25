@@ -62,7 +62,6 @@ namespace RoutesList.Build.Services.StaticFileBuilder
 
         private Dictionary<string, string> GetIndexBody()
         {
-            //TODO replace string to table tags generator
             return new Dictionary<string, string>() {
                 { "$(body)", BodyContent }
             };
