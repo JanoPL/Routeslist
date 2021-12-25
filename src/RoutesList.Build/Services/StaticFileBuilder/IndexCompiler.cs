@@ -16,7 +16,8 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         protected Dictionary<string, string> _footer;
         //protected Dictionary<string, Func> _conditions;
         private readonly RoutesListOptions _options;
-        public string BodyContent { get; set; }
+        public string BodyContent { get; set; } = string.Empty;
+        public string AdditionalHeader { get; set; } = string.Empty;
 
         public IndexCompiler(StringBuilder stringBuilder, RoutesListOptions options)
         {
@@ -40,7 +41,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
                 ReplaceTag(_body);
             }
 
-            if (compileHeader && compileBody && compileFooter) {
+            if (compileFooter) {
                 _footer = GetIndexFooter();
                 ReplaceTag(_footer);
             }
@@ -71,7 +72,8 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         {
             return new Dictionary<string, string>() {
                 { "$(charsetEncoding)", _options.CharSet },
-                { "$(title)", _options.Tittle }
+                { "$(title)", _options.Tittle },
+                { "$(additionalHead)",  AdditionalHeader}
             };
         }
         private Dictionary<string, string> GetIndexFooter()

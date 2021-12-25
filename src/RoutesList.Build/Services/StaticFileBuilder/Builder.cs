@@ -41,7 +41,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
                 _indexCompiler = new IndexCompiler(_stringBuilder, _options);
             } else {
                 _indexCompiler.BodyContent = BodyContent;
-                _indexCompiler.CompileIndex(true, true);
+                _indexCompiler.CompileIndex(false, true);
             }
         }
 
@@ -55,7 +55,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             if (_indexCompiler == null) {
                 _indexCompiler = new IndexCompiler(_stringBuilder, _options);
             } else {
-                _indexCompiler.CompileIndex(true, true, true);
+                _indexCompiler.CompileIndex(false, false, true);
             }
         }
 
