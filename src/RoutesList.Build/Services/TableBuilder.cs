@@ -16,7 +16,7 @@ namespace RoutesList.Services
         private IBuilder _builder;
         private IActionDescriptorCollectionProvider _actionDescriptorCollectionProvider;
         public ConsoleTable Table = new ConsoleTable("Method", "Uri", "Controller Name", "Action", "Full Name");
-        private IList<RoutesInformationModel> ListRoutes { get; set; }
+        private IList<RoutesInformationModel> ListRoutes { get; set; } = new List<RoutesInformationModel>();
 
         public TableBuilder(
             IActionDescriptorCollectionProvider collectionProvider, IRoutes routes, IBuilder builder
