@@ -12,8 +12,6 @@ namespace RoutesList.Services
 {
     public class Routes : IRoutes
     {
-        private IList<RoutesInformationModel> _routes = new List<RoutesInformationModel>();
-
         public IEnumerable<ActionDescriptor> getRoutes(IActionDescriptorCollectionProvider collectionProvider)
         {
             if (collectionProvider != null) {
@@ -29,6 +27,8 @@ namespace RoutesList.Services
 
         public IList<RoutesInformationModel> getRoutesInformation(IActionDescriptorCollectionProvider collectionProvider)
         {
+            IList<RoutesInformationModel> routes = new List<RoutesInformationModel>();
+
             int id = 1;
             foreach (ActionDescriptor route in getRoutes(collectionProvider)) {
 
@@ -57,10 +57,10 @@ namespace RoutesList.Services
                     .MethodName(route.ActionConstraints?.OfType<HttpMethodActionConstraint>()?.SingleOrDefault()?.HttpMethods?.First<string>())
                     .build();
 
-                _routes.Add(model);
+                routes.Add(model);
             }
 
-            return _routes;
+            return routes;
         }
     }
 }
