@@ -19,6 +19,8 @@ Compatible with:
 
 ![Table list image](https://github.com/JanoPL/Routeslist/blob/master/Screenshots1.png?raw=true)
 
+![Table json list image](https://github.com/JanoPL/Routeslist/blob/master/Screenshots2.png?raw=true)
+
 ## Installation
 
 From nuget.org
