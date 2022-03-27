@@ -4,9 +4,16 @@ Library can be used to show a list of all the registered routes for the applicat
 
 Library show all Routes in table format - methods, Uri, Controller Name, Action, Full name of path or namespace
 
+Compatible with:
+
+- NET3.1, NET5, NET6
+- Razors Pages
+- ASP.NET projects with MVC
+
 ## Features
 
 - Endpoints with method, uri, controller name, action, full namespace path
+- Endpoints for Razor pages with name, Relative Path, view engine path
 - HTML5 output
 - JSON output
 
@@ -16,7 +23,7 @@ Library show all Routes in table format - methods, Uri, Controller Name, Action,
 
 From nuget.org
 
-```
+```shell
 Install-Package RoutesList 
 ```
 
