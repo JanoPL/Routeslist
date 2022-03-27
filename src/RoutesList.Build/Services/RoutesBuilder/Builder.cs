@@ -92,6 +92,34 @@ namespace RoutesList.Services.RoutesBuilder
         }
 
         /// <summary>
+        /// Add View Engine Path from razor pages to builder
+        /// </summary>
+        /// <param name="viewEnginePath"></param>
+        /// <returns></returns>
+        public Builder ViewEnginePath(string viewEnginePath)
+        {
+            _model.ViewEnginePath = viewEnginePath;
+            return this;
+        }
+
+        /// <summary>
+        /// Add Relative Path from razor pages to builder
+        /// </summary>
+        /// <param name="relativePath"></param>
+        /// <returns></returns>
+        public Builder RelativePath(string relativePath)
+        {
+            _model.RelativePath = relativePath;
+            return this;
+        }
+
+        public Builder IsCompiledpageActionDescriptior(bool IsCompiledpageActionDescriptior)
+        {
+            _model.IsCompiledPageActionDescriptor = IsCompiledpageActionDescriptior;
+            return this;
+        }
+
+        /// <summary>
         /// Started to build object
         /// </summary>
         /// <returns></returns>

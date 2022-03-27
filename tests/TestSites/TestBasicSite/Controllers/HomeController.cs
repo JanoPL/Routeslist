@@ -18,11 +18,14 @@ namespace TestBasicSite.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
+        [Route("/privacy")]
         public IActionResult Privacy()
         {
             return View();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.Extensions.FileProviders;
 using RoutesList.Interfaces;
 using System.IO;
 using System.Text;
@@ -43,7 +44,9 @@ namespace RoutesList.Gen
                 }
             }
 
-            await _staticFileMiddleware.Invoke(context);
+            if (_staticFileMiddleware != null) {
+                await _staticFileMiddleware.Invoke(context);
+            }
         }
 
         private bool RequestRoutesList(HttpRequest request)

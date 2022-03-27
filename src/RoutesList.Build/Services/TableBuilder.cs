@@ -7,6 +7,10 @@ using RoutesList.Build.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
+using System.ComponentModel.DataAnnotations;
+using RoutesList.Build.Enums;
+using RoutesList.Build.Extensions;
+using System.Linq;
 
 namespace RoutesList.Services
 {
@@ -15,7 +19,6 @@ namespace RoutesList.Services
         private IRoutes _routes;
         private IBuilder _builder;
         private IActionDescriptorCollectionProvider _actionDescriptorCollectionProvider;
-        public ConsoleTable Table = new ConsoleTable("Method", "Uri", "Controller Name", "Action", "Full Name");
         private IList<RoutesInformationModel> ListRoutes { get; set; } = new List<RoutesInformationModel>();
 
         public TableBuilder(
@@ -28,23 +31,94 @@ namespace RoutesList.Services
 
         public async Task<string> AsyncGenerateTable(bool toJson = false, RoutesListOptions options = null)
         {
-            Table.Rows.Clear();
-
+            ConsoleTable table = new ConsoleTable();
+            IList<string> headers = new List<string>();
             ListRoutes = _routes.getRoutesInformation(_actionDescriptorCollectionProvider);
 
+            if (!String.IsNullOrEmpty(ListRoutes[0].ViewEnginePath) || !String.IsNullOrEmpty(ListRoutes[0].RelativePath)) {
+                foreach (var headerName in EnumExtension.GetListOfDescription<TableHeaderPageActionDescriptor>()) {
+                    headers.Add(headerName);
+                }
+
+                table.AddColumn(headers);
+            }
+
+            if (!String.IsNullOrEmpty(ListRoutes[0].Controller_name)) {
+                foreach (var headerName in EnumExtension.GetListOfDescription<TableHeaderControllerActionDescriptor>()) {
+                    headers.Add(headerName);
+                }
+
+                table.AddColumn(headers);
+            }
+
+
             if (toJson) {
-                string serialize = JsonConvert.SerializeObject(ListRoutes);
+                string serialize = String.Empty;
+
+                if (IsCompiledPageActionDescriptor()) {
+                    serialize = JsonConvert.SerializeObject(
+                            ListRoutes.Select(x => {
+                                return new {
+                                    x.RelativePath,
+                                    x.ViewEnginePath,
+                                    x.Display_name,
+                                };
+                            })
+                    );
+                }
+                
+                if (IsControllerActionDescriptor()) {
+                    serialize = JsonConvert.SerializeObject(
+                        ListRoutes.Select(x => {
+                            return new {
+                                x.Display_name,
+                                x.Controller_name,
+                                x.Template,
+                                x.Action_name,
+                                x.Method_name,
+                            };
+                        })
+                    );
+                } 
 
                 return await Task.FromResult(serialize);
             }
 
-            foreach (var route in ListRoutes) {
-                Table.AddRow(route.Method_name, route.Template, route.Controller_name, route.Action_name, route.Display_name);
+            if (!String.IsNullOrEmpty(ListRoutes[0].ViewEnginePath) || !String.IsNullOrEmpty(ListRoutes[0].RelativePath)) {
+                foreach (var route in ListRoutes) {
+                    table.AddRow(route.Display_name, route.ViewEnginePath, route.RelativePath);
+                }
             }
 
-            _builder.Build(Table, options);
+            if (!string.IsNullOrEmpty(ListRoutes[0].Controller_name)) {
+                foreach (var route in ListRoutes) {
+                    table.AddRow(route.Method_name, route.Template, route.Controller_name, route.Action_name, route.Display_name);
+                }
+            }
+
+            _builder.Build(table, options);
 
             return await Task.FromResult(_builder.Result);
+        }
+
+        private bool IsControllerActionDescriptor()
+        {
+            List<bool> result = new List<bool>();
+            foreach (var route in ListRoutes) {
+                result.Add(route.IsCompiledPageActionDescriptor == false);
+            }
+
+            return result.TrueForAll(x => x);
+        }
+
+        private bool IsCompiledPageActionDescriptor()
+        {
+            List<bool> result = new List<bool>();
+            foreach (var route in ListRoutes) {
+                result.Add(route.IsCompiledPageActionDescriptor == true);
+            }
+
+            return result.TrueForAll(x => x);
         }
     }
 }

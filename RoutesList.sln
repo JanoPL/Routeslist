@@ -7,13 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoutesList.Build", "src\Rou
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D2236F00-56A6-4BA8-91F9-7CD970A46F33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteList.IntegrationTest", "tests\RouteList.IntegrationTest\RouteList.IntegrationTest.csproj", "{5085D26D-157B-4198-9598-7DFCA0218B87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RouteList.IntegrationTest", "tests\RouteList.IntegrationTest\RouteList.IntegrationTest.csproj", "{5085D26D-157B-4198-9598-7DFCA0218B87}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestSites", "TestSites", "{BB691CA0-5B87-4B21-80A2-CA63DD00F898}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestBasicSite", "tests\TestSites\TestBasicSite\TestBasicSite.csproj", "{2A8547E6-1A24-413F-88BF-5F4605E6F731}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestBasicSite", "tests\TestSites\TestBasicSite\TestBasicSite.csproj", "{2A8547E6-1A24-413F-88BF-5F4605E6F731}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoutesList.Gen", "src\RoutesList.Gen\RoutesList.Gen.csproj", "{0F790F43-D49C-4A97-AB3D-279495D02293}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestBasicSiteNet6", "tests\TestSites\TestBasicSiteNet6\TestBasicSiteNet6.csproj", "{9778010E-FF88-4246-A649-65DB3C6220D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,10 @@ Global
 		{0F790F43-D49C-4A97-AB3D-279495D02293}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F790F43-D49C-4A97-AB3D-279495D02293}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F790F43-D49C-4A97-AB3D-279495D02293}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9778010E-FF88-4246-A649-65DB3C6220D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9778010E-FF88-4246-A649-65DB3C6220D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9778010E-FF88-4246-A649-65DB3C6220D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9778010E-FF88-4246-A649-65DB3C6220D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,6 +51,7 @@ Global
 		{5085D26D-157B-4198-9598-7DFCA0218B87} = {D2236F00-56A6-4BA8-91F9-7CD970A46F33}
 		{BB691CA0-5B87-4B21-80A2-CA63DD00F898} = {D2236F00-56A6-4BA8-91F9-7CD970A46F33}
 		{2A8547E6-1A24-413F-88BF-5F4605E6F731} = {BB691CA0-5B87-4B21-80A2-CA63DD00F898}
+		{9778010E-FF88-4246-A649-65DB3C6220D4} = {BB691CA0-5B87-4B21-80A2-CA63DD00F898}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {87DFA115-5F76-4EB2-8EDE-48DE379CA43B}

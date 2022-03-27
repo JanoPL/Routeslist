@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Testing;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace RouteList.IntegrationTest
@@ -15,7 +16,7 @@ namespace RouteList.IntegrationTest
         [Theory]
         [InlineData("/")]
         [InlineData("/home")]
-        [InlineData("/Home/Privacy")]
+        [InlineData("/Privacy")]
         public async void ResponseTest(string url)
         {
             var client = _factory.CreateClient();
@@ -33,9 +34,8 @@ namespace RouteList.IntegrationTest
         [InlineData("/routes")]
         public async void EndpointDefaultTest(string url)
         {
-            var client = _factory.CreateClient();
-
-            var response = await client.GetAsync(url);
+            using var client = _factory.CreateClient();
+            using var response = await client.GetAsync(url);
 
             response.EnsureSuccessStatusCode();
 
@@ -49,9 +49,8 @@ namespace RouteList.IntegrationTest
         [InlineData("/routes/json")]
         public async void EndpointDefaultJsonTest(string url)
         {
-            var client = _factory.CreateClient();
-
-            var response = await client.GetAsync(url);
+            using var client = _factory.CreateClient();
+            using var response = await client.GetAsync(url);
 
             response.EnsureSuccessStatusCode();
 

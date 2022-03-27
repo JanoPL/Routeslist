@@ -8,5 +8,8 @@
         public string Display_name { get; set; }
         public string Template { get; set; }
         public string Method_name { get; set; }
+        public string ViewEnginePath { get; set; }
+        public string RelativePath { get; set; }
+        public bool IsCompiledPageActionDescriptor { get; set; } = false;
     }
 }
