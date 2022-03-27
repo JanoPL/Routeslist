@@ -1,11 +1,5 @@
-﻿using ConsoleTables;
-using Microsoft.AspNetCore.Mvc.Abstractions;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
+﻿using System.Threading.Tasks;
 using RoutesList.Build.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RoutesList.Interfaces
 {

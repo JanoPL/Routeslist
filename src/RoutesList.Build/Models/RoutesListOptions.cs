@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RoutesList.Build.Models
+﻿namespace RoutesList.Build.Models
 {
     public class RoutesListOptions
     {

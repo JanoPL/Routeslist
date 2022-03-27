@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc.Abstractions;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using RoutesList.Interfaces;
-using RoutesList.Build.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using RoutesList.Services.RoutesBuilder;
+using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using RoutesList.Build.Models;
+using RoutesList.Interfaces;
+using RoutesList.Services.RoutesBuilder;
 
 namespace RoutesList.Services
 {
@@ -51,16 +51,15 @@ namespace RoutesList.Services
                             a.ViewEnginePath,
                             a.RelativePath
                         }).First();
-                    
 
                     viewEnginePath = (string)compiledPageActionDescriptor?.ViewEnginePath;
                     relativePath = (string)compiledPageActionDescriptor?.RelativePath;
                     displayName = (string)compiledPageActionDescriptor?.DisplayName;
 
                     builder.IsCompiledpageActionDescriptior(true);
-                } 
+                }
 
-                if (IsControllerActionDescriptio(route)) { 
+                if (IsControllerActionDescriptio(route)) {
                     controllerName = route.RouteValues.Where(value => value.Key == "controller").First().Value;
                     actionName = route.RouteValues.Where(value => value.Key == "action").First().Value;
                     displayName = route.DisplayName;
