@@ -11,7 +11,7 @@ namespace TestBasicSiteASPNet6
             // Add services to the container.
             builder.Services.AddRazorPages();
 
-            builder.Services.AddRouteList();
+            builder.Services.AddRoutesList();
 
             var app = builder.Build();
 

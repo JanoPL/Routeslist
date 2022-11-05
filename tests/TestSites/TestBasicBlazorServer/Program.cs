@@ -16,7 +16,7 @@ namespace TestBasicBlazorServer
             builder.Services.AddServerSideBlazor();
             builder.Services.AddSingleton<WeatherForecastService>();
 
-            builder.Services.AddRouteList();
+            builder.Services.AddRoutesList();
 
             var app = builder.Build();
 
