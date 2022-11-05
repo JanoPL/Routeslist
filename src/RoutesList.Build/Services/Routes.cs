@@ -102,12 +102,12 @@ namespace RoutesList.Services
             return routes;
         }
 
-        private bool IsCompiledPageDescriptor(ActionDescriptor actionDescriptor)
+        private static bool IsCompiledPageDescriptor(ActionDescriptor actionDescriptor)
         {
             return actionDescriptor.GetType().FullName == "Microsoft.AspNetCore.Mvc.RazorPages.CompiledPageActionDescriptor";
         }
 
-        private bool IsControllerActionDescriptio(ActionDescriptor actionDescriptor)
+        private static bool IsControllerActionDescriptio(ActionDescriptor actionDescriptor)
         {
             return actionDescriptor.GetType().FullName == "Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor";
         }

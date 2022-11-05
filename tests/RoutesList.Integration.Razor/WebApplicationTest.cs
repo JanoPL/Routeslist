@@ -1,24 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
-using RouteList.IntegrationTest.Applications;
-using Xunit;
-
-namespace RouteList.IntegrationTest
+namespace RoutesList.Integration.Razor
 {
-    public class IntegrateRazorTest
+    public class WebApplicationTest
     {
-        //private readonly WebApplicationFactory<Program> _factory;
-
-        public IntegrateRazorTest()
+        public readonly CustomWebApplication<Program> _application;
+        public WebApplicationTest()
         {
-            using var application = new TestBasicSiteNet6Razor();
+            _application = new CustomWebApplication<Program>();
         }
 
         [Theory]
@@ -26,10 +13,7 @@ namespace RouteList.IntegrationTest
         [InlineData("/Privacy")]
         public async void ResponseTest(string url)
         {
-            //var client = _factory.CreateClient();
-
-            using var application = new TestBasicSiteNet6Razor();
-            using var client = application.CreateClient();
+            using var client = _application.CreateClient();
             using var response = await client.GetAsync(url);
 
             response.EnsureSuccessStatusCode();
@@ -43,8 +27,7 @@ namespace RouteList.IntegrationTest
         [InlineData("/routes")]
         public async void EndpointDefaultTest(string url)
         {
-            using var application = new TestBasicSiteNet6Razor();
-            using var client = application.CreateClient();
+            using var client = _application.CreateClient();
             using var response = await client.GetAsync(url);
 
             response.EnsureSuccessStatusCode();
@@ -59,8 +42,7 @@ namespace RouteList.IntegrationTest
         [InlineData("/routes/json")]
         public async void EndpointDefaultJsonTest(string url)
         {
-            using var application = new TestBasicSiteNet6Razor();
-            using var client = application.CreateClient();
+            using var client = _application.CreateClient();
             using var response = await client.GetAsync(url);
 
             response.EnsureSuccessStatusCode();
