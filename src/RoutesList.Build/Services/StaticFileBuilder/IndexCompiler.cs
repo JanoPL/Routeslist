@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using RoutesList.Build.Models;
 
@@ -10,11 +11,11 @@ namespace RoutesList.Build.Services.StaticFileBuilder
     /// </summary>
     public class IndexCompiler
     {
-        private StringBuilder _stringBuilder;
+        private readonly StringBuilder _stringBuilder;
         protected Dictionary<string, string> _header;
         protected Dictionary<string, string> _body;
         protected Dictionary<string, string> _footer;
-        //protected Dictionary<string, Func> _conditions;
+        protected Dictionary<string, string> _classes;
         private readonly RoutesListOptions _options;
         public string BodyContent { get; set; } = string.Empty;
         public string AdditionalHeader { get; set; } = string.Empty;
@@ -25,31 +26,75 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             _options = options;
         }
 
-        public StringBuilder CompileIndex(
-            bool compileHeader,
-            bool compileBody = false,
-            bool compileFooter = false,
-            bool compileCondition = false
-        ) {
+
+        public StringBuilder CompileIndex(bool compileheader) 
+        { 
+            if (compileheader) {
+                GetIndexHeader();
+                ReplaceTag(_header);
+            }
+
+            return _stringBuilder;
+        }
+
+        public StringBuilder CompileIndex(bool compileHeader, bool compileBody)
+        {
             if (compileHeader) {
-                _header = GetIndexHeader();
+                GetIndexHeader();
                 ReplaceTag(_header);
             }
 
             if (compileBody) {
-                _body = GetIndexBody();
+                GetIndexBody();
+                ReplaceTag(_body);
+            }
+
+            return _stringBuilder;
+        }
+
+        public StringBuilder CompileIndex(bool compileHeader, bool compileBody, bool compileFooter)
+        {
+            if (compileHeader) {
+                GetIndexHeader();
+            }
+
+            if (compileBody) {
+                GetIndexBody();
                 ReplaceTag(_body);
             }
 
             if (compileFooter) {
-                _footer = GetIndexFooter();
+                GetIndexFooter();
                 ReplaceTag(_footer);
             }
 
-            //TODO add parser for conditions 
-            //if (compileCondition) {
-            //    _conditions = GetIndexCondition();
-            //}
+            return _stringBuilder;
+        }
+        public StringBuilder CompileIndex(
+            bool compileHeader,
+            bool compileBody,
+            bool compileFooter,
+            bool compileClasses
+        ) {
+            if (compileHeader) {
+                GetIndexHeader();
+                ReplaceTag(_header);
+            }
+
+            if (compileBody) {
+                GetIndexBody();
+                ReplaceTag(_body);
+            }
+
+            if (compileFooter) {
+                GetIndexFooter();
+                ReplaceTag(_footer);
+            }
+
+            if (compileClasses) {
+                GetIndexClass();
+                ReplaceTag(_classes);
+            }
             
             return _stringBuilder;
         }
@@ -61,27 +106,40 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             }
         }
 
-        private Dictionary<string, string> GetIndexBody()
+        private void GetIndexBody()
         {
-            return new Dictionary<string, string>() {
+            _body = new Dictionary<string, string>() {
                 { "$(body)", BodyContent }
             };
         }
 
-        private Dictionary<string, string> GetIndexHeader()
+        private void GetIndexHeader()
         {
-            return new Dictionary<string, string>() {
+            _header = new Dictionary<string, string>() {
                 { "$(charsetEncoding)", _options.CharSet },
                 { "$(title)", _options.Tittle },
                 { "$(additionalHead)",  AdditionalHeader}
             };
         }
-        private Dictionary<string, string> GetIndexFooter()
+        private void GetIndexFooter()
         {
-            return new Dictionary<string, string>() {
+            _footer = new Dictionary<string, string>() {
                 { "$(footer-link)", _options.FooterLink },
                 { "$(footer-text)", _options.FooterText },
                 { "$(footer-year)", DateTime.Now.Year.ToString() }
+            };
+        }
+
+        private void GetIndexClass()
+        {
+            string classes = "table";
+
+            if (_options.GetClasses() != null && _options.GetClasses().Length > 0) {
+                classes = String.Join(" ", _options.GetClasses());
+            }
+
+            _classes = new Dictionary<string, string>() {
+                { "$(table-classes)", classes },
             };
         }
     }

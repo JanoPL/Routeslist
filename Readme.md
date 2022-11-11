@@ -9,6 +9,7 @@ Compatible with:
 - NET3.1, NET5, NET6
 - Razors Pages
 - ASP.NET projects with MVC
+- Blazor Server App
 
 ## Features
 
@@ -66,6 +67,49 @@ public void Configure(
 ```
 
 Default Endpoint: ```http://your_application_address/routes```
+
+<hr> 
+
+### Usage for implicit Using Statements In .NET 6
+
+<b>Example</b>: Program.cs
+
+```
+using RoutesList.Gen;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddRazorPages();
+
+builder.Services.AddRouteList(); <-- usage
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment()) {
+    app.UseExceptionHandler("/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.MapRazorPages();
+
+app.UseRoutesList(); <-- usage
+
+app.Run();
+
+public partial class Program { }
+```
+
+<hr>
 
 ## options for UseRoutesList
 

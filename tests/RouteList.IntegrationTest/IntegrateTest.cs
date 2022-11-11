@@ -1,7 +1,3 @@
-using Microsoft.AspNetCore.Mvc.Testing;
-using Newtonsoft.Json;
-using Xunit;
-
 namespace RouteList.IntegrationTest
 {
     public class IntegrateTest : IClassFixture<WebApplicationFactory<TestBasicSite.Startup>>
@@ -17,46 +13,53 @@ namespace RouteList.IntegrationTest
         [InlineData("/")]
         [InlineData("/home")]
         [InlineData("/Privacy")]
-        public async void ResponseTest(string url)
+        public async Task ResponseTest(string url)
         {
             var client = _factory.CreateClient();
 
-            var response = await client.GetAsync(url);
+            HttpResponseMessage? response = await client.GetAsync(url);
+
+            Assert.NotNull(response);
 
             response.EnsureSuccessStatusCode();
+
             Assert.Equal(
                 "text/html; charset=utf-8",
-                response.Content.Headers.ContentType.ToString()
+                response?.Content?.Headers?.ContentType?.ToString()
             );
         }
 
         [Theory]
         [InlineData("/routes")]
-        public async void EndpointDefaultTest(string url)
+        public async Task EndpointDefaultTest(string url)
         {
             using var client = _factory.CreateClient();
-            using var response = await client.GetAsync(url);
+            using HttpResponseMessage? response = await client.GetAsync(url);
+
+            Assert.NotNull(response);
 
             response.EnsureSuccessStatusCode();
 
             Assert.Equal(
                 "text/html",
-                response.Content.Headers.ContentType.ToString()
+                response?.Content?.Headers?.ContentType?.ToString()
             );
         }
 
         [Theory]
         [InlineData("/routes/json")]
-        public async void EndpointDefaultJsonTest(string url)
+        public async Task EndpointDefaultJsonTest(string url)
         {
             using var client = _factory.CreateClient();
-            using var response = await client.GetAsync(url);
+            using HttpResponseMessage? response = await client.GetAsync(url);
+
+            Assert.NotNull(response);
 
             response.EnsureSuccessStatusCode();
 
             Assert.Equal(
                 "application/json; charset=utf-8",
-                response.Content.Headers.ContentType.ToString()
+                response?.Content?.Headers?.ContentType?.ToString()
             );
         }
     }
