@@ -8,7 +8,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder.HtmlStructures.Structures
     public class TableStructure : ITableStructure
     {
 
-        private StringBuilder _stringBuilder;
+        private readonly StringBuilder _stringBuilder;
         public IList<object[]> TableRow { get; set; }
         public IList<object> TableColumn { get; set; }
         public string TableData { get; set; } = String.Empty;
@@ -42,7 +42,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder.HtmlStructures.Structures
             StringBuilder sb = new StringBuilder();
 
             foreach (var tc in TableColumn) {
-                string tag = "<th scope=\"col\">" + tc.ToString() + "</th>";
+                string tag = "<th scope=\"col\">" + tc + "</th>";
 
                 sb.AppendLine(tag);
             }

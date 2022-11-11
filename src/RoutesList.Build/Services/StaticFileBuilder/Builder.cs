@@ -9,7 +9,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
 {
     public class Builder : IBuilder
     {
-        StringBuilder _stringBuilder;
+        readonly StringBuilder _stringBuilder;
         RoutesListOptions _options;
         IndexCompiler _indexCompiler;
         private string BodyContent { get; set; }

@@ -11,7 +11,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
     /// </summary>
     public class IndexCompiler
     {
-        private StringBuilder _stringBuilder;
+        private readonly StringBuilder _stringBuilder;
         protected Dictionary<string, string> _header;
         protected Dictionary<string, string> _body;
         protected Dictionary<string, string> _footer;

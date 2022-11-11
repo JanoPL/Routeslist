@@ -2,7 +2,7 @@ namespace RoutesList.Integration.Razor
 {
     public class WebApplicationTest
     {
-        public readonly CustomWebApplication<Program> _application;
+        private readonly CustomWebApplication<Program> _application;
         public WebApplicationTest()
         {
             _application = new CustomWebApplication<Program>();

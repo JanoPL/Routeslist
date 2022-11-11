@@ -2,7 +2,7 @@ namespace RoutesLIst.Integration.Blazor
 {
     public class WebApplicationTest
     {
-        public readonly CustomWebApplication<TestBasicBlazorServer.Program> _application;
+        private readonly CustomWebApplication<TestBasicBlazorServer.Program> _application;
         public WebApplicationTest()
         {
             _application = new CustomWebApplication<TestBasicBlazorServer.Program>();

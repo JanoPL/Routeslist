@@ -2,7 +2,7 @@ namespace RouteList.Integration.Test.Net6._0
 {
     public class WebApplicationTest
     {
-        public readonly CustomWebApplication<TestBasicSiteASPNet6.Program> _application;
+        private readonly CustomWebApplication<TestBasicSiteASPNet6.Program> _application;
         public WebApplicationTest()
         {
             _application = new CustomWebApplication<TestBasicSiteASPNet6.Program>();

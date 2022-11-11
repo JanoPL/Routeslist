@@ -16,9 +16,9 @@ namespace RoutesList.Services
 {
     public class TableBuilder : ITableBuilder
     {
-        private IRoutes _routes;
-        private IBuilder _builder;
-        private IActionDescriptorCollectionProvider _actionDescriptorCollectionProvider;
+        private readonly IRoutes _routes;
+        private readonly IBuilder _builder;
+        private readonly IActionDescriptorCollectionProvider _actionDescriptorCollectionProvider;
         private IList<RoutesInformationModel> ListRoutes { get; set; } = new List<RoutesInformationModel>();
 
         public TableBuilder(

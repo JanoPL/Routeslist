@@ -8,7 +8,7 @@ namespace RoutesList.Services.RoutesBuilder
     /// </summary>
     public class Builder
     {
-        private RoutesInformationModel _model = new();
+        private readonly RoutesInformationModel _model = new();
 
         /// <summary>
         /// Adding the id of the line from which to start counting to the builder. has automatic value increments
@@ -34,83 +34,83 @@ namespace RoutesList.Services.RoutesBuilder
         /// <summary>
         /// Add Controller name to builder
         /// </summary>
-        /// <param name="controllerName"></param>
+        /// <param name="name"></param>
         /// <returns></returns>
-        public Builder ControllerName(string controllerName)
+        public Builder ControllerName(string name)
         {
-            _model.Controller_name = controllerName;
+            _model.Controller_name = name;
             return this;
         }
 
         /// <summary>
         /// Add Action Name to builder
         /// </summary>
-        /// <param name="actionName"></param>
+        /// <param name="name"></param>
         /// <returns></returns>
-        public Builder ActionName(string actionName)
+        public Builder ActionName(string name)
         {
-            _model.Action_name = actionName;
+            _model.Action_name = name;
             return this;
         }
 
         /// <summary>
         /// Add Display name from controller to builder
         /// </summary>
-        /// <param name="displayName"></param>
+        /// <param name="name"></param>
         /// <returns></returns>
-        public Builder DisplayName(string displayName)
+        public Builder DisplayName(string name)
         {
-            _model.Display_name = displayName;  
+            _model.Display_name = name;  
             return this;
         }
 
         /// <summary>
         /// Add method name from controller ActionConstraints to builder
         /// </summary>
-        /// <param name="methodName"></param>
+        /// <param name="name"></param>
         /// <returns></returns>
-        public Builder MethodName(string methodName)
+        public Builder MethodName(string name)
         {
-            _model.Method_name = methodName;
+            _model.Method_name = name;
             return this;
         }
 
         /// <summary>
         /// Add Template from controller AttributeRouteInfo to builder
         /// </summary>
-        /// <param name="template"></param>
+        /// <param name="templateName"></param>
         /// <returns></returns>
-        public Builder Template(string template)
+        public Builder Template(string templateName)
         {
-            _model.Template = template;
+            _model.Template = templateName;
             return this;
         }
 
         /// <summary>
         /// Add View Engine Path from razor pages to builder
         /// </summary>
-        /// <param name="viewEnginePath"></param>
+        /// <param name="enginePath"></param>
         /// <returns></returns>
-        public Builder ViewEnginePath(string viewEnginePath)
+        public Builder ViewEnginePath(string enginePath)
         {
-            _model.ViewEnginePath = viewEnginePath;
+            _model.ViewEnginePath = enginePath;
             return this;
         }
 
         /// <summary>
         /// Add Relative Path from razor pages to builder
         /// </summary>
-        /// <param name="relativePath"></param>
+        /// <param name="path"></param>
         /// <returns></returns>
-        public Builder RelativePath(string relativePath)
+        public Builder RelativePath(string path)
         {
-            _model.RelativePath = relativePath;
+            _model.RelativePath = path;
             return this;
         }
 
-        public Builder IsCompiledpageActionDescriptior(bool IsCompiledpageActionDescriptior)
+        public Builder IsCompiledpageActionDescriptior(bool isCompiled)
         {
-            _model.IsCompiledPageActionDescriptor = IsCompiledpageActionDescriptior;
+            _model.IsCompiledPageActionDescriptor = isCompiled;
             return this;
         }
 
