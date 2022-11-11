@@ -11,7 +11,7 @@ namespace RouteList.Integration.Test.Net6._0
         [Theory]
         [InlineData("/")]
         [InlineData("/Privacy")]
-        public async void ResponseTest(string url)
+        public async Task ResponseTest(string url)
         {
             using var client = _application.CreateClient();
             using HttpResponseMessage? response = await client.GetAsync(url);
@@ -28,7 +28,7 @@ namespace RouteList.Integration.Test.Net6._0
 
         [Theory]
         [InlineData("/routes")]
-        public async void EndpointDefaultTest(string url)
+        public async Task EndpointDefaultTest(string url)
         {
             using var client = _application.CreateClient();
             using HttpResponseMessage? response = await client.GetAsync(url);
@@ -46,7 +46,7 @@ namespace RouteList.Integration.Test.Net6._0
 
         [Theory]
         [InlineData("/routes/json")]
-        public async void EndpointDefaultJsonTest(string url)
+        public async Task EndpointDefaultJsonTest(string url)
         {
             using var client = _application.CreateClient();
             using var response = await client.GetAsync(url);
