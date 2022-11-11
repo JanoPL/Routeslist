@@ -19,7 +19,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             var stream = this.GetType().Assembly.GetManifestResourceStream("RoutesList.Build.Resources.StaticFile.index.html");
 
             if (stream == null) {
-                throw new Exception("something wrong with index.html");
+                throw new FileNotFoundException("something wrong with index.html");
             }
 
             _stringBuilder = new StringBuilder(new StreamReader(stream).ReadToEnd());
@@ -78,8 +78,9 @@ namespace RoutesList.Build.Services.StaticFileBuilder
 
             if (table != null) {
                 var stream = this.GetType().Assembly.GetManifestResourceStream("RoutesList.Build.Resources.StaticFile.TablePartialView.html");
+
                 if (stream == null) {
-                    throw new Exception("something wrong with TablePartialView.html");
+                    throw new FileNotFoundException("something wrong with TablePartialView.html");
                 }
 
                 var tableStringBuilder = new StringBuilder(new StreamReader(stream).ReadToEnd());
