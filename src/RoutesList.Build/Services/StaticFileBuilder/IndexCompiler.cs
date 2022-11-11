@@ -30,7 +30,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         public StringBuilder CompileIndex(bool compileheader) 
         { 
             if (compileheader) {
-                _header = GetIndexHeader();
+                GetIndexHeader();
                 ReplaceTag(_header);
             }
 
@@ -40,11 +40,12 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         public StringBuilder CompileIndex(bool compileHeader, bool compileBody)
         {
             if (compileHeader) {
-                _header = GetIndexHeader();
+                GetIndexHeader();
+                ReplaceTag(_header);
             }
 
             if (compileBody) {
-                _body = GetIndexBody();
+                GetIndexBody();
                 ReplaceTag(_body);
             }
 
@@ -54,16 +55,16 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         public StringBuilder CompileIndex(bool compileHeader, bool compileBody, bool compileFooter)
         {
             if (compileHeader) {
-                _header = GetIndexHeader();
+                GetIndexHeader();
             }
 
             if (compileBody) {
-                _body = GetIndexBody();
+                GetIndexBody();
                 ReplaceTag(_body);
             }
 
             if (compileFooter) {
-                _footer = GetIndexFooter();
+                GetIndexFooter();
                 ReplaceTag(_footer);
             }
 
@@ -76,21 +77,22 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             bool compileClasses
         ) {
             if (compileHeader) {
-                _header = GetIndexHeader();
+                GetIndexHeader();
+                ReplaceTag(_header);
             }
 
             if (compileBody) {
-                _body = GetIndexBody();
+                GetIndexBody();
                 ReplaceTag(_body);
             }
 
             if (compileFooter) {
-                _footer = GetIndexFooter();
+                GetIndexFooter();
                 ReplaceTag(_footer);
             }
 
             if (compileClasses) {
-                _classes = GetIndexClass();
+                GetIndexClass();
                 ReplaceTag(_classes);
             }
             
@@ -104,31 +106,31 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             }
         }
 
-        private Dictionary<string, string> GetIndexBody()
+        private void GetIndexBody()
         {
-            return new Dictionary<string, string>() {
+            _body = new Dictionary<string, string>() {
                 { "$(body)", BodyContent }
             };
         }
 
-        private Dictionary<string, string> GetIndexHeader()
+        private void GetIndexHeader()
         {
-            return new Dictionary<string, string>() {
+            _header = new Dictionary<string, string>() {
                 { "$(charsetEncoding)", _options.CharSet },
                 { "$(title)", _options.Tittle },
                 { "$(additionalHead)",  AdditionalHeader}
             };
         }
-        private Dictionary<string, string> GetIndexFooter()
+        private void GetIndexFooter()
         {
-            return new Dictionary<string, string>() {
+            _footer = new Dictionary<string, string>() {
                 { "$(footer-link)", _options.FooterLink },
                 { "$(footer-text)", _options.FooterText },
                 { "$(footer-year)", DateTime.Now.Year.ToString() }
             };
         }
 
-        private Dictionary<string, string> GetIndexClass()
+        private void GetIndexClass()
         {
             string classes = "table";
 
@@ -136,7 +138,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
                 classes = String.Join(" ", _options.GetClasses());
             }
 
-            return new Dictionary<string, string>() {
+            _classes = new Dictionary<string, string>() {
                 { "$(table-classes)", classes },
             };
         }

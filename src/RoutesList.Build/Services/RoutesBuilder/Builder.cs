@@ -8,7 +8,7 @@ namespace RoutesList.Services.RoutesBuilder
     /// </summary>
     public class Builder
     {
-        private RoutesInformationModel _model;
+        private RoutesInformationModel _model = new();
 
         /// <summary>
         /// Adding the id of the line from which to start counting to the builder. has automatic value increments
@@ -26,9 +26,7 @@ namespace RoutesList.Services.RoutesBuilder
                 routeId += id.Value;
             }
 
-            _model = new RoutesInformationModel() {
-                Id = routeId,
-            };
+            _model.Id = routeId;
             
             return this;
         }

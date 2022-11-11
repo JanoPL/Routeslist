@@ -38,7 +38,6 @@ namespace RoutesList.Gen
 
                 if (path.EndsWith($"/{_options.Endpoint}")) {
                     await RespondWithHtml(context.Response);
-                    return;
                 }
             }
         }
