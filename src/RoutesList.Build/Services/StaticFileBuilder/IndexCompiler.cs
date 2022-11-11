@@ -26,15 +26,57 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             _options = options;
         }
 
+
+        public StringBuilder CompileIndex(bool compileheader) 
+        { 
+            if (compileheader) {
+                _header = GetIndexHeader();
+                ReplaceTag(_header);
+            }
+
+            return _stringBuilder;
+        }
+
+        public StringBuilder CompileIndex(bool compileHeader, bool compileBody)
+        {
+            if (compileHeader) {
+                _header = GetIndexHeader();
+            }
+
+            if (compileBody) {
+                _body = GetIndexBody();
+                ReplaceTag(_body);
+            }
+
+            return _stringBuilder;
+        }
+
+        public StringBuilder CompileIndex(bool compileHeader, bool compileBody, bool compileFooter)
+        {
+            if (compileHeader) {
+                _header = GetIndexHeader();
+            }
+
+            if (compileBody) {
+                _body = GetIndexBody();
+                ReplaceTag(_body);
+            }
+
+            if (compileFooter) {
+                _footer = GetIndexFooter();
+                ReplaceTag(_footer);
+            }
+
+            return _stringBuilder;
+        }
         public StringBuilder CompileIndex(
             bool compileHeader,
-            bool compileBody = false,
-            bool compileFooter = false,
-            bool compileClasses = false
+            bool compileBody,
+            bool compileFooter,
+            bool compileClasses
         ) {
             if (compileHeader) {
                 _header = GetIndexHeader();
-                ReplaceTag(_header);
             }
 
             if (compileBody) {

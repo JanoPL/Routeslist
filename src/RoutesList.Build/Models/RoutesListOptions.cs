@@ -20,7 +20,7 @@ namespace RoutesList.Build.Models
             _classes = value switch {
                 string => (string)value,
                 string[] => (string[])value,
-                null => new string[1] { "table" },
+                null => new string[] { "table" },
                 _ => throw new RuntimeBinderException($"It should be one of type string of string[], you provide: {value.GetType()}"),
             };
         }
