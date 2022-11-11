@@ -67,7 +67,7 @@ namespace RoutesList.Gen
             };
             buildOptions.SetClasses(_options.GetTableClasses());
 
-            var htmlBuilderResult = _tableBuilder.AsyncGenerateTable(false, buildOptions).GetAwaiter().GetResult();
+            var htmlBuilderResult = _tableBuilder.AsyncGenerateTable(buildOptions, false).GetAwaiter().GetResult();
 
             await response.WriteAsync(htmlBuilderResult.ToString(), Encoding.UTF8);
         }

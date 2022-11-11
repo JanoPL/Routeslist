@@ -29,7 +29,42 @@ namespace RoutesList.Services
             _builder = builder;
         }
 
-        public async Task<string> AsyncGenerateTable(bool toJson = false, RoutesListOptions options = null)
+        public Task<string> AsyncGenerateTable(RoutesListOptions options, bool toJson)
+        {
+            return GenerateTable(options, toJson);
+        }
+
+        public Task<string> AsyncGenerateTable(RoutesListOptions options)
+        {
+            return GenerateTable(options, false);
+        }
+
+        public Task<string> AsyncGenerateTable(bool json)
+        {
+            return GenerateTable(null, true);
+        }
+
+        private bool IsControllerActionDescriptor()
+        {
+            List<bool> result = new List<bool>();
+            foreach (var route in ListRoutes) {
+                result.Add(route.IsCompiledPageActionDescriptor == false);
+            }
+
+            return result.TrueForAll(x => x);
+        }
+
+        private bool IsCompiledPageActionDescriptor()
+        {
+            List<bool> result = new List<bool>();
+            foreach (var route in ListRoutes) {
+                result.Add(route.IsCompiledPageActionDescriptor == true);
+            }
+
+            return result.TrueForAll(x => x);
+        }
+
+        private async Task<string> GenerateTable(RoutesListOptions options, bool isJson)
         {
             ConsoleTable table = new ConsoleTable();
             IList<string> headers = new List<string>();
@@ -52,7 +87,7 @@ namespace RoutesList.Services
             }
 
 
-            if (toJson) {
+            if (isJson) {
                 string serialize = String.Empty;
 
                 if (IsCompiledPageActionDescriptor()) {
@@ -66,7 +101,7 @@ namespace RoutesList.Services
                             })
                     );
                 }
-                
+
                 if (IsControllerActionDescriptor()) {
                     serialize = JsonConvert.SerializeObject(
                         ListRoutes.Select(x => {
@@ -79,7 +114,7 @@ namespace RoutesList.Services
                             };
                         })
                     );
-                } 
+                }
 
                 return await Task.FromResult(serialize);
             }
@@ -100,28 +135,7 @@ namespace RoutesList.Services
 
             _builder.Build(table, options);
 
-            
             return await Task.FromResult(_builder.Result);
-        }
-
-        private bool IsControllerActionDescriptor()
-        {
-            List<bool> result = new List<bool>();
-            foreach (var route in ListRoutes) {
-                result.Add(route.IsCompiledPageActionDescriptor == false);
-            }
-
-            return result.TrueForAll(x => x);
-        }
-
-        private bool IsCompiledPageActionDescriptor()
-        {
-            List<bool> result = new List<bool>();
-            foreach (var route in ListRoutes) {
-                result.Add(route.IsCompiledPageActionDescriptor == true);
-            }
-
-            return result.TrueForAll(x => x);
         }
     }
 }
