@@ -6,7 +6,7 @@ Library show all Routes in table format - methods, Uri, Controller Name, Action,
 
 Compatible with:
 
-- NET3.1, NET5, NET6
+- NET6
 - Razors Pages
 - ASP.NET projects with MVC
 - Blazor Server App
@@ -17,6 +17,8 @@ Compatible with:
 - Endpoints for Razor pages with name, Relative Path, view engine path
 - HTML5 output
 - JSON output
+- Custom class for table
+- link to endpoints in table view
 
 ![Table list image](https://github.com/JanoPL/Routeslist/blob/master/Screenshots1.png?raw=true)
 
