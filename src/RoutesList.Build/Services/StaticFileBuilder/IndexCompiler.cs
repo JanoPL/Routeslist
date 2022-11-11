@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using RoutesList.Build.Models;
 
@@ -14,7 +15,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         protected Dictionary<string, string> _header;
         protected Dictionary<string, string> _body;
         protected Dictionary<string, string> _footer;
-        //protected Dictionary<string, Func> _conditions;
+        protected Dictionary<string, string> _classes;
         private readonly RoutesListOptions _options;
         public string BodyContent { get; set; } = string.Empty;
         public string AdditionalHeader { get; set; } = string.Empty;
@@ -29,7 +30,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             bool compileHeader,
             bool compileBody = false,
             bool compileFooter = false,
-            bool compileCondition = false
+            bool compileClasses = false
         ) {
             if (compileHeader) {
                 _header = GetIndexHeader();
@@ -46,10 +47,10 @@ namespace RoutesList.Build.Services.StaticFileBuilder
                 ReplaceTag(_footer);
             }
 
-            //TODO add parser for conditions 
-            //if (compileCondition) {
-            //    _conditions = GetIndexCondition();
-            //}
+            if (compileClasses) {
+                _classes = GetIndexClass();
+                ReplaceTag(_classes);
+            }
             
             return _stringBuilder;
         }
@@ -82,6 +83,19 @@ namespace RoutesList.Build.Services.StaticFileBuilder
                 { "$(footer-link)", _options.FooterLink },
                 { "$(footer-text)", _options.FooterText },
                 { "$(footer-year)", DateTime.Now.Year.ToString() }
+            };
+        }
+
+        private Dictionary<string, string> GetIndexClass()
+        {
+            string classes = "table";
+
+            if (_options.GetClasses() != null && _options.GetClasses().Length > 0) {
+                classes = String.Join(" ", _options.GetClasses());
+            }
+
+            return new Dictionary<string, string>() {
+                { "$(table-classes)", classes },
             };
         }
     }

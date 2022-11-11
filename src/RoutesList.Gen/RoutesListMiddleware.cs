@@ -10,7 +10,6 @@ namespace RoutesList.Gen
     public class RoutesListMiddleware
     {
         private readonly RoutesListOptions _options;
-        private readonly StaticFileMiddleware _staticFileMiddleware;
         private readonly ITableBuilder _tableBuilder;
         private readonly RequestDelegate _next;
 
@@ -42,13 +41,9 @@ namespace RoutesList.Gen
                     return;
                 }
             }
-
-            if (_staticFileMiddleware != null) {
-                await _staticFileMiddleware.Invoke(context);
-            }
         }
 
-        private bool RequestRoutesList(HttpRequest request)
+        private static bool RequestRoutesList(HttpRequest request)
         {
             if (request.Method != "GET") {
                 return false;
@@ -57,7 +52,7 @@ namespace RoutesList.Gen
             return true;
         }
 
-        private void Redirect(HttpResponse response, string location)
+        private static void Redirect(HttpResponse response, string location)
         {
             response.StatusCode = 301;
             response.Headers["location"] = location;
@@ -67,10 +62,11 @@ namespace RoutesList.Gen
             response.StatusCode = 200;
             response.ContentType = "text/html";
 
-            Build.Models.RoutesListOptions buildOptions = new Build.Models.RoutesListOptions() {
+            Build.Models.RoutesListOptions buildOptions = new() {
                 Tittle = _options.Tittle,
-                CharSet = "UTF-8"
+                CharSet = "UTF-8",
             };
+            buildOptions.SetClasses(_options.GetTableClasses());
 
             var htmlBuilderResult = _tableBuilder.AsyncGenerateTable(false, buildOptions).GetAwaiter().GetResult();
 

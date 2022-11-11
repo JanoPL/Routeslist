@@ -86,18 +86,21 @@ namespace RoutesList.Services
 
             if (!String.IsNullOrEmpty(ListRoutes[0].ViewEnginePath) || !String.IsNullOrEmpty(ListRoutes[0].RelativePath)) {
                 foreach (var route in ListRoutes) {
-                    table.AddRow(route.Display_name, route.ViewEnginePath, route.RelativePath);
+                    string linkString = $"<a href=/{route.ViewEnginePath}>{route.ViewEnginePath ?? "/"} </a>";
+                    table.AddRow(route.Display_name, /*route.ViewEnginePath*/ linkString, route.RelativePath);
                 }
             }
 
             if (!string.IsNullOrEmpty(ListRoutes[0].Controller_name)) {
                 foreach (var route in ListRoutes) {
-                    table.AddRow(route.Method_name, route.Template, route.Controller_name, route.Action_name, route.Display_name);
+                    string linkString = $"<a href=/{route.Template}>{route.Template ?? "/"} </a>";
+                    table.AddRow(route.Method_name, linkString, route.Controller_name, route.Action_name, route.Display_name);
                 }
             }
 
             _builder.Build(table, options);
 
+            
             return await Task.FromResult(_builder.Result);
         }
 

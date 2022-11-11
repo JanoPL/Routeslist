@@ -2,9 +2,7 @@
 using RoutesList.Build.Models;
 using RoutesList.Build.Services.StaticFileBuilder.HtmlStructures;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Text;
 
 namespace RoutesList.Build.Services.StaticFileBuilder
@@ -12,7 +10,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
     public class Builder : IBuilder
     {
         StringBuilder _stringBuilder;
-        Models.RoutesListOptions _options;
+        RoutesListOptions _options;
         IndexCompiler _indexCompiler;
         private string BodyContent { get; set; }
         public string Result { get; set; }
@@ -30,9 +28,9 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         {
             if (_indexCompiler == null) {
                 _indexCompiler = new IndexCompiler(_stringBuilder, _options);
-            } else {
-                _indexCompiler.CompileIndex(true);
             }
+
+            _indexCompiler.CompileIndex(true);
         }
 
         private void BuildBody()
@@ -41,8 +39,9 @@ namespace RoutesList.Build.Services.StaticFileBuilder
                 _indexCompiler = new IndexCompiler(_stringBuilder, _options);
             } else {
                 _indexCompiler.BodyContent = BodyContent;
-                _indexCompiler.CompileIndex(false, true);
             }
+
+            _indexCompiler.CompileIndex(false, true);
         }
 
         private void BuildMeta()
@@ -54,11 +53,19 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         {
             if (_indexCompiler == null) {
                 _indexCompiler = new IndexCompiler(_stringBuilder, _options);
-            } else {
-                _indexCompiler.CompileIndex(false, false, true);
             }
+
+            _indexCompiler.CompileIndex(false, false, true);
         }
 
+        private void BuildClass()
+        {
+            if (_indexCompiler == null) {
+                _indexCompiler = new IndexCompiler(_stringBuilder, _options);
+            }
+
+            _indexCompiler.CompileIndex(false, false, false, true);
+        }
 
 #nullable enable
         public void Build(ConsoleTable? table, RoutesListOptions options)
@@ -77,7 +84,6 @@ namespace RoutesList.Build.Services.StaticFileBuilder
 
                 var tableStringBuilder = new StringBuilder(new StreamReader(stream).ReadToEnd());
 
-
                 //Html structures factory
                 HtmlData.GetInstance();
                 
@@ -89,6 +95,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             BuildHead();
             BuildBody();
             BuildFooter();
+            BuildClass();
 
             Result = _stringBuilder.ToString();
         }
