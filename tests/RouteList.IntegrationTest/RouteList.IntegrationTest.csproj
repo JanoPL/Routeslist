@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -8,13 +8,74 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
-    <PackageReference Include="coverlet.collector" Version="3.1.2">
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Assert.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\BooleanAsserts.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\CollectionAsserts.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Comparers.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\EqualityAsserts.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\EventAsserts.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\ExceptionAsserts.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Guards.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\IdentityAsserts.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\NullAsserts.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\PropertyAsserts.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\RangeAsserts.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Record.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\ArgumentFormatter.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\AssertComparer.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\AssertEqualityComparer.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\AssertEqualityComparerAdapter.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\AllException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\AssertActualExpectedException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\AssertCollectionCountException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\CollectionException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\ContainsException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\DoesNotContainException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\DoesNotMatchException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\EmptyException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\EndsWithException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\EqualException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\FalseException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\InRangeException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\IsAssignableFromException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\IsNotTypeException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\IsTypeException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\MatchesException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\NotEmptyException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\NotEqualException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\NotInRangeException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\NotNullException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\NotSameException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\NullException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\ParameterCountMismatchException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\ProperSubsetException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\ProperSupersetException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\PropertyChangedException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\RaisesException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\SameException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\SingleException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\StartsWithException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\SubsetException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\SupersetException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\ThrowsException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\TrueException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\Sdk\Exceptions\XunitException.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\SetAsserts.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\StringAsserts.cs" />
+    <Compile Remove="C:\Users\Janusz\.nuget\packages\xunit.assert.source\2.4.0\contentFiles\cs\netstandard1.1\Asserts\TypeAsserts.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+    <PackageReference Include="coverlet.collector" Version="3.2.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
+    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="xunit.MSTest" Version="1.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.3" />

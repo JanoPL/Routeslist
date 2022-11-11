@@ -31,7 +31,15 @@ namespace TestBasicSiteASPNet6
 
             app.MapRazorPages();
 
-            app.UseRoutesList();
+            IDictionary<string, string[]> dict = new Dictionary<string, string[]>();
+
+            string[] classes = dict["table"] = new string[2] { "table", "table-striped" };
+
+            app.UseRoutesList(options => {
+                options.Tittle = "Title";
+                options.Endpoint = "routes";
+                options.SetTableClasses(classes);
+            });
 
             app.Run();
         }

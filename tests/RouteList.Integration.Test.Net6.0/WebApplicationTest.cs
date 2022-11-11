@@ -14,12 +14,15 @@ namespace RouteList.Integration.Test.Net6._0
         public async void ResponseTest(string url)
         {
             using var client = _application.CreateClient();
-            using var response = await client.GetAsync(url);
+            using HttpResponseMessage? response = await client.GetAsync(url);
 
             response.EnsureSuccessStatusCode();
+
+            Assert.NotNull(response);
+
             Assert.Equal(
                 "text/html; charset=utf-8",
-                response.Content.Headers.ContentType.ToString()
+                response?.Content?.Headers?.ContentType?.ToString()
             );
         }
 
@@ -28,13 +31,16 @@ namespace RouteList.Integration.Test.Net6._0
         public async void EndpointDefaultTest(string url)
         {
             using var client = _application.CreateClient();
-            using var response = await client.GetAsync(url);
+            using HttpResponseMessage? response = await client.GetAsync(url);
+
+            Assert.NotNull(response);
 
             response.EnsureSuccessStatusCode();
+           
 
             Assert.Equal(
                 "text/html",
-                response.Content.Headers.ContentType.ToString()
+                response?.Content?.Headers?.ContentType?.ToString()
             );
         }
 
@@ -49,7 +55,7 @@ namespace RouteList.Integration.Test.Net6._0
 
             Assert.Equal(
                 "application/json; charset=utf-8",
-                response.Content.Headers.ContentType.ToString()
+                response?.Content?.Headers?.ContentType?.ToString()
             );
         }
     }

@@ -19,7 +19,7 @@ namespace RoutesLIst.Integration.Blazor
             response.EnsureSuccessStatusCode();
             Assert.Equal(
                 "text/html; charset=utf-8",
-                response.Content.Headers.ContentType.ToString()
+                response?.Content?.Headers?.ContentType?.ToString()
             );
         }
 
@@ -34,7 +34,7 @@ namespace RoutesLIst.Integration.Blazor
 
             Assert.Equal(
                 "text/html",
-                response.Content.Headers.ContentType.ToString()
+                response?.Content?.Headers?.ContentType?.ToString()
             );
         }
 
@@ -49,7 +49,7 @@ namespace RoutesLIst.Integration.Blazor
 
             Assert.Equal(
                 "application/json; charset=utf-8",
-                response.Content.Headers.ContentType.ToString()
+                response?.Content?.Headers?.ContentType?.ToString()
             );
         }
     }

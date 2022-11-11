@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
+using System.Net.Http;
 using Xunit;
 
 namespace RouteList.IntegrationTest
@@ -21,12 +22,15 @@ namespace RouteList.IntegrationTest
         {
             var client = _factory.CreateClient();
 
-            var response = await client.GetAsync(url);
+            HttpResponseMessage? response = await client.GetAsync(url);
+
+            Assert.NotNull(response);
 
             response.EnsureSuccessStatusCode();
+
             Assert.Equal(
                 "text/html; charset=utf-8",
-                response.Content.Headers.ContentType.ToString()
+                response?.Content?.Headers?.ContentType?.ToString()
             );
         }
 
@@ -35,13 +39,15 @@ namespace RouteList.IntegrationTest
         public async void EndpointDefaultTest(string url)
         {
             using var client = _factory.CreateClient();
-            using var response = await client.GetAsync(url);
+            using HttpResponseMessage? response = await client.GetAsync(url);
+
+            Assert.NotNull(response);
 
             response.EnsureSuccessStatusCode();
 
             Assert.Equal(
                 "text/html",
-                response.Content.Headers.ContentType.ToString()
+                response?.Content?.Headers?.ContentType?.ToString()
             );
         }
 
@@ -50,13 +56,15 @@ namespace RouteList.IntegrationTest
         public async void EndpointDefaultJsonTest(string url)
         {
             using var client = _factory.CreateClient();
-            using var response = await client.GetAsync(url);
+            using HttpResponseMessage? response = await client.GetAsync(url);
+
+            Assert.NotNull(response);
 
             response.EnsureSuccessStatusCode();
 
             Assert.Equal(
                 "application/json; charset=utf-8",
-                response.Content.Headers.ContentType.ToString()
+                response?.Content?.Headers?.ContentType?.ToString()
             );
         }
     }
