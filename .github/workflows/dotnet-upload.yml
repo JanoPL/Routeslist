@@ -11,20 +11,24 @@ jobs:
       matrix:
         os: [windows-latest]
         nuget: [latest, preview]
-    name: NuGet@${{ matrix.nuget }} sample
+    name: NuGet@${{ matrix.nuget }} build package
     steps:
-
       - uses: actions/checkout@v3
+
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.0.2
+
       - name: Setup NuGet.exe
         uses: nuget/setup-nuget@v1
         with:
           nuget-api-key: ${{ secrets.NUGETKEY }}
           nuget-version: ${{ matrix.nuget }}
+
       - name: Restore nuget packages
         run: nuget restore RoutesList.sln
+
       - name: Build
         run: msbuild .\RoutesList.sln /t:Restore /p:Configuration=Release /t:build
+
       - name: pack
         run: nuget pack .\RoutesList.nuspec

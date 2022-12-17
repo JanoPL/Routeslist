@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>RoutesList</id>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <authors>JanoPL</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
@@ -16,7 +16,7 @@
     <dependencies>
       <group targetFramework=".net6.0">
         <dependency id="ConsoleTables" version="2.4.2" />
-        <dependency id="Newtonsoft.Json" version="13.0.1"/>
+        <dependency id="Newtonsoft.Json" version="13.0.2"/>
       </group>
     </dependencies>
     <frameworkReferences>
