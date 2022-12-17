@@ -8,18 +8,6 @@ namespace RoutesList.Gen
 {
     public static class RoutesListGen
     {
-        [Obsolete ("Method AddRouteList() is deprecated, please use AddRoutesList(). The method AddRouteList() it will be remove in feature release", true)]
-        public static IServiceCollection AddRouteList(
-            this IServiceCollection services
-        )
-        {
-            services.AddTransient<IRoutes, Routes>();
-            services.AddTransient<ITableBuilder, TableBuilder>();
-            services.AddSingleton<IBuilder, Builder>();
-
-            return services;
-        }
-
         public static IServiceCollection AddRoutesList(
             this IServiceCollection services
         ) {
