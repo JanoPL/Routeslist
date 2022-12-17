@@ -9,8 +9,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest, macOS-latest]
-        nuget: [latest, preview, 1.0.0]
+        os: [windows-latest]
+        nuget: [latest, preview]
     name: NuGet@${{ matrix.nuget }} sample
     steps:
 
