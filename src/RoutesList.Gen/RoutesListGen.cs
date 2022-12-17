@@ -8,7 +8,7 @@ namespace RoutesList.Gen
 {
     public static class RoutesListGen
     {
-        [Obsolete ("Method AddRouteList() is deprecated, please use AddRoutesList(). The method AddRouteList() it will be remove in next version 0.2.4", true)]
+        [Obsolete ("Method AddRouteList() is deprecated, please use AddRoutesList(). The method AddRouteList() it will be remove in feature release", true)]
         public static IServiceCollection AddRouteList(
             this IServiceCollection services
         )

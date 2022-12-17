@@ -34,18 +34,17 @@ Install-Package RoutesList
 
 ## Usage
 
-Just add ```services.AddRouteList``` to service ConfigureService method.
+Just add ```services.AddRoutesList``` to service ConfigureService method.
 
 <b>Example:</b>
 Startup.cs
 
 ```C#
 \\...
-
 public void ConfigureServices(IServiceCollection services)
 {
     \\...
-    services.AddRouteList();
+    services.AddRoutesList();
 }
 ```
 
@@ -56,8 +55,6 @@ Startup.cs
 
 ```C#
 \\...
-
-
 public void Configure(
     IApplicationBuilder app,
     IWebHostEnvironment env,
@@ -84,7 +81,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.AddRouteList(); <-- usage
+builder.Services.AddRoutesList(); <-- usage
 
 var app = builder.Build();
 
@@ -117,11 +114,11 @@ public partial class Program { }
 
 In app.UseRoutesList you can pass options
 
-|Name|Description|
-|:--:|:---------:|
-Endpoint | endpoint name
-Title | Title for web site
-StylePath | CSS style file path - not implemented
+|Name             | Description                         |
+|:---------------:|:-----------------------------------:|
+| Endpoint        | endpoint name                       |
+| Title           | Title for web site                  |
+| SetTableClasses | Add template classes for table      |
 
 <b>Example:</b>
 Startup.cs
@@ -132,10 +129,13 @@ public void Configure(
     IWebHostEnvironment env,
 )
 {
+    IDictionary<string, string[]> dict = new Dictionary<string, string[]>();
+    string[] classes = dict["table"] = new string[2] { "table", "table-striped" };
+
     app.UseRoutesList(options => {
         options.Endpoint = "your_new_endpoints";
         options.Tittle = "Your new Title for site";
-        options.StylePath = "";
+        options.SetTableClasses(classes);
     });
 }
 ```
