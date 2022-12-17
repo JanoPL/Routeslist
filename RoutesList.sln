@@ -17,19 +17,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoutesList.Gen", "src\Route
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestBasicSiteNet6", "tests\TestSites\TestBasicSiteNet6\TestBasicSiteNet6.csproj", "{9778010E-FF88-4246-A649-65DB3C6220D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoutesLIst.Integration.Blazor", "tests\RoutesLIst.Integration.Blazor\RoutesLIst.Integration.Blazor.csproj", "{16661492-975D-43C1-9740-DBE9BB230920}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoutesLIst.Integration.Blazor", "tests\RoutesLIst.Integration.Blazor\RoutesLIst.Integration.Blazor.csproj", "{16661492-975D-43C1-9740-DBE9BB230920}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Application.Factory", "tests\Web.Application.Factory\Web.Application.Factory.csproj", "{C154BEBC-D75F-4440-A966-97C4560A0D02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Application.Factory", "tests\Web.Application.Factory\Web.Application.Factory.csproj", "{C154BEBC-D75F-4440-A966-97C4560A0D02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.WebApplication.factory", "tests\Test.WebApplication.factory\Test.WebApplication.factory.csproj", "{494817E8-F986-48D0-9AE3-DFA97B8089D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.WebApplication.factory", "tests\Test.WebApplication.factory\Test.WebApplication.factory.csproj", "{494817E8-F986-48D0-9AE3-DFA97B8089D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoutesList.Integration.Razor", "tests\RoutesList.Integration.Razor\RoutesList.Integration.Razor.csproj", "{A205B273-D01A-473B-82CA-5DC8A796F39A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoutesList.Integration.Razor", "tests\RoutesList.Integration.Razor\RoutesList.Integration.Razor.csproj", "{A205B273-D01A-473B-82CA-5DC8A796F39A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteList.Integration.Test.Net6.0", "tests\RouteList.Integration.Test.Net6.0\RouteList.Integration.Test.Net6.0.csproj", "{FB5D9AFD-4C0E-4776-9C84-0931E5E7C847}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RouteList.Integration.Test.Net6.0", "tests\RouteList.Integration.Test.Net6.0\RouteList.Integration.Test.Net6.0.csproj", "{FB5D9AFD-4C0E-4776-9C84-0931E5E7C847}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestBasicSiteASPNet6", "tests\TestSites\TestBasicSiteASPNet6\TestBasicSiteASPNet6.csproj", "{714EEE3F-01FC-4D8D-A2C4-812FE8D18E80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestBasicSiteASPNet6", "tests\TestSites\TestBasicSiteASPNet6\TestBasicSiteASPNet6.csproj", "{714EEE3F-01FC-4D8D-A2C4-812FE8D18E80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestBasicBlazorServer", "tests\TestSites\TestBasicBlazorServer\TestBasicBlazorServer.csproj", "{7E8ED101-D318-4DA3-BF36-425A6DD7CEF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestBasicBlazorServer", "tests\TestSites\TestBasicBlazorServer\TestBasicBlazorServer.csproj", "{7E8ED101-D318-4DA3-BF36-425A6DD7CEF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoutesList.Gen.UnitTest", "tests\RoutesList.Gen.UnitTest\RoutesList.Gen.UnitTest.csproj", "{63621D04-7B45-4A6A-B746-319ECDF5E836}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +87,10 @@ Global
 		{7E8ED101-D318-4DA3-BF36-425A6DD7CEF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E8ED101-D318-4DA3-BF36-425A6DD7CEF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E8ED101-D318-4DA3-BF36-425A6DD7CEF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63621D04-7B45-4A6A-B746-319ECDF5E836}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63621D04-7B45-4A6A-B746-319ECDF5E836}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63621D04-7B45-4A6A-B746-319ECDF5E836}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63621D04-7B45-4A6A-B746-319ECDF5E836}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +107,7 @@ Global
 		{FB5D9AFD-4C0E-4776-9C84-0931E5E7C847} = {D2236F00-56A6-4BA8-91F9-7CD970A46F33}
 		{714EEE3F-01FC-4D8D-A2C4-812FE8D18E80} = {BB691CA0-5B87-4B21-80A2-CA63DD00F898}
 		{7E8ED101-D318-4DA3-BF36-425A6DD7CEF5} = {BB691CA0-5B87-4B21-80A2-CA63DD00F898}
+		{63621D04-7B45-4A6A-B746-319ECDF5E836} = {D2236F00-56A6-4BA8-91F9-7CD970A46F33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {87DFA115-5F76-4EB2-8EDE-48DE379CA43B}
