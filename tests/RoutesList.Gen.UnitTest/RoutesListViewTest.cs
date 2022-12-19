@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System.Net;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Hosting;
 
@@ -6,28 +7,6 @@ namespace RoutesList.Gen.UnitTest
 {
     public class RoutesListViewTest
     {
-        //private static (ServiceCollection services, IConfigurationRoot configuration) GetServiceConfiguration()
-        //{
-        //    var services = new ServiceCollection();
-        //    var configuration = new ConfigurationBuilder().Build();
-
-        //    services.AddOptions();
-        //    services.AddRouting();
-        //    services.AddRoutesList();
-
-        //    return (services, configuration);
-        //}
-
-        //private static ApplicationBuilder GetApplicationBuilder()
-        //{
-        //    (ServiceCollection services, IConfigurationRoot configuration) = GetServiceConfiguration();
-
-        //    var applicationBuilder = new ApplicationBuilder(services.BuildServiceProvider());
-        //    applicationBuilder.UseRouting();
-
-        //    return applicationBuilder;
-        //}
-
         [Fact]
         public async Task UseRoutesListTest()
         {
@@ -70,6 +49,8 @@ namespace RoutesList.Gen.UnitTest
                .StartAsync();
 
             var response = await host.GetTestClient().GetAsync("/routes/json");
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
     }
 }
