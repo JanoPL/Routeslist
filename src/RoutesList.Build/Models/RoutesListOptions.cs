@@ -8,8 +8,9 @@ namespace RoutesList.Build.Models
         public string CharSet { get; set; } = "UTF-8";
         public string FooterLink { get; set; } = "https://github.com/JanoPL/Routeslist";
         public string FooterText { get; set; } = "RoutesList";
-        
+        public string Description { get; set; } = "Routing debugger for DotNet Core applications. A list of all routes in the formatted table";        
         private dynamic _classes = "table";
+
         public dynamic GetClasses()
         {
             return _classes;

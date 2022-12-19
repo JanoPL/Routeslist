@@ -118,9 +118,11 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             _header = new Dictionary<string, string>() {
                 { "$(charsetEncoding)", _options.CharSet },
                 { "$(title)", _options.Tittle },
-                { "$(additionalHead)",  AdditionalHeader}
+                { "$(additionalHead)",  AdditionalHeader },
+                { "$(description)", _options.Description },
             };
         }
+
         private void GetIndexFooter()
         {
             _footer = new Dictionary<string, string>() {
