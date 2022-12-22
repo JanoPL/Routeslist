@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>RoutesList</id>
-    <version>1.0.2</version>
+    <version>1.1.0</version>
     <authors>JanoPL</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
