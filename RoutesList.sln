@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestBasicSiteASPNet6", "tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestBasicBlazorServer", "tests\TestSites\TestBasicBlazorServer\TestBasicBlazorServer.csproj", "{7E8ED101-D318-4DA3-BF36-425A6DD7CEF5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{01AEBB69-AE24-4BDB-8912-1B14622C26A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{7E8ED101-D318-4DA3-BF36-425A6DD7CEF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E8ED101-D318-4DA3-BF36-425A6DD7CEF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E8ED101-D318-4DA3-BF36-425A6DD7CEF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01AEBB69-AE24-4BDB-8912-1B14622C26A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01AEBB69-AE24-4BDB-8912-1B14622C26A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01AEBB69-AE24-4BDB-8912-1B14622C26A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01AEBB69-AE24-4BDB-8912-1B14622C26A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +107,7 @@ Global
 		{FB5D9AFD-4C0E-4776-9C84-0931E5E7C847} = {D2236F00-56A6-4BA8-91F9-7CD970A46F33}
 		{714EEE3F-01FC-4D8D-A2C4-812FE8D18E80} = {BB691CA0-5B87-4B21-80A2-CA63DD00F898}
 		{7E8ED101-D318-4DA3-BF36-425A6DD7CEF5} = {BB691CA0-5B87-4B21-80A2-CA63DD00F898}
+		{01AEBB69-AE24-4BDB-8912-1B14622C26A4} = {D2236F00-56A6-4BA8-91F9-7CD970A46F33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {87DFA115-5F76-4EB2-8EDE-48DE379CA43B}
