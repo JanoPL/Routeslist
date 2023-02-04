@@ -13,20 +13,10 @@ namespace RoutesList.Build.Services.Strategies
         private IStrategy _strategy;
         private readonly ActionDescriptor _actionDescriptor;
 
-        public Context(ActionDescriptor actionDescriptor) 
-        {
-            _actionDescriptor = actionDescriptor;
-        }
-
         public Context(IStrategy strategy, ActionDescriptor actionDescriptor)
         {
             _strategy = strategy;
             _actionDescriptor = actionDescriptor;
-        }
-
-        public void SetStrategy(IStrategy strategy)
-        {
-            _strategy = strategy;
         }
 
         public RoutesInformationModel Execute()
