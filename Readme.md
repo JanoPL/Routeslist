@@ -36,7 +36,8 @@ Install-Package RoutesList
 
 Just add ```services.AddRoutesList``` to service ConfigureService method.
 
-<b>Example:</b>
+Example:
+
 Startup.cs
 
 ```C#
@@ -50,7 +51,8 @@ public void ConfigureServices(IServiceCollection services)
 
 and add to Configure method
 
-<b>Example:</b>
+Example:
+
 Startup.cs
 
 ```C#
@@ -67,13 +69,13 @@ public void Configure(
 
 Default Endpoint: ```http://your_application_address/routes```
 
-<hr> 
-
 ### Usage for implicit Using Statements In .NET 6
 
-<b>Example</b>: Program.cs
+Example:
 
-```
+Program.cs
+
+```C#
 using RoutesList.Gen;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -108,8 +110,6 @@ app.Run();
 public partial class Program { }
 ```
 
-<hr>
-
 ## options for UseRoutesList
 
 In app.UseRoutesList you can pass options
@@ -120,7 +120,7 @@ In app.UseRoutesList you can pass options
 | Title           | Title for web site                  |
 | SetTableClasses | Add template classes for table      |
 
-<b>Example:</b>
+Example:
 Startup.cs
 
 ```C#
@@ -139,8 +139,6 @@ public void Configure(
     });
 }
 ```
-
-<hr>
 
 ## Contributing
 

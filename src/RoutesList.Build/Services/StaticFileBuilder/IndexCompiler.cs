@@ -70,6 +70,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
 
             return _stringBuilder;
         }
+
         public StringBuilder CompileIndex(
             bool compileHeader,
             bool compileBody,
@@ -108,14 +109,14 @@ namespace RoutesList.Build.Services.StaticFileBuilder
 
         private void GetIndexBody()
         {
-            _body = new Dictionary<string, string>() {
+            _body = new Dictionary<string, string> {
                 { "$(body)", BodyContent }
             };
         }
 
         private void GetIndexHeader()
         {
-            _header = new Dictionary<string, string>() {
+            _header = new Dictionary<string, string> {
                 { "$(charsetEncoding)", _options.CharSet },
                 { "$(title)", _options.Tittle },
                 { "$(additionalHead)",  AdditionalHeader },
@@ -125,7 +126,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
 
         private void GetIndexFooter()
         {
-            _footer = new Dictionary<string, string>() {
+            _footer = new Dictionary<string, string> {
                 { "$(footer-link)", _options.FooterLink },
                 { "$(footer-text)", _options.FooterText },
                 { "$(footer-year)", DateTime.Now.Year.ToString() }
@@ -140,7 +141,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
                 classes = String.Join(" ", _options.GetClasses());
             }
 
-            _classes = new Dictionary<string, string>() {
+            _classes = new Dictionary<string, string> {
                 { "$(table-classes)", classes },
             };
         }
