@@ -60,11 +60,18 @@ namespace RoutesList.Gen
         {
             response.StatusCode = 200;
             response.ContentType = "text/html";
-
+#if NETCOREAPP3_1 || NET5_0
+            Build.Models.RoutesListOptions buildOptions = new Build.Models.RoutesListOptions {
+                Tittle = _options.Tittle,
+                CharSet = "UTF-8",
+            };
+#endif
+#if NET6_0_OR_GREATER
             Build.Models.RoutesListOptions buildOptions = new() {
                 Tittle = _options.Tittle,
                 CharSet = "UTF-8",
             };
+#endif
             buildOptions.SetClasses(_options.GetTableClasses());
 
             var htmlBuilderResult = _tableBuilder.AsyncGenerateTable(buildOptions).GetAwaiter().GetResult();

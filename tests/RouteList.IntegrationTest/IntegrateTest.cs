@@ -1,3 +1,10 @@
+#if NETCOREAPP3_1 || NET5_0
+using System.Net.Http;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Xunit;
+#endif
+
 namespace RouteList.IntegrationTest
 {
     public class IntegrateTest : IClassFixture<WebApplicationFactory<TestBasicSite.Startup>>
