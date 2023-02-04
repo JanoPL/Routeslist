@@ -21,8 +21,9 @@
     <PackageTags>Route list, Analizer Route, Debugging, Debugger, development, dev, tools, route, list, RoutesList</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageProjectUrl>https://github.com/JanoPL/Routeslist</PackageProjectUrl>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
