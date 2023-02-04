@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Abstractions;
-using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using RoutesList.Build.Models;
+using RoutesList.Build.Services.Strategies;
 using RoutesList.Interfaces;
-using RoutesList.Services.RoutesBuilder;
 
 namespace RoutesList.Services
 {
@@ -31,72 +28,25 @@ namespace RoutesList.Services
             IList<RoutesInformationModel> routes = new List<RoutesInformationModel>();
 
             int id = 1;
-            var items = getRoutes(collectionProvider);
+            IEnumerable<ActionDescriptor> items = getRoutes(collectionProvider);
+
             foreach (ActionDescriptor route in items) {
-                string controllerName = String.Empty;
-                string actionName = String.Empty;
-                string displayName = String.Empty;
-                string template = String.Empty;
-                string methodName = String.Empty;
-                string viewEnginePath = String.Empty;
-                string relativePath = String.Empty;
 
-                Builder builder = new Builder().Create(id);
-
+                RoutesInformationModel routesInformationModel;
                 if (IsCompiledPageDescriptor(route)) {
-                    var compiledPageActionDescriptor = items.OfType<CompiledPageActionDescriptor>()
-                        .Where(r => r.Id == route.Id)
-                        .Select(a => new {
-                            a.DisplayName,
-                            a.ViewEnginePath,
-                            a.RelativePath
-                        }).First();
+                    var context = new Context(new BuildCompiledPageDescriptorStrategy(id, items), route);
 
-                    viewEnginePath = (string)compiledPageActionDescriptor?.ViewEnginePath;
-                    relativePath = (string)compiledPageActionDescriptor?.RelativePath;
-                    displayName = (string)compiledPageActionDescriptor?.DisplayName;
+                    routesInformationModel = context.Execute();
+                } else if (IsControllerActionDescriptor(route)) {
+                    var context = new Context(new BuildControllerActionDescriptorStrategy(id), route);
 
-                    builder.IsCompiledpageActionDescriptior(true);
+                    routesInformationModel = context.Execute();
+                } else {
+                    continue;
                 }
 
-                if (IsControllerActionDescriptio(route)) {
-                    controllerName = route.RouteValues.Where(value => value.Key == "controller").First().Value;
-                    actionName = route.RouteValues.Where(value => value.Key == "action").First().Value;
-                    displayName = route.DisplayName;
-                    template = route.AttributeRouteInfo?.Template;
-                    methodName = route.ActionConstraints?.OfType<HttpMethodActionConstraint>()?.SingleOrDefault()?.HttpMethods?.First<string>();
-                }
-
-                if (!String.IsNullOrEmpty(controllerName)) {
-                    builder.ControllerName(controllerName);
-                }
-
-                if (!String.IsNullOrEmpty(actionName)) {
-                    builder.ActionName(actionName);
-                }
-
-                if (!String.IsNullOrEmpty(displayName)) {
-                    builder.DisplayName(displayName);
-                }
-
-                if (!String.IsNullOrEmpty(template)) {
-                    builder.Template(template);
-                }
-
-                if (!String.IsNullOrEmpty(methodName)) {
-                    builder.MethodName(methodName);
-                }
-
-                if (!String.IsNullOrEmpty(viewEnginePath)) {
-                    builder.ViewEnginePath(viewEnginePath);
-                }
-
-                if (!String.IsNullOrEmpty(relativePath)) {
-                    builder.RelativePath(relativePath);
-                }
-
-                RoutesInformationModel model = builder.build();
-                routes.Add(model);
+                routes.Add(routesInformationModel);
+                id++;
             }
 
             return routes;
@@ -107,7 +57,7 @@ namespace RoutesList.Services
             return actionDescriptor.GetType().FullName == "Microsoft.AspNetCore.Mvc.RazorPages.CompiledPageActionDescriptor";
         }
 
-        private static bool IsControllerActionDescriptio(ActionDescriptor actionDescriptor)
+        private static bool IsControllerActionDescriptor(ActionDescriptor actionDescriptor)
         {
             return actionDescriptor.GetType().FullName == "Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor";
         }
