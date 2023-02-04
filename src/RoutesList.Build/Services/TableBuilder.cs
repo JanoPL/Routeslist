@@ -76,7 +76,6 @@ namespace RoutesList.Services
 
         private async Task<string> GenerateTable(bool isJson)
         {
-            ConsoleTable table = new();
             ListRoutes = _routes.getRoutesInformation(_actionDescriptorCollectionProvider);
 
             if (isJson) {

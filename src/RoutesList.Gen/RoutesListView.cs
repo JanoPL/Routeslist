@@ -17,7 +17,7 @@ namespace RoutesList.Gen
 
         public static IApplicationBuilder UseRoutesList(
             this IApplicationBuilder app,
-            Action<RoutesListOptions> routesListOptions = null)
+            Action<RoutesListOptions> routesListOptions)
         {
             RoutesListOptions options;
             using (var scope = app.ApplicationServices.CreateScope()) {
