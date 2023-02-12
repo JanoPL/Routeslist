@@ -41,7 +41,13 @@ namespace RoutesList.Services
 
         private bool IsControllerActionDescriptor()
         {
+#if NET5_0_OR_GREATER
             List<bool> result = new();
+#endif
+#if NETCOREAPP3_1
+            List<bool> result = new List<bool>();
+#endif
+
             foreach (var route in ListRoutes) {
                 result.Add(route.IsCompiledPageActionDescriptor == false);
             }
@@ -51,7 +57,13 @@ namespace RoutesList.Services
 
         private bool IsCompiledPageActionDescriptor()
         {
+#if NET5_0_OR_GREATER
             List<bool> result = new();
+#endif
+#if NETCOREAPP3_1
+            List<bool> result = new List<bool>();
+#endif
+
             foreach (var route in ListRoutes) {
                 result.Add(route.IsCompiledPageActionDescriptor == true);
             }
@@ -61,7 +73,12 @@ namespace RoutesList.Services
 
         private async Task<string> GenerateTable(RoutesListOptions options)
         {
+#if NET5_0_OR_GREATER
             ConsoleTable table = new();
+#endif
+#if NETCOREAPP3_1
+            ConsoleTable table = new ConsoleTable();
+#endif
 
             ListRoutes = _routes.getRoutesInformation(_actionDescriptorCollectionProvider);
 

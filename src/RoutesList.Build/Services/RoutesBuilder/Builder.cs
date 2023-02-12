@@ -8,7 +8,12 @@ namespace RoutesList.Build.Services.RoutesBuilder
     /// </summary>
     public class Builder
     {
+#if NET5_0_OR_GREATER
         private readonly RoutesInformationModel _model = new();
+#endif
+#if NETCOREAPP3_1
+        private readonly RoutesInformationModel _model = new RoutesInformationModel();
+#endif
 
         /// <summary>
         /// Adding the id of the line from which to start counting to the builder. has automatic value increments

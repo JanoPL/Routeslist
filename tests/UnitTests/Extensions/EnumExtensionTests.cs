@@ -1,4 +1,10 @@
-﻿namespace UnitTests.Extensions.Tests
+﻿#if NETCOREAPP3_1 || NET5_0
+using RoutesList.Build.Extensions;
+using UnitTests.TestFiles;
+using Xunit;
+#endif
+
+namespace UnitTests.Extensions.Tests
 {
     public class EnumExtensionTests
     {

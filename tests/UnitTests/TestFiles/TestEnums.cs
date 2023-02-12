@@ -1,4 +1,9 @@
-﻿namespace UnitTests.TestFiles
+﻿#if NETCOREAPP3_1 || NET5_0
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+#endif
+
+namespace UnitTests.TestFiles
 {
     internal enum TestEnums
     {
