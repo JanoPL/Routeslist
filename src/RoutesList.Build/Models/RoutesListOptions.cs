@@ -1,4 +1,5 @@
-﻿using Microsoft.CSharp.RuntimeBinder;
+﻿using System;
+using Microsoft.CSharp.RuntimeBinder;
 
 namespace RoutesList.Build.Models
 {
@@ -28,7 +29,22 @@ namespace RoutesList.Build.Models
 #endif
 
 #if NETCOREAPP3_1
-            var type = _classes.GetType();
+            if (value is null) {
+                _classes = new string[] { "table" };
+                return;
+            }
+
+            if (value is string @string) {
+                _classes = @string;
+                return;
+            }
+
+            if (value is string[] array) {
+                _classes = array;
+                return;
+            }
+
+            throw new RuntimeBinderException($"It should be one of type string of string[], you provide: {value.GetType()}");
 #endif
         }
     }
