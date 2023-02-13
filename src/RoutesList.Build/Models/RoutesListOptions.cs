@@ -33,7 +33,7 @@ namespace RoutesList.Build.Models
         public void SetClasses(dynamic value)
         {
             if (value is null) {
-                _classes = new string[] { "table" };
+                    _classes = new string[] { "table" };
                 return;
             }
 
@@ -42,8 +42,8 @@ namespace RoutesList.Build.Models
                 return;
             }
 
-            if (value is string[] array) {
-                _classes = array;
+            if (value is string[] @array) {
+                _classes = @array;
                 return;
             }
 

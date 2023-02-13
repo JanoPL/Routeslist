@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using Microsoft.CSharp.RuntimeBinder;
+#if !NET6_0_OR_GREATER
 using Xunit;
+#endif
 
 namespace RoutesList.Build.Models.Tests
 {
     public class RoutesListOptionsTests
     {
-        private RoutesListOptions options = new RoutesListOptions();
+        private readonly RoutesListOptions options = new RoutesListOptions();
 
         [Fact]
         public void GetClassesTest()
@@ -18,7 +20,7 @@ namespace RoutesList.Build.Models.Tests
         public void SetClassesArrayTest()
         {
             IDictionary<string, string[]> dict = new Dictionary<string, string[]>();
-            string[] classes = dict["table"] = new string[2] { "table", "table-striped" };
+            string[] classes = dict["table"] = new[] { "table", "table-striped" };
 
             options.SetClasses(classes);
 
@@ -37,7 +39,7 @@ namespace RoutesList.Build.Models.Tests
         public void SetClassesNullTest()
         {
             options.SetClasses(null);
-            Assert.Equal(options.GetClasses(), new string[] { "table" });
+            Assert.Equal(options.GetClasses(), new[] { "table" });
         }
 
         [Fact]
