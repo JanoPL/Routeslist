@@ -1,7 +1,5 @@
-﻿using RoutesList.Build.Services.StaticFileBuilder.HtmlStructures.Structures;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
+using RoutesList.Build.Services.StaticFileBuilder.HtmlStructures.Structures;
 
 namespace RoutesList.Build.Services.StaticFileBuilder.HtmlStructures
 {

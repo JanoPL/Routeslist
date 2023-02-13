@@ -1,16 +1,13 @@
-﻿using Xunit;
-using RoutesList.Build.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Microsoft.CSharp.RuntimeBinder;
+using Xunit;
 
 namespace RoutesList.Build.Models.Tests
 {
     public class RoutesListOptionsTests
     {
         private RoutesListOptions options = new RoutesListOptions();
-        
+
         [Fact]
         public void GetClassesTest()
         {

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Linq;
 
 namespace RoutesList.Build.Services.StaticFileBuilder
 {
@@ -28,7 +26,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             } else {
                 Update<T>(data);
             }
-        } 
+        }
 
         public static void Update<T>(object data) where T : class
         {

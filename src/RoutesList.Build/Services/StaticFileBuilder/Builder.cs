@@ -1,9 +1,9 @@
-﻿using ConsoleTables;
-using RoutesList.Build.Models;
-using RoutesList.Build.Services.StaticFileBuilder.HtmlStructures;
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
+using ConsoleTables;
+using RoutesList.Build.Models;
+using RoutesList.Build.Services.StaticFileBuilder.HtmlStructures;
 
 namespace RoutesList.Build.Services.StaticFileBuilder
 {
@@ -87,7 +87,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
 
                 //Html structures factory
                 HtmlData.GetInstance();
-                
+
                 HtmlData.Add<ConsoleTable>(table);
 
                 BodyContent = HtmlStructureBodyCreator(new HtmlStructuresFactory(), tableStringBuilder);
@@ -104,7 +104,8 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         private string HtmlStructureBodyCreator(
             IHtmlStructuresFactory factory,
             StringBuilder tableStringBuilder
-        ) {
+        )
+        {
             var htmlTable = factory.CreateTableStructures(tableStringBuilder);
 
             htmlTable.Build();

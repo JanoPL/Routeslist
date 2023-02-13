@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using RoutesList.Build.Models;
 
@@ -27,8 +26,8 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         }
 
 
-        public StringBuilder CompileIndex(bool compileheader) 
-        { 
+        public StringBuilder CompileIndex(bool compileheader)
+        {
             if (compileheader) {
                 GetIndexHeader();
                 ReplaceTag(_header);
@@ -76,7 +75,8 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             bool compileBody,
             bool compileFooter,
             bool compileClasses
-        ) {
+        )
+        {
             if (compileHeader) {
                 GetIndexHeader();
                 ReplaceTag(_header);
@@ -96,7 +96,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
                 GetIndexClass();
                 ReplaceTag(_classes);
             }
-            
+
             return _stringBuilder;
         }
 
