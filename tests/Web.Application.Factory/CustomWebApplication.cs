@@ -18,6 +18,6 @@ namespace Web.Application.Factory
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             base.ConfigureWebHost(builder);
-        }
+        }   
     }
 }
