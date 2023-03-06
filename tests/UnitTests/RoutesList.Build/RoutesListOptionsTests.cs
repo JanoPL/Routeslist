@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 using Microsoft.CSharp.RuntimeBinder;
 #if !NET6_0_OR_GREATER
 using Xunit;
@@ -46,6 +47,16 @@ namespace RoutesList.Build.Models.Tests
         public void SetClassesExceptionTest()
         {
             Assert.Throws<RuntimeBinderException>(() => options.SetClasses(123));
+        }
+
+        [Fact]
+        public void SetAppAssembly()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+
+            options.SetAppAssembly(assembly);
+
+            Assert.Equal(options.GetAppAssembly(), assembly);
         }
     }
 }

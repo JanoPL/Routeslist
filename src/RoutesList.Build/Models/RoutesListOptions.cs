@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Reflection;
 using Microsoft.CSharp.RuntimeBinder;
 
 namespace RoutesList.Build.Models
@@ -12,9 +12,21 @@ namespace RoutesList.Build.Models
         public string Description { get; set; } = "Routing debugger for DotNet Core applications. A list of all routes in the formatted table";
         private dynamic _classes { get; set; } = "table";
 
+        private Assembly _appAssembly { get; set; }
+
         public dynamic GetClasses()
         {
             return _classes;
+        }
+
+        public void SetAppAssembly(Assembly assembly)
+        {
+            _appAssembly = assembly;
+        }
+
+        public Assembly GetAppAssembly()
+        {
+            return _appAssembly;
         }
 
 #if NET5_0_OR_GREATER

@@ -73,6 +73,7 @@ namespace RoutesList.Gen
             };
 #endif
             buildOptions.SetClasses(_options.GetTableClasses());
+            buildOptions.SetAppAssembly(_options.GetAppAssembly());
 
             var htmlBuilderResult = _tableBuilder.AsyncGenerateTable(buildOptions).GetAwaiter().GetResult();
 

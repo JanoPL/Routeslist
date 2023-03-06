@@ -33,9 +33,10 @@ namespace RoutesList.Gen
             return app.UseRoutesList(options);
         }
 
-        public static IApplicationBuilder UseRoutesList(this IApplicationBuilder app) 
+        public static IApplicationBuilder UseRoutesList(this IApplicationBuilder app)
         {
             RoutesListOptions options;
+
             using (var scope = app.ApplicationServices.CreateScope()) {
                 options = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot<RoutesListOptions>>().Value;
             }

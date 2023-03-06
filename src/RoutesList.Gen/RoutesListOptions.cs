@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Reflection;
 using Microsoft.CSharp.RuntimeBinder;
 
 namespace RoutesList.Gen
@@ -12,11 +10,22 @@ namespace RoutesList.Gen
 
         private dynamic _tableClasses { get; set; } = "table";
 
+        private Assembly _appAssembly { get; set; }
+
         public dynamic GetTableClasses()
         {
             return _tableClasses;
         }
 
+        public void SetAppAssembly(Assembly assembly)
+        {
+            _appAssembly = assembly;
+        }
+
+        public Assembly GetAppAssembly()
+        {
+            return _appAssembly;
+        }
 
 #if NET5_0_OR_GREATER
         public void SetTableClasses(dynamic value)
