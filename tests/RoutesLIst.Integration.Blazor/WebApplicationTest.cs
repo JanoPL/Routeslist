@@ -1,3 +1,4 @@
+using Bunit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RoutesList.Build.Services;
@@ -20,6 +21,11 @@ namespace RoutesLIst.Integration.Blazor
             _outPutPath = config["RenderOutputDirectory"] ?? ".RenderOutput";
         }
 
+        public static IEnumerable<object[]>? GetPages()
+            => RoutesComponent
+                .GetRoutesToRender(typeof(TestBasicBlazorServer.App).Assembly)
+                ?.Select(config => new object[] { config });
+
         [Theory]
         [InlineData("/", "text/html; charset=utf-8")]
         [InlineData("/Privacy", "text/html; charset=utf-8")]
@@ -38,33 +44,6 @@ namespace RoutesLIst.Integration.Blazor
             );
         }
 
-        public static IEnumerable<object[]> GetPages() 
-            => RoutesComponent
-                .GetRoutesToRender(typeof(TestBasicBlazorServer.App).Assembly)
-                .Select(config => new object[] { config });
-
-        [Theory]
-        [MemberData(nameof(GetPages))]
-        public async Task RenderComponentTest(string route)
-        {
-            //using var client = _blazorApp.CreateClient();
-            using var client = _application.CreateClient();
-            var renderPath = route.Substring(1);
-            var relativePath = Path.Combine(_outPutPath, renderPath);
-            var outputDirectory = Path.GetFullPath(relativePath);
-
-            _testOutputHelper.WriteLine($"creating directory '{outputDirectory}'");
-            Directory.CreateDirectory(outputDirectory);
-
-            var fileName = Path.Combine(outputDirectory, "index.html");
-            var result = await client.GetStreamAsync(route);
-
-            _testOutputHelper.WriteLine($"Writing content to '{fileName}'");
-            using (var file = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite, FileShare.None)) {
-                await result.CopyToAsync(file);
-            }
-
-            _testOutputHelper.WriteLine($"Pre rendering complete");
-        }
+        //TODO: add component test with bunit
     }
 }

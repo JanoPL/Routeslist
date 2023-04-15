@@ -24,11 +24,18 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="bUnit" Condition="'$(TargetFramework)' == 'net5.0'" />
+    <PackageReference Include="bUnit" Condition="'$(TargetFramework)' == 'net6.0'" />
+    <PackageReference Include="bUnit" Condition="'$(TargetFramework)' == 'net7.0'" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\RoutesList.Build\RoutesList.Build.csproj" />
     <ProjectReference Include="..\..\src\RoutesList.Gen\RoutesList.Gen.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
