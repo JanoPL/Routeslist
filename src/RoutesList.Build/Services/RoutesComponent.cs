@@ -12,8 +12,13 @@ namespace RoutesList.Build.Services
     public static class RoutesComponent
     {
 #if NETCOREAPP3_1
+        
         public static IEnumerable<RoutesInformationModel> GetRoutesToRender(Assembly assembly)
         {
+            if (assembly == null) {
+                return Enumerable.Empty<RoutesInformationModel>();
+            }
+
             var components = assembly
                 .ExportedTypes
                 .Where(t => t.IsSubclassOf(typeof(ComponentBase)));
@@ -27,6 +32,10 @@ namespace RoutesList.Build.Services
 #if NET5_0_OR_GREATER
         public static IEnumerable<RoutesInformationModel> GetRoutesToRender(Assembly assembly)
         {
+            if (assembly == null) {
+                return Enumerable.Empty<RoutesInformationModel>();
+            }
+
             var components = assembly
                 .ExportedTypes
                 .Where(t => t.IsSubclassOf(typeof(ComponentBase)));
