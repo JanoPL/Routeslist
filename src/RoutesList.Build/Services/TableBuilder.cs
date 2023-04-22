@@ -39,7 +39,12 @@ namespace RoutesList.Services
 
         public Task<string> AsyncGenerateTable(bool json)
         {
-            return GenerateTable(json);
+            return GenerateTable(json, null);
+        }
+
+        public Task<string> AsyncGenerateTable(bool isJson, RoutesListOptions options)
+        {
+            return GenerateTable(isJson, options);
         }
 
         private bool IsControllerActionDescriptor()
@@ -94,8 +99,13 @@ namespace RoutesList.Services
             return await Task.FromResult(_builder.Result);
         }
 
-        private async Task<string> GenerateTable(bool isJson)
+#nullable enable
+        private async Task<string> GenerateTable(bool isJson, RoutesListOptions? options)
         {
+            if (options != null) {
+                _routes.SetAssembly(options.GetAppAssembly());
+            }
+
             ListRoutes = _routes.getRoutesInformation(_actionDescriptorCollectionProvider);
 
             if (isJson) {
@@ -108,6 +118,7 @@ namespace RoutesList.Services
                                     x.RelativePath,
                                     x.ViewEnginePath,
                                     x.Display_name,
+                                    x.Template,
                                 };
                             })
                     );
@@ -132,6 +143,7 @@ namespace RoutesList.Services
 
             return await Task.FromResult("");
         }
+#nullable disable
 
         private ConsoleTable BuildHeaders(ConsoleTable table)
         {

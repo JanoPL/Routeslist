@@ -66,6 +66,8 @@ namespace RoutesList.Build.Services
 
             route.RelativePath = component.FullName.Replace(".", "/") + ".razor";
 
+            route.IsCompiledPageActionDescriptor = true;
+
             if (string.IsNullOrEmpty(route.Template)) {
                 throw new Exception($"RouteAttribute in component '{component}' has empty route template");
             }
