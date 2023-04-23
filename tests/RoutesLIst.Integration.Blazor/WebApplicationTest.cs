@@ -9,16 +9,12 @@ namespace RoutesLIst.Integration.Blazor
     public class WebApplicationTest
     {
         private readonly CustomWebApplication<TestBasicBlazorServer.Program> _application;
-        private readonly ITestOutputHelper _testOutputHelper;
-        private readonly string _outPutPath;
 
-        public WebApplicationTest(ITestOutputHelper testOutputHelper)
+        public WebApplicationTest()
         {
             _application = new CustomWebApplication<TestBasicBlazorServer.Program>();
-            _testOutputHelper = testOutputHelper;
 
             var config = _application.Services.GetRequiredService<IConfiguration>();
-            _outPutPath = config["RenderOutputDirectory"] ?? ".RenderOutput";
         }
 
         public static IEnumerable<object[]>? GetPages()
