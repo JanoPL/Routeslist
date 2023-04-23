@@ -15,7 +15,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/cache@v3
+      - name: store cache packages
+        uses: actions/cache@v3
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-${{ github.workflow }}-${{ matrix.configuration }}-${{ matrix.dotnet-version }}-nuget-${{ hashFiles('**/packages.lock.json') }}
