@@ -1,24 +1,29 @@
 using Web.Application.Factory;
+using Program1 = TestBasicBlazorServer.Program;
+using Program2 = TestBasicSiteRazor.Program;
+using Program3 = TestBasicSite.Program;
 
 namespace Test.WebApplication.factory
 {
     public class CustomWebApplicationTest
     {
-        private readonly CustomWebApplication<Program> _application;
-        public CustomWebApplicationTest()
+        public static IEnumerable<object[]> GetPrograms()
         {
-            _application = new CustomWebApplication<Program>();
+            yield return new object[] { new CustomWebApplication<Program1>() };
+            yield return new object[] { new CustomWebApplication<Program2>() };
+            yield return new object[] { new CustomWebApplication<Program3>() };
         }
 
-        [Fact]
-        public async void WebApplication_Factory_should_create()
+        [Theory]
+        [MemberData(nameof(GetPrograms))]
+        public async void WebApplication_Factory_should_create(dynamic application)
         {
-            using var client = _application.CreateClient();
+            using var client = application?.CreateClient();
 
             Assert.NotNull(client);
             Assert.IsType<HttpClient>(client);
 
-            using var response = await client.GetAsync("/");
+            using var response = await client?.GetAsync("/");
 
             response.EnsureSuccessStatusCode();
         }

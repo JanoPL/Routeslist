@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TestSites\TestBasicSiteNet6\TestBasicSiteNet6.csproj" />
+    <ProjectReference Include="..\TestSites\TestBasicSiteRazor\TestBasicSiteRazor.csproj" />
     <ProjectReference Include="..\Web.Application.Factory\Web.Application.Factory.csproj" />
   </ItemGroup>
 

@@ -1362,7 +1362,19 @@
           "RoutesList.Build": "[1.1.0, )"
         }
       },
-      "testbasicsitenet6": {
+      "testbasicblazorserver": {
+        "type": "Project",
+        "dependencies": {
+          "RoutesList.Gen": "[1.1.0, )"
+        }
+      },
+      "testbasicsite": {
+        "type": "Project",
+        "dependencies": {
+          "RoutesList.Gen": "[1.1.0, )"
+        }
+      },
+      "testbasicsiterazor": {
         "type": "Project",
         "dependencies": {
           "RoutesList.Gen": "[1.1.0, )"
@@ -2735,7 +2747,19 @@
           "RoutesList.Build": "[1.1.0, )"
         }
       },
-      "testbasicsitenet6": {
+      "testbasicblazorserver": {
+        "type": "Project",
+        "dependencies": {
+          "RoutesList.Gen": "[1.1.0, )"
+        }
+      },
+      "testbasicsite": {
+        "type": "Project",
+        "dependencies": {
+          "RoutesList.Gen": "[1.1.0, )"
+        }
+      },
+      "testbasicsiterazor": {
         "type": "Project",
         "dependencies": {
           "RoutesList.Gen": "[1.1.0, )"

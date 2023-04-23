@@ -13,8 +13,6 @@ namespace RoutesLIst.Integration.Blazor
         public WebApplicationTest()
         {
             _application = new CustomWebApplication<TestBasicBlazorServer.Program>();
-
-            var config = _application.Services.GetRequiredService<IConfiguration>();
         }
 
         public static IEnumerable<object[]>? GetPages()
