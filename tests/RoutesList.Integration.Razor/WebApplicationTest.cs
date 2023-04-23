@@ -1,3 +1,5 @@
+using TestBasicSiteRazor;
+
 namespace RoutesList.Integration.Razor
 {
     public class WebApplicationTest

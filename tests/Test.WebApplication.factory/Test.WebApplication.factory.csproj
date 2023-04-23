@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
     <PackageReference Include="Moq" />
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio">
@@ -24,7 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TestSites\TestBasicSiteNet6\TestBasicSiteNet6.csproj" />
+    <ProjectReference Include="..\TestSites\TestBasicBlazorServer\TestBasicBlazorServer.csproj" />
+    <ProjectReference Include="..\TestSites\TestBasicSiteRazor\TestBasicSiteRazor.csproj" />
+    <ProjectReference Include="..\TestSites\TestBasicSite\TestBasicSite.csproj" />
     <ProjectReference Include="..\Web.Application.Factory\Web.Application.Factory.csproj" />
   </ItemGroup>
 

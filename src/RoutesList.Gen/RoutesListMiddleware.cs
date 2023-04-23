@@ -73,8 +73,9 @@ namespace RoutesList.Gen
             };
 #endif
             buildOptions.SetClasses(_options.GetTableClasses());
+            buildOptions.SetAppAssembly(_options.GetAppAssembly());
 
-            var htmlBuilderResult = _tableBuilder.AsyncGenerateTable(buildOptions).GetAwaiter().GetResult();
+            string htmlBuilderResult = _tableBuilder.AsyncGenerateTable(buildOptions).GetAwaiter().GetResult();
 
             await response.WriteAsync(htmlBuilderResult.ToString(), Encoding.UTF8);
         }
@@ -84,7 +85,22 @@ namespace RoutesList.Gen
             response.StatusCode = 200;
             response.ContentType = "application/json; charset=utf-8";
 
-            var htmlBuilderResult = _tableBuilder.AsyncGenerateTable(true).GetAwaiter().GetResult();
+#if NETCOREAPP3_1 || NET5_0
+            Build.Models.RoutesListOptions buildOptions = new Build.Models.RoutesListOptions {
+                Tittle = _options.Tittle,
+                CharSet = "UTF-8",
+            };
+#endif
+#if NET6_0_OR_GREATER
+            Build.Models.RoutesListOptions buildOptions = new() {
+                Tittle = _options.Tittle,
+                CharSet = "UTF-8",
+            };
+#endif
+
+            buildOptions.SetAppAssembly (_options.GetAppAssembly());
+
+            string htmlBuilderResult = _tableBuilder.AsyncGenerateTable(isJson: true, buildOptions).GetAwaiter().GetResult();
 
             await response.WriteAsync(htmlBuilderResult, Encoding.UTF8);
         }

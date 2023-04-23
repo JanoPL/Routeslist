@@ -18,10 +18,13 @@ namespace RoutesList.Services
         private readonly IRoutes _routes;
         private readonly IBuilder _builder;
         private readonly IActionDescriptorCollectionProvider _actionDescriptorCollectionProvider;
+
         private IList<RoutesInformationModel> ListRoutes { get; set; } = new List<RoutesInformationModel>();
 
         public TableBuilder(
-            IActionDescriptorCollectionProvider collectionProvider, IRoutes routes, IBuilder builder
+            IActionDescriptorCollectionProvider collectionProvider,
+            IRoutes routes,
+            IBuilder builder
         )
         {
             _actionDescriptorCollectionProvider = collectionProvider;
@@ -36,7 +39,12 @@ namespace RoutesList.Services
 
         public Task<string> AsyncGenerateTable(bool json)
         {
-            return GenerateTable(json);
+            return GenerateTable(json, null);
+        }
+
+        public Task<string> AsyncGenerateTable(bool isJson, RoutesListOptions options)
+        {
+            return GenerateTable(isJson, options);
         }
 
         private bool IsControllerActionDescriptor()
@@ -79,7 +87,7 @@ namespace RoutesList.Services
 #if NETCOREAPP3_1
             ConsoleTable table = new ConsoleTable();
 #endif
-
+            _routes.SetAssembly(options.GetAppAssembly());
             ListRoutes = _routes.getRoutesInformation(_actionDescriptorCollectionProvider);
 
             table = BuildHeaders(table);
@@ -91,8 +99,13 @@ namespace RoutesList.Services
             return await Task.FromResult(_builder.Result);
         }
 
-        private async Task<string> GenerateTable(bool isJson)
+#nullable enable
+        private async Task<string> GenerateTable(bool isJson, RoutesListOptions? options)
         {
+            if (options != null) {
+                _routes.SetAssembly(options.GetAppAssembly());
+            }
+
             ListRoutes = _routes.getRoutesInformation(_actionDescriptorCollectionProvider);
 
             if (isJson) {
@@ -105,6 +118,7 @@ namespace RoutesList.Services
                                     x.RelativePath,
                                     x.ViewEnginePath,
                                     x.Display_name,
+                                    x.Template,
                                 };
                             })
                     );
@@ -129,6 +143,7 @@ namespace RoutesList.Services
 
             return await Task.FromResult("");
         }
+#nullable disable
 
         private ConsoleTable BuildHeaders(ConsoleTable table)
         {
@@ -159,9 +174,9 @@ namespace RoutesList.Services
         private ConsoleTable BuildRows(ConsoleTable table)
         {
             if (ListRoutes.Count > 0) {
-                if (!String.IsNullOrEmpty(ListRoutes[0].ViewEnginePath) || !String.IsNullOrEmpty(ListRoutes[0].RelativePath)) {
+                if (!String.IsNullOrEmpty(ListRoutes[0].ViewEnginePath) || !String.IsNullOrEmpty(ListRoutes[0].RelativePath) || !string.IsNullOrEmpty(ListRoutes[0].Template)) {
                     foreach (var route in ListRoutes) {
-                        string linkString = $"<a href=/{route.ViewEnginePath}>{route.ViewEnginePath ?? "/"} </a>";
+                        string linkString = $"<a href=/{route.ViewEnginePath}>{route.ViewEnginePath ?? route.Template ?? "/"} </a>";
                         table.AddRow(route.Display_name, /*route.ViewEnginePath*/ linkString, route.RelativePath);
                     }
                 }
