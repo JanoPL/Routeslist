@@ -8,7 +8,7 @@ namespace Web.Application.Factory
     {
         protected override IHost CreateHost(IHostBuilder builder)
         {
-            builder.UseEnvironment("Development");
+            builder.UseEnvironment("Testing");
             var host = builder.Build();
             host.Start();
 
@@ -17,6 +17,8 @@ namespace Web.Application.Factory
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
+            builder.UseEnvironment("Testing");
+
             base.ConfigureWebHost(builder);
         }   
     }
