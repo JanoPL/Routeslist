@@ -138,6 +138,8 @@ _TeamCity*
 # Visual Studio code coverage results
 *.coverage
 *.coveragexml
+coveragereport/
+*.cobertura.[Xx]ml
 
 # NCrunch
 _NCrunch_*
@@ -338,3 +340,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+# Visual Studio Code Cache/options
+.vscode

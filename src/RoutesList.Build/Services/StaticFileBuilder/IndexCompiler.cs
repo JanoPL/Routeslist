@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using RoutesList.Build.Models;
 
@@ -27,8 +26,8 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         }
 
 
-        public StringBuilder CompileIndex(bool compileheader) 
-        { 
+        public StringBuilder CompileIndex(bool compileheader)
+        {
             if (compileheader) {
                 GetIndexHeader();
                 ReplaceTag(_header);
@@ -70,12 +69,14 @@ namespace RoutesList.Build.Services.StaticFileBuilder
 
             return _stringBuilder;
         }
+
         public StringBuilder CompileIndex(
             bool compileHeader,
             bool compileBody,
             bool compileFooter,
             bool compileClasses
-        ) {
+        )
+        {
             if (compileHeader) {
                 GetIndexHeader();
                 ReplaceTag(_header);
@@ -95,7 +96,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
                 GetIndexClass();
                 ReplaceTag(_classes);
             }
-            
+
             return _stringBuilder;
         }
 
@@ -108,22 +109,24 @@ namespace RoutesList.Build.Services.StaticFileBuilder
 
         private void GetIndexBody()
         {
-            _body = new Dictionary<string, string>() {
+            _body = new Dictionary<string, string> {
                 { "$(body)", BodyContent }
             };
         }
 
         private void GetIndexHeader()
         {
-            _header = new Dictionary<string, string>() {
+            _header = new Dictionary<string, string> {
                 { "$(charsetEncoding)", _options.CharSet },
                 { "$(title)", _options.Tittle },
-                { "$(additionalHead)",  AdditionalHeader}
+                { "$(additionalHead)",  AdditionalHeader },
+                { "$(description)", _options.Description },
             };
         }
+
         private void GetIndexFooter()
         {
-            _footer = new Dictionary<string, string>() {
+            _footer = new Dictionary<string, string> {
                 { "$(footer-link)", _options.FooterLink },
                 { "$(footer-text)", _options.FooterText },
                 { "$(footer-year)", DateTime.Now.Year.ToString() }
@@ -138,7 +141,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
                 classes = String.Join(" ", _options.GetClasses());
             }
 
-            _classes = new Dictionary<string, string>() {
+            _classes = new Dictionary<string, string> {
                 { "$(table-classes)", classes },
             };
         }

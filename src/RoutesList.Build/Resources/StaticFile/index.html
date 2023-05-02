@@ -1,22 +1,19 @@
 ﻿<!DOCTYPE HTML>
 <html lang="en">
-    <head>
-        <meta charset="$(charsetEncoding)">
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>$(title)</title>
-
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <!--@if (styleSheet)
-            <link href="$(stylePath)" rel="stylesheet">
-        @else-->
-        <style>
-            body {
-                margin: 15px;
-            }
-        </style>
-        <!--@endif-->
-        $(additionalHead)
-    </head>
+<head>
+    <meta charset="$(charsetEncoding)">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="style-src 'self' 'unsafe-inline' https://stackpath.bootstrapcdn.com">
+    <title>$(title)</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="description" content="$(description)">
+    <style>
+        body {
+            margin: 15px;
+        }
+    </style>
+    $(additionalHead)
+</head>
 
     <body>
         <div class="container text-center">

@@ -10,42 +10,113 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        dotnet-version: [ '6.0.x' ]
+        configuration: [ Debug ]
+        dotnet-version: [ 'netcoreapp3.1', 'net5.0', 'net6.0', 'net7.0' ]
     steps:
       - uses: actions/checkout@v3
+
+      - name: store cache packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-${{ github.workflow }}-${{ matrix.configuration }}-${{ matrix.dotnet-version }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ github.workflow }}-${{ matrix.configuration }}-${{ matrix.dotnet-version }}-nuget-${{ hashFiles('**/packages.lock.json') }}
     
-      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+      - name: Setup .NET Core SDK netcoreapp3.1
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+          dotnet-version: 3.1.x
+      
+      - name: Setup .NET Core SDK net5.0
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 5.0.x
 
+      - name: Setup .NET Core SDK net6.0
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Setup .NET Core SDK net7.0
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+      
       - name: Install dependencies
         run: dotnet restore
       
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build --configuration ${{ matrix.configuration }} --no-restore
       
       - name: Test
-        run: dotnet test --no-restore --verbosity minimal
+        run: dotnet test --no-restore --verbosity minimal --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }} 
   
   build-linux:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dotnet-version: [ '6.0.x' ]
+        configuration: [ Debug ]
+        dotnet-version: [ 'netcoreapp3.1', 'net5.0', 'net6.0', 'net7.0' ]
     steps: 
       - uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-${{ github.workflow }}-${{ matrix.configuration }}-${{ matrix.dotnet-version }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ github.workflow }}-${{ matrix.configuration }}-${{ matrix.dotnet-version }}-nuget-${{ hashFiles('**/packages.lock.json') }}
       
-      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+      - name: Setup .NET Core SDK netcoreapp3.1
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+          dotnet-version: 3.1.x
+      
+      - name: Setup .NET Core SDK net5.0
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 5.0.x
+
+      - name: Setup .NET Core SDK net6.0
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Setup .NET Core SDK net7.0
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
     
       - name: Install dependencies
         run: dotnet restore
       
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build --configuration ${{ matrix.configuration }} --no-restore
       
       - name: Test
-        run: dotnet test --no-restore --verbosity minimal
+        run: dotnet test --no-restore --verbosity minimal --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }} --collect "XPlat Code Coverage"
+
+      - name: Rename and move Cobertura test to ${{ github.workspace }}/coverage directory
+        if: ${{ matrix.dotnet-version == 'net7.0' }}
+        run: |
+          mkdir -p ${{ github.workspace }}/coverage
+          cp ${{ github.workspace }}/tests/UnitTests/TestResults/**/coverage.cobertura.xml ${{ github.workspace }}/coverage/coverage1.xml
+          cp ${{ github.workspace }}/tests/Test.WebApplication.factory/TestResults/**/coverage.cobertura.xml ${{ github.workspace }}/coverage/coverage2.xml
+          cp ${{ github.workspace }}/tests/RouteList.IntegrationTest/TestResults/**/coverage.cobertura.xml ${{ github.workspace }}/coverage/coverage3.xml
+          cp ${{ github.workspace }}/tests/RoutesList.Integration.Razor/TestResults/**/coverage.cobertura.xml ${{ github.workspace }}/coverage/coverage4.xml
+          cp ${{ github.workspace }}/tests/RoutesLIst.Integration.Blazor/TestResults/**/coverage.cobertura.xml ${{ github.workspace }}/coverage/coverage5.xml
+          ls ${{ github.workspace }}/coverage 
+
+      - name: Send coverage reports to Codacy 
+        if: ${{ matrix.dotnet-version == 'net7.0' }}
+        run: |
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage1.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage2.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage3.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage4.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage5.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
+
+      - name: Finalize codacy reporter
+        if: ${{ matrix.dotnet-version == 'net7.0' }}
+        run: bash <(curl -Ls https://coverage.codacy.com/get.sh) final -t ${{ secrets.CODACY_PROJECT_SECRET }}

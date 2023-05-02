@@ -1,6 +1,6 @@
 ﻿using RoutesList.Build.Models;
 
-namespace RoutesList.Services.RoutesBuilder
+namespace RoutesList.Build.Services.RoutesBuilder
 {
     /// <summary>
     /// Builder for RoutesInformationModel 
@@ -8,7 +8,12 @@ namespace RoutesList.Services.RoutesBuilder
     /// </summary>
     public class Builder
     {
+#if NET5_0_OR_GREATER
         private readonly RoutesInformationModel _model = new();
+#endif
+#if NETCOREAPP3_1
+        private readonly RoutesInformationModel _model = new RoutesInformationModel();
+#endif
 
         /// <summary>
         /// Adding the id of the line from which to start counting to the builder. has automatic value increments
@@ -17,7 +22,8 @@ namespace RoutesList.Services.RoutesBuilder
         /// <returns></returns>
         public Builder Create(
             int? id
-        ) {
+        )
+        {
             int routeId = 0;
 
             if (!id.HasValue) {
@@ -27,7 +33,7 @@ namespace RoutesList.Services.RoutesBuilder
             }
 
             _model.Id = routeId;
-            
+
             return this;
         }
 
@@ -60,7 +66,7 @@ namespace RoutesList.Services.RoutesBuilder
         /// <returns></returns>
         public Builder DisplayName(string name)
         {
-            _model.Display_name = name;  
+            _model.Display_name = name;
             return this;
         }
 
@@ -118,7 +124,7 @@ namespace RoutesList.Services.RoutesBuilder
         /// Started to build object
         /// </summary>
         /// <returns></returns>
-        public RoutesInformationModel build()
+        public RoutesInformationModel Build()
         {
             return _model;
         }

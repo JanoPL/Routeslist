@@ -1,7 +1,7 @@
-﻿using ConsoleTables;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ConsoleTables;
 
 namespace RoutesList.Build.Services.StaticFileBuilder.HtmlStructures.Structures
 {
@@ -13,7 +13,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder.HtmlStructures.Structures
         public IList<object> TableColumn { get; set; }
         public string TableData { get; set; } = String.Empty;
 
-        public TableStructure (StringBuilder sb)
+        public TableStructure(StringBuilder sb)
         {
             _stringBuilder = sb;
         }
@@ -31,7 +31,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder.HtmlStructures.Structures
             string tbodyTag = "$(tbody-trow-data)";
 
             _stringBuilder.Replace(theadTag, tableColumn);
-            
+
             _stringBuilder.Replace(tbodyTag, tableRow);
 
             TableData = _stringBuilder.ToString();

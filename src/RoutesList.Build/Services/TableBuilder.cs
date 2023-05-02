@@ -1,16 +1,15 @@
-﻿using ConsoleTables;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using ConsoleTables;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Newtonsoft.Json;
-using RoutesList.Build.Services.StaticFileBuilder;
-using RoutesList.Interfaces;
-using RoutesList.Build.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System;
-using System.ComponentModel.DataAnnotations;
 using RoutesList.Build.Enums;
 using RoutesList.Build.Extensions;
-using System.Linq;
+using RoutesList.Build.Models;
+using RoutesList.Build.Services.StaticFileBuilder;
+using RoutesList.Interfaces;
 
 namespace RoutesList.Services
 {
@@ -19,34 +18,44 @@ namespace RoutesList.Services
         private readonly IRoutes _routes;
         private readonly IBuilder _builder;
         private readonly IActionDescriptorCollectionProvider _actionDescriptorCollectionProvider;
+
         private IList<RoutesInformationModel> ListRoutes { get; set; } = new List<RoutesInformationModel>();
 
         public TableBuilder(
-            IActionDescriptorCollectionProvider collectionProvider, IRoutes routes, IBuilder builder
-        ) {
+            IActionDescriptorCollectionProvider collectionProvider,
+            IRoutes routes,
+            IBuilder builder
+        )
+        {
             _actionDescriptorCollectionProvider = collectionProvider;
             _routes = routes;
             _builder = builder;
         }
 
-        public Task<string> AsyncGenerateTable(RoutesListOptions options, bool toJson)
-        {
-            return GenerateTable(options, toJson);
-        }
-
         public Task<string> AsyncGenerateTable(RoutesListOptions options)
         {
-            return GenerateTable(options, false);
+            return GenerateTable(options);
         }
 
         public Task<string> AsyncGenerateTable(bool json)
         {
-            return GenerateTable(null, true);
+            return GenerateTable(json, null);
+        }
+
+        public Task<string> AsyncGenerateTable(bool isJson, RoutesListOptions options)
+        {
+            return GenerateTable(isJson, options);
         }
 
         private bool IsControllerActionDescriptor()
         {
+#if NET5_0_OR_GREATER
+            List<bool> result = new();
+#endif
+#if NETCOREAPP3_1
             List<bool> result = new List<bool>();
+#endif
+
             foreach (var route in ListRoutes) {
                 result.Add(route.IsCompiledPageActionDescriptor == false);
             }
@@ -56,7 +65,13 @@ namespace RoutesList.Services
 
         private bool IsCompiledPageActionDescriptor()
         {
+#if NET5_0_OR_GREATER
+            List<bool> result = new();
+#endif
+#if NETCOREAPP3_1
             List<bool> result = new List<bool>();
+#endif
+
             foreach (var route in ListRoutes) {
                 result.Add(route.IsCompiledPageActionDescriptor == true);
             }
@@ -64,28 +79,34 @@ namespace RoutesList.Services
             return result.TrueForAll(x => x);
         }
 
-        private async Task<string> GenerateTable(RoutesListOptions options, bool isJson)
+        private async Task<string> GenerateTable(RoutesListOptions options)
         {
+#if NET5_0_OR_GREATER
+            ConsoleTable table = new();
+#endif
+#if NETCOREAPP3_1
             ConsoleTable table = new ConsoleTable();
-            IList<string> headers = new List<string>();
+#endif
+            _routes.SetAssembly(options.GetAppAssembly());
             ListRoutes = _routes.getRoutesInformation(_actionDescriptorCollectionProvider);
 
-            if (!String.IsNullOrEmpty(ListRoutes[0].ViewEnginePath) || !String.IsNullOrEmpty(ListRoutes[0].RelativePath)) {
-                foreach (var headerName in EnumExtension.GetListOfDescription<TableHeaderPageActionDescriptor>()) {
-                    headers.Add(headerName);
-                }
+            table = BuildHeaders(table);
 
-                table.AddColumn(headers);
+            table = BuildRows(table);
+
+            _builder.Build(table, options);
+
+            return await Task.FromResult(_builder.Result);
+        }
+
+#nullable enable
+        private async Task<string> GenerateTable(bool isJson, RoutesListOptions? options)
+        {
+            if (options != null) {
+                _routes.SetAssembly(options.GetAppAssembly());
             }
 
-            if (!String.IsNullOrEmpty(ListRoutes[0].Controller_name)) {
-                foreach (var headerName in EnumExtension.GetListOfDescription<TableHeaderControllerActionDescriptor>()) {
-                    headers.Add(headerName);
-                }
-
-                table.AddColumn(headers);
-            }
-
+            ListRoutes = _routes.getRoutesInformation(_actionDescriptorCollectionProvider);
 
             if (isJson) {
                 string serialize = String.Empty;
@@ -97,6 +118,7 @@ namespace RoutesList.Services
                                     x.RelativePath,
                                     x.ViewEnginePath,
                                     x.Display_name,
+                                    x.Template,
                                 };
                             })
                     );
@@ -119,23 +141,55 @@ namespace RoutesList.Services
                 return await Task.FromResult(serialize);
             }
 
-            if (!String.IsNullOrEmpty(ListRoutes[0].ViewEnginePath) || !String.IsNullOrEmpty(ListRoutes[0].RelativePath)) {
-                foreach (var route in ListRoutes) {
-                    string linkString = $"<a href=/{route.ViewEnginePath}>{route.ViewEnginePath ?? "/"} </a>";
-                    table.AddRow(route.Display_name, /*route.ViewEnginePath*/ linkString, route.RelativePath);
+            return await Task.FromResult("");
+        }
+#nullable disable
+
+        private ConsoleTable BuildHeaders(ConsoleTable table)
+        {
+            IList<string> headers = new List<string>();
+
+            if (ListRoutes.Count > 0) {
+                if (!String.IsNullOrEmpty(ListRoutes[0].ViewEnginePath) || !String.IsNullOrEmpty(ListRoutes[0].RelativePath)) {
+                    foreach (var headerName in EnumExtension.GetListOfDescription<TableHeaderPageActionDescriptor>()) {
+                        headers.Add(headerName);
+                    }
+
+                    table.AddColumn(headers);
+                }
+
+                if (!String.IsNullOrEmpty(ListRoutes[0].Controller_name)) {
+                    foreach (var headerName in EnumExtension.GetListOfDescription<TableHeaderControllerActionDescriptor>()) {
+                        headers.Add(headerName);
+                    }
+
+                    table.AddColumn(headers);
                 }
             }
 
-            if (!string.IsNullOrEmpty(ListRoutes[0].Controller_name)) {
-                foreach (var route in ListRoutes) {
-                    string linkString = $"<a href=/{route.Template}>{route.Template ?? "/"} </a>";
-                    table.AddRow(route.Method_name, linkString, route.Controller_name, route.Action_name, route.Display_name);
+
+            return table;
+        }
+
+        private ConsoleTable BuildRows(ConsoleTable table)
+        {
+            if (ListRoutes.Count > 0) {
+                if (!String.IsNullOrEmpty(ListRoutes[0].ViewEnginePath) || !String.IsNullOrEmpty(ListRoutes[0].RelativePath) || !string.IsNullOrEmpty(ListRoutes[0].Template)) {
+                    foreach (var route in ListRoutes) {
+                        string linkString = $"<a href=/{route.ViewEnginePath}>{route.ViewEnginePath ?? route.Template ?? "/"} </a>";
+                        table.AddRow(route.Display_name, /*route.ViewEnginePath*/ linkString, route.RelativePath);
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(ListRoutes[0].Controller_name)) {
+                    foreach (var route in ListRoutes) {
+                        string linkString = $"<a href=/{route.Template}>{route.Template ?? "/"} </a>";
+                        table.AddRow(route.Method_name, linkString, route.Controller_name, route.Action_name, route.Display_name);
+                    }
                 }
             }
 
-            _builder.Build(table, options);
-
-            return await Task.FromResult(_builder.Result);
+            return table;
         }
     }
 }

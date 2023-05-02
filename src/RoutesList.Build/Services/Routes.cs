@@ -1,19 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Microsoft.AspNetCore.Mvc.Abstractions;
-using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using RoutesList.Build.Models;
+using RoutesList.Build.Services;
+using RoutesList.Build.Services.Strategies;
 using RoutesList.Interfaces;
-using RoutesList.Services.RoutesBuilder;
 
 namespace RoutesList.Services
 {
     public class Routes : IRoutes
     {
-        public IEnumerable<ActionDescriptor> getRoutes(IActionDescriptorCollectionProvider collectionProvider)
+        private Assembly _assembly { get; set; }
+
+        public void SetAssembly(Assembly assembly)
+        {
+            _assembly = assembly;
+        }
+
+        public IList<RoutesInformationModel> getRoutesInformation(IActionDescriptorCollectionProvider collectionProvider)
+        {
+            IList<RoutesInformationModel> routes = new List<RoutesInformationModel>();
+
+            int id = 1;
+            IEnumerable<ActionDescriptor> items = GetActionDescriptorRoutes(collectionProvider);
+
+            foreach (ActionDescriptor route in items) {
+                RoutesInformationModel routesInformationModel;
+                Context context;
+
+                if (IsCompiledPageDescriptor(route)) {
+                    context = new Context(new BuildCompiledPageDescriptorStrategy(id, items), route);
+                } else if (IsControllerActionDescriptor(route)) {
+                    context = new Context(new BuildControllerActionDescriptorStrategy(id), route);
+                } else {
+                    continue;
+                }
+
+                routesInformationModel = context.Execute();
+
+                routes.Add(routesInformationModel);
+                id++;
+            }
+
+            IList<RoutesInformationModel> routesInformationModelsItems = GetComponentsRoutes().ToList();
+            routes = routes.Union(routesInformationModelsItems).ToList();
+            
+            return routes;
+        }
+
+        private IEnumerable<ActionDescriptor> GetActionDescriptorRoutes(IActionDescriptorCollectionProvider collectionProvider)
         {
             if (collectionProvider != null) {
                 IEnumerable<ActionDescriptor> routes = collectionProvider
@@ -26,80 +64,15 @@ namespace RoutesList.Services
             return Enumerable.Empty<ActionDescriptor>();
         }
 
-        public IList<RoutesInformationModel> getRoutesInformation(IActionDescriptorCollectionProvider collectionProvider)
+        private IEnumerable<RoutesInformationModel> GetComponentsRoutes()
         {
-            IList<RoutesInformationModel> routes = new List<RoutesInformationModel>();
-
-            int id = 1;
-            var items = getRoutes(collectionProvider);
-            foreach (ActionDescriptor route in items) {
-                string controllerName = String.Empty;
-                string actionName = String.Empty;
-                string displayName = String.Empty;
-                string template = String.Empty;
-                string methodName = String.Empty;
-                string viewEnginePath = String.Empty;
-                string relativePath = String.Empty;
-
-                Builder builder = new Builder().Create(id);
-
-                if (IsCompiledPageDescriptor(route)) {
-                    var compiledPageActionDescriptor = items.OfType<CompiledPageActionDescriptor>()
-                        .Where(r => r.Id == route.Id)
-                        .Select(a => new {
-                            a.DisplayName,
-                            a.ViewEnginePath,
-                            a.RelativePath
-                        }).First();
-
-                    viewEnginePath = (string)compiledPageActionDescriptor?.ViewEnginePath;
-                    relativePath = (string)compiledPageActionDescriptor?.RelativePath;
-                    displayName = (string)compiledPageActionDescriptor?.DisplayName;
-
-                    builder.IsCompiledpageActionDescriptior(true);
-                }
-
-                if (IsControllerActionDescriptio(route)) {
-                    controllerName = route.RouteValues.Where(value => value.Key == "controller").First().Value;
-                    actionName = route.RouteValues.Where(value => value.Key == "action").First().Value;
-                    displayName = route.DisplayName;
-                    template = route.AttributeRouteInfo?.Template;
-                    methodName = route.ActionConstraints?.OfType<HttpMethodActionConstraint>()?.SingleOrDefault()?.HttpMethods?.First<string>();
-                }
-
-                if (!String.IsNullOrEmpty(controllerName)) {
-                    builder.ControllerName(controllerName);
-                }
-
-                if (!String.IsNullOrEmpty(actionName)) {
-                    builder.ActionName(actionName);
-                }
-
-                if (!String.IsNullOrEmpty(displayName)) {
-                    builder.DisplayName(displayName);
-                }
-
-                if (!String.IsNullOrEmpty(template)) {
-                    builder.Template(template);
-                }
-
-                if (!String.IsNullOrEmpty(methodName)) {
-                    builder.MethodName(methodName);
-                }
-
-                if (!String.IsNullOrEmpty(viewEnginePath)) {
-                    builder.ViewEnginePath(viewEnginePath);
-                }
-
-                if (!String.IsNullOrEmpty(relativePath)) {
-                    builder.RelativePath(relativePath);
-                }
-
-                RoutesInformationModel model = builder.build();
-                routes.Add(model);
+            IEnumerable<RoutesInformationModel> componentsRoutes = RoutesComponent.GetRoutesToRender(_assembly);
+            
+            if (componentsRoutes.Any()) {
+                return componentsRoutes;
             }
-
-            return routes;
+            
+            return Enumerable.Empty<RoutesInformationModel>();
         }
 
         private static bool IsCompiledPageDescriptor(ActionDescriptor actionDescriptor)
@@ -107,7 +80,7 @@ namespace RoutesList.Services
             return actionDescriptor.GetType().FullName == "Microsoft.AspNetCore.Mvc.RazorPages.CompiledPageActionDescriptor";
         }
 
-        private static bool IsControllerActionDescriptio(ActionDescriptor actionDescriptor)
+        private static bool IsControllerActionDescriptor(ActionDescriptor actionDescriptor)
         {
             return actionDescriptor.GetType().FullName == "Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor";
         }
