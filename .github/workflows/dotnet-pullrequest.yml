@@ -94,7 +94,7 @@ jobs:
         run: dotnet build --configuration ${{ matrix.configuration }} --no-restore
       
       - name: Test
-        run: dotnet test --no-restore --verbosity minimal --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }} 
+        run: dotnet test --no-restore --verbosity minimal --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }} --collect "XPlat Code Coverage"
 
       - name: Rename and move Cobertura test to ${{ github.workspace }}/coverage directory
         if: ${{ matrix.dotnet-version == 'net7.0' }}
