@@ -23,8 +23,8 @@
     
     <PackageVersion Include="Moq" Version="4.18.4" />
 
-    <PackageVersion Include="bUnit" Version="1.18.4" Condition="'$(TargetFramework)' == 'net5.0'"/>
-    <PackageVersion Include="bUnit" Version="1.18.4" Condition="'$(TargetFramework)' == 'net6.0'"/>
-    <PackageVersion Include="bUnit" Version="1.18.4" Condition="'$(TargetFramework)' == 'net7.0'"/>
+    <PackageVersion Include="bUnit" Version="1.22.19" Condition="'$(TargetFramework)' == 'net5.0'"/>
+    <PackageVersion Include="bUnit" Version="1.22.19" Condition="'$(TargetFramework)' == 'net6.0'"/>
+    <PackageVersion Include="bUnit" Version="1.22.19" Condition="'$(TargetFramework)' == 'net7.0'"/>
   </ItemGroup>
 </Project>
