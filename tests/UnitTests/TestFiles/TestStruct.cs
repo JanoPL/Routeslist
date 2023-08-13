@@ -3,7 +3,7 @@
 
 namespace UnitTests.TestFiles
 {
-    internal struct TestStruct
+    struct TestStruct
     {
 #if NET6_0_OR_GREATER
         public TestStruct()

@@ -12,7 +12,7 @@
      The target framework to run tests and coverage for.
 
 .NOTES
-    Version    : 1.1.0
+    Version    : 1.1.1
     Author     : JanoPL
     Created on : 2023-02-05
     License    : MIT License
@@ -76,7 +76,7 @@ function Restore() {
 
 function Build() 
 {
-    dotnet build .\RoutesList.sln --configuration Debug;
+    dotnet build .\..\RoutesList.sln --configuration Debug;
 }
 
 function Test($framework)
@@ -91,7 +91,7 @@ function Test($framework)
 function GenerateReport() 
 {
     if (Get-Command reportgenerator.exe -ErrorAction SilentlyContinue) {
-        reportgenerator.exe -reports:tests\*\TestResults\*\coverage.cobertura.xml -targetdir:coveragereport;
+        reportgenerator.exe -reports:.\..\tests\*\TestResults\*\coverage.cobertura.xml -targetdir:coveragereport;
     } else {
         Write-Output "Report generator does'n exist, please install via 'dotnet tool install -g dotnet-reportgenerator-globaltool'";
     }    
@@ -100,7 +100,7 @@ function GenerateReport()
 function RemoveDirectories() 
 {
     Write-Output "Removing Directory TestResults";
-    Remove-Item tests\*\TestResults -Recurse -Verbose;
+    Remove-Item .\..\tests\*\TestResults -Recurse -Verbose;
 }
 
 CheckFramework;

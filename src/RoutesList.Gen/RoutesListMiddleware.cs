@@ -77,7 +77,7 @@ namespace RoutesList.Gen
 
             string htmlBuilderResult = _tableBuilder.AsyncGenerateTable(buildOptions).GetAwaiter().GetResult();
 
-            await response.WriteAsync(htmlBuilderResult.ToString(), Encoding.UTF8);
+            await response.WriteAsync(htmlBuilderResult, Encoding.UTF8);
         }
 
         private async Task RespondWithJson(HttpResponse response)

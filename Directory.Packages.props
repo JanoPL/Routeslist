@@ -5,26 +5,30 @@
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="ConsoleTables" Version="2.4.2" />
+    <PackageVersion Include="ConsoleTables" Version="2.5.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
     
-    <PackageVersion Include="xunit" Version="2.4.2" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.5" />
+    <PackageVersion Include="xunit" Version="2.5.0" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.2" Condition="'$(TargetFramework)' == 'netcoreapp3.1'"/>
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.2" Condition="'$(TargetFramework)' == 'net5.0'"/>
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.0" Condition="'$(TargetFramework)' == 'net6.0'"/>
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.0" Condition="'$(TargetFramework)' == 'net7.0'"/>
+    
     <PackageVersion Include="xunit.MSTest" Version="1.0.3" />
     
-    <PackageVersion Include="coverlet.collector" Version="3.2.0" />
+    <PackageVersion Include="coverlet.collector" Version="6.0.0" />
     
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
     
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.32"  Condition="'$(TargetFramework)' == 'netcoreapp3.1'"/>
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.0.17"  Condition="'$(TargetFramework)' == 'net5.0'"/>
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.16"  Condition="'$(TargetFramework)' == 'net6.0'"/>
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.5"  Condition="'$(TargetFramework)' == 'net7.0'"/>
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.9"  Condition="'$(TargetFramework)' == 'net7.0'"/>
     
-    <PackageVersion Include="Moq" Version="4.18.4" />
+    <PackageVersion Include="Moq" Version="4.20.69" />
 
-    <PackageVersion Include="bUnit" Version="1.18.4" Condition="'$(TargetFramework)' == 'net5.0'"/>
-    <PackageVersion Include="bUnit" Version="1.18.4" Condition="'$(TargetFramework)' == 'net6.0'"/>
-    <PackageVersion Include="bUnit" Version="1.18.4" Condition="'$(TargetFramework)' == 'net7.0'"/>
+    <PackageVersion Include="bUnit" Version="1.22.19" Condition="'$(TargetFramework)' == 'net5.0'"/>
+    <PackageVersion Include="bUnit" Version="1.22.19" Condition="'$(TargetFramework)' == 'net6.0'"/>
+    <PackageVersion Include="bUnit" Version="1.22.19" Condition="'$(TargetFramework)' == 'net7.0'"/>
   </ItemGroup>
 </Project>

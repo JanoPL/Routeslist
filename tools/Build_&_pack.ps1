@@ -9,13 +9,13 @@
     Build_&_pack.ps1
 
 .NOTES
-    Version    : 1.0.0
+    Version    : 1.1.1
     Author     : JanoPL
     Created on : 2021-12-25
     License    : MIT License
     Copyright  : (c) 2022 JanoPL
 #>
 
-MSBuild.exe .\RoutesList.sln /t:Restore /p:Configuration=Release /t:build
+MSBuild.exe .\..\RoutesList.sln /t:Restore /p:Configuration=Release /t:build
 
-nuget.exe pack .\RoutesList.nuspec
+nuget.exe pack .\..\RoutesList.nuspec
