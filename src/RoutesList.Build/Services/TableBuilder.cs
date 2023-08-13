@@ -174,22 +174,25 @@ namespace RoutesList.Services
         private ConsoleTable BuildRows(ConsoleTable table)
         {
             if (ListRoutes.Count > 0) {
-                if (!String.IsNullOrEmpty(ListRoutes[0].ViewEnginePath) || !String.IsNullOrEmpty(ListRoutes[0].RelativePath) || !string.IsNullOrEmpty(ListRoutes[0].Template)) {
-                    foreach (var route in ListRoutes) {
-                        string linkString = $"<a href=/{route.ViewEnginePath}>{route.ViewEnginePath ?? route.Template ?? "/"} </a>";
-                        table.AddRow(route.Display_name, /*route.ViewEnginePath*/ linkString, route.RelativePath);
-                    }
-                }
-
-                if (!string.IsNullOrEmpty(ListRoutes[0].Controller_name)) {
-                    foreach (var route in ListRoutes) {
-                        string linkString = $"<a href=/{route.Template}>{route.Template ?? "/"} </a>";
-                        table.AddRow(route.Method_name, linkString, route.Controller_name, route.Action_name, route.Display_name);
-                    }
+                foreach (RoutesInformationModel route in ListRoutes) {
+                    AddTableRow(ref table, route);
                 }
             }
 
             return table;
+        }
+
+        private void AddTableRow (ref ConsoleTable table, RoutesInformationModel route)
+        {
+            if (route.IsCompiledPageActionDescriptor) {
+                string linkString = $"<a href=/{route.ViewEnginePath}>{route.ViewEnginePath ?? route.Template ?? "/"} </a>";
+                table.AddRow(route.Display_name, linkString, route.RelativePath);
+            }
+
+            if (!route.IsCompiledPageActionDescriptor) {
+                string linkString = $"<a href=/{route.Template}>{route.Template ?? "/"} </a>";
+                table.AddRow(route.Method_name, linkString, route.Controller_name, route.Action_name, route.Display_name);
+            }
         }
     }
 }
