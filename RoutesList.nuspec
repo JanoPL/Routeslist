@@ -67,7 +67,7 @@
     <file src=".\src\RoutesList.Gen\bin\Release\net5.0\RoutesList.Gen.dll" target="lib\net5.0" />
     <file src=".\src\RoutesList.Build\bin\Release\net6.0\RoutesList.Build.dll" target="lib\net6.0"/>
     <file src=".\src\RoutesList.Gen\bin\Release\net6.0\RoutesList.Gen.dll" target="lib\net6.0" />
-    <file src=".\src\RoutesList.Build\bin\Release\net6.0\RoutesList.Build.dll" target="lib\net7.0"/>
-    <file src=".\src\RoutesList.Gen\bin\Release\net6.0\RoutesList.Gen.dll" target="lib\net7.0" />
+    <file src=".\src\RoutesList.Build\bin\Release\net7.0\RoutesList.Build.dll" target="lib\net7.0"/>
+    <file src=".\src\RoutesList.Gen\bin\Release\net7.0\RoutesList.Gen.dll" target="lib\net7.0" />
   </files>
 </package>
