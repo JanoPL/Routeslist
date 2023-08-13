@@ -22,22 +22,22 @@
     <repository type="git" url="https://github.com/JanoPL/Routeslist" />
     <dependencies>
       <group targetFramework=".NETCoreApp3.1">
-        <dependency id="ConsoleTables" version="2.4.2" />
+        <dependency id="ConsoleTables" version="2.5.0" />
         <dependency id="Newtonsoft.Json" version="13.0.2"/>
       </group>
       
       <group targetFramework="net5.0">
-        <dependency id="ConsoleTables" version="2.4.2" />
+        <dependency id="ConsoleTables" version="2.5.0" />
         <dependency id="Newtonsoft.Json" version="13.0.2"/>
       </group>
       
       <group targetFramework=".net6.0">
-        <dependency id="ConsoleTables" version="2.4.2" />
+        <dependency id="ConsoleTables" version="2.5.0" />
         <dependency id="Newtonsoft.Json" version="13.0.2"/>
       </group>
       
       <group targetFramework=".net7.0">
-        <dependency id="ConsoleTables" version="2.4.2" />
+        <dependency id="ConsoleTables" version="2.5.0" />
         <dependency id="Newtonsoft.Json" version="13.0.2"/>
       </group>
     </dependencies>
