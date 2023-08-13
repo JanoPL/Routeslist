@@ -16,7 +16,7 @@ namespace Test.WebApplication.factory
 
         [Theory]
         [MemberData(nameof(GetPrograms))]
-        public async void WebApplication_Factory_should_create(dynamic application)
+        public async Task WebApplication_Factory_should_create(dynamic application)
         {
             using var client = application?.CreateClient();
 
