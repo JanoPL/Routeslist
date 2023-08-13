@@ -33,7 +33,7 @@ build-release: get-dependecies
 	dotnet build /p:Configuration=Release .\\..\\RoutesList.sln
 
 package: build-release
-	nuget.exe pack .\\..\\RoutesList.nuspec -OutputDirectory .\\nugets
+	nuget.exe pack .\\..\\RoutesList.nuspec -OutputDirectory .\\nugets -Symbols -SymbolPackageFormat snupkg
 
 test: get-dependecies
 	dotnet test .\\..\\RoutesList.sln

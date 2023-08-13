@@ -16,7 +16,7 @@
    </description>
     <!--<releaseNotes>Summary of changes made in this release of the package.</releaseNotes>-->
     <copyright>$copyright$</copyright>
-    
+
     <tags>Route list, Analizer Route, Debugging, Debugger, development, dev, tools, route, list, RoutesList</tags>
     
     <repository type="git" url="https://github.com/JanoPL/Routeslist" />
@@ -63,11 +63,22 @@
   <files>
     <file src=".\src\RoutesList.Build\bin\Release\netcoreapp3.1\RoutesList.Build.dll" target="lib\netcoreapp3.1"/>
     <file src=".\src\RoutesList.Gen\bin\Release\netcoreapp3.1\RoutesList.Gen.dll" target="lib\netcoreapp3.1" />
+    <file src=".\src\RoutesList.Build\bin\Release\netcoreapp3.1\RoutesList.Build.pdb" target="lib\netcoreapp3.1"/>
+    <file src=".\src\RoutesList.Gen\bin\Release\netcoreapp3.1\RoutesList.Gen.pdb" target="lib\netcoreapp3.1" />
+
     <file src=".\src\RoutesList.Build\bin\Release\net5.0\RoutesList.Build.dll" target="lib\net5.0"/>
     <file src=".\src\RoutesList.Gen\bin\Release\net5.0\RoutesList.Gen.dll" target="lib\net5.0" />
+    <file src=".\src\RoutesList.Build\bin\Release\net5.0\RoutesList.Build.pdb" target="lib\net5.0"/>
+    <file src=".\src\RoutesList.Gen\bin\Release\net5.0\RoutesList.Gen.pdb" target="lib\net5.0" />
+    
     <file src=".\src\RoutesList.Build\bin\Release\net6.0\RoutesList.Build.dll" target="lib\net6.0"/>
     <file src=".\src\RoutesList.Gen\bin\Release\net6.0\RoutesList.Gen.dll" target="lib\net6.0" />
+    <file src=".\src\RoutesList.Build\bin\Release\net6.0\RoutesList.Build.pdb" target="lib\net6.0"/>
+    <file src=".\src\RoutesList.Gen\bin\Release\net6.0\RoutesList.Gen.pdb" target="lib\net6.0" />
+    
     <file src=".\src\RoutesList.Build\bin\Release\net7.0\RoutesList.Build.dll" target="lib\net7.0"/>
     <file src=".\src\RoutesList.Gen\bin\Release\net7.0\RoutesList.Gen.dll" target="lib\net7.0" />
+    <file src=".\src\RoutesList.Build\bin\Release\net7.0\RoutesList.Build.pdb" target="lib\net7.0"/>
+    <file src=".\src\RoutesList.Gen\bin\Release\net7.0\RoutesList.Gen.pdb" target="lib\net7.0" />
   </files>
 </package>
