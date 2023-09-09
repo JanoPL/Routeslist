@@ -24,6 +24,7 @@ Compatible with:
 - Autodetect what application is using MVC, Razor pages, Blazor components
 
 ![Table list image](https://github.com/JanoPL/Routeslist/blob/master/Screenshots1.png?raw=true)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FJanoPL%2FRouteslist.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FJanoPL%2FRouteslist?ref=badge_shield)
 
 ![Table json list image](https://github.com/JanoPL/Routeslist/blob/master/Screenshots2.png?raw=true)
 
@@ -234,3 +235,7 @@ Program.cs
 ## Contributing
 
 Contributions are always welcome, whether adding/suggesting new features, bug fixes, documenting new file formats or simply editing some grammar. for this create new github issue and descript your problem and add issue tag for Bug/enhancement
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FJanoPL%2FRouteslist.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FJanoPL%2FRouteslist?ref=badge_large)
