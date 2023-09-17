@@ -1,7 +1,6 @@
 name: Automated Dependency Updates
 
 on:
-  push:
   schedule:
     - cron:  '0 0 * * 0'
 
