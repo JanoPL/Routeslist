@@ -29,15 +29,6 @@
           "Microsoft.TestPlatform.TestHost": "17.6.3"
         }
       },
-      "Moq": {
-        "type": "Direct",
-        "requested": "[4.20.69, )",
-        "resolved": "4.20.69",
-        "contentHash": "8P/oAUOL8ZVyXnzBBcgdhTsOD1kQbAWfOcMI7KDQO3HqQtzB/0WYLdnMa4Jefv8nu/MQYiiG0IuoJdvG0v0Nig==",
-        "dependencies": {
-          "Castle.Core": "5.1.1"
-        }
-      },
       "xunit": {
         "type": "Direct",
         "requested": "[2.5.0, )",
@@ -54,14 +45,6 @@
         "requested": "[2.5.0, )",
         "resolved": "2.5.0",
         "contentHash": "+Gp9vuC2431yPyKB15YrOTxCuEAErBQUTIs6CquumX1F073UaPHGW0VE/XVJLMh9W4sXdz3TBkcHdFWZrRn2Hw=="
-      },
-      "Castle.Core": {
-        "type": "Transitive",
-        "resolved": "5.1.1",
-        "contentHash": "rpYtIczkzGpf+EkZgDr9CClTdemhsrwA/W5hMoPjLkRFnXzH44zDLoovXeKtmxb1ykXK9aJVODSpiJml8CTw2g==",
-        "dependencies": {
-          "System.Diagnostics.EventLog": "6.0.0"
-        }
       },
       "Microsoft.AspNetCore.TestHost": {
         "type": "Transitive",
@@ -1429,15 +1412,6 @@
           "Microsoft.TestPlatform.TestHost": "17.6.3"
         }
       },
-      "Moq": {
-        "type": "Direct",
-        "requested": "[4.20.69, )",
-        "resolved": "4.20.69",
-        "contentHash": "8P/oAUOL8ZVyXnzBBcgdhTsOD1kQbAWfOcMI7KDQO3HqQtzB/0WYLdnMa4Jefv8nu/MQYiiG0IuoJdvG0v0Nig==",
-        "dependencies": {
-          "Castle.Core": "5.1.1"
-        }
-      },
       "xunit": {
         "type": "Direct",
         "requested": "[2.5.0, )",
@@ -1454,14 +1428,6 @@
         "requested": "[2.5.0, )",
         "resolved": "2.5.0",
         "contentHash": "+Gp9vuC2431yPyKB15YrOTxCuEAErBQUTIs6CquumX1F073UaPHGW0VE/XVJLMh9W4sXdz3TBkcHdFWZrRn2Hw=="
-      },
-      "Castle.Core": {
-        "type": "Transitive",
-        "resolved": "5.1.1",
-        "contentHash": "rpYtIczkzGpf+EkZgDr9CClTdemhsrwA/W5hMoPjLkRFnXzH44zDLoovXeKtmxb1ykXK9aJVODSpiJml8CTw2g==",
-        "dependencies": {
-          "System.Diagnostics.EventLog": "6.0.0"
-        }
       },
       "Microsoft.AspNetCore.TestHost": {
         "type": "Transitive",
