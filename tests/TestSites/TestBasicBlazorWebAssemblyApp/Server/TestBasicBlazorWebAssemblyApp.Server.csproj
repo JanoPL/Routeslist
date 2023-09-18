@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\RoutesList.Gen\RoutesList.Gen.csproj" />
+    <ProjectReference Include="..\Client\TestBasicBlazorWebAssemblyApp.Client.csproj" />
+    <ProjectReference Include="..\Shared\TestBasicBlazorWebAssemblyApp.Shared.csproj" />
+  </ItemGroup>
+
+
+</Project>

@@ -27,7 +27,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestBasicBlazorServer", "te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{01AEBB69-AE24-4BDB-8912-1B14622C26A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestBasicSiteRazor", "tests\TestSites\TestBasicSiteRazor\TestBasicSiteRazor.csproj", "{C77FC416-83A9-4B73-B80F-A012C955EEDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestBasicSiteRazor", "tests\TestSites\TestBasicSiteRazor\TestBasicSiteRazor.csproj", "{C77FC416-83A9-4B73-B80F-A012C955EEDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestBasicBlazorWebAssemblyApp.Server", "tests\TestSites\TestBasicBlazorWebAssemblyApp\Server\TestBasicBlazorWebAssemblyApp.Server.csproj", "{1DD595A5-7AC5-4334-8C46-5F8FCC19F656}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestBasicBlazorWebAssemblyApp.Client", "tests\TestSites\TestBasicBlazorWebAssemblyApp\Client\TestBasicBlazorWebAssemblyApp.Client.csproj", "{119E24EC-63DD-4F2D-A477-630B8343FDFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestBasicBlazorWebAssemblyApp.Shared", "tests\TestSites\TestBasicBlazorWebAssemblyApp\Shared\TestBasicBlazorWebAssemblyApp.Shared.csproj", "{BB60E043-19D7-479E-9D25-C95CCE02E2E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +85,18 @@ Global
 		{C77FC416-83A9-4B73-B80F-A012C955EEDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C77FC416-83A9-4B73-B80F-A012C955EEDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C77FC416-83A9-4B73-B80F-A012C955EEDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DD595A5-7AC5-4334-8C46-5F8FCC19F656}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DD595A5-7AC5-4334-8C46-5F8FCC19F656}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DD595A5-7AC5-4334-8C46-5F8FCC19F656}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DD595A5-7AC5-4334-8C46-5F8FCC19F656}.Release|Any CPU.Build.0 = Release|Any CPU
+		{119E24EC-63DD-4F2D-A477-630B8343FDFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{119E24EC-63DD-4F2D-A477-630B8343FDFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{119E24EC-63DD-4F2D-A477-630B8343FDFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{119E24EC-63DD-4F2D-A477-630B8343FDFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB60E043-19D7-479E-9D25-C95CCE02E2E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB60E043-19D7-479E-9D25-C95CCE02E2E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB60E043-19D7-479E-9D25-C95CCE02E2E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB60E043-19D7-479E-9D25-C95CCE02E2E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,6 +112,9 @@ Global
 		{7E8ED101-D318-4DA3-BF36-425A6DD7CEF5} = {BB691CA0-5B87-4B21-80A2-CA63DD00F898}
 		{01AEBB69-AE24-4BDB-8912-1B14622C26A4} = {D2236F00-56A6-4BA8-91F9-7CD970A46F33}
 		{C77FC416-83A9-4B73-B80F-A012C955EEDF} = {BB691CA0-5B87-4B21-80A2-CA63DD00F898}
+		{1DD595A5-7AC5-4334-8C46-5F8FCC19F656} = {BB691CA0-5B87-4B21-80A2-CA63DD00F898}
+		{119E24EC-63DD-4F2D-A477-630B8343FDFF} = {BB691CA0-5B87-4B21-80A2-CA63DD00F898}
+		{BB60E043-19D7-479E-9D25-C95CCE02E2E8} = {BB691CA0-5B87-4B21-80A2-CA63DD00F898}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {87DFA115-5F76-4EB2-8EDE-48DE379CA43B}
