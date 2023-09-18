@@ -4,21 +4,19 @@ using Microsoft.Extensions.DependencyInjection;
 using RoutesList.Build.Services;
 using Xunit.Abstractions;
 
+using BlazorServerProgram = TestBasicBlazorServer.Program;
+
+
 namespace RoutesLIst.Integration.Blazor
 {
     public class WebApplicationTest
     {
-        private readonly CustomWebApplication<TestBasicBlazorServer.Program> _application;
+        private readonly CustomWebApplication<BlazorServerProgram> _application;
 
         public WebApplicationTest()
         {
-            _application = new CustomWebApplication<TestBasicBlazorServer.Program>();
+            _application = new CustomWebApplication<BlazorServerProgram>();
         }
-
-        public static IEnumerable<object[]>? GetPages()
-            => RoutesComponent
-                .GetRoutesToRender(typeof(TestBasicBlazorServer.App).Assembly)
-                ?.Select(config => new object[] { config });
 
         [Theory]
         [InlineData("/", "text/html; charset=utf-8")]
@@ -37,7 +35,5 @@ namespace RoutesLIst.Integration.Blazor
                 response?.Content?.Headers?.ContentType?.ToString()
             );
         }
-
-        //TODO: add component test with bunit
     }
 }

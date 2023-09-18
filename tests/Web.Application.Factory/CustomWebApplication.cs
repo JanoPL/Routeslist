@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Hosting;
 
 namespace Web.Application.Factory
 {
@@ -18,8 +19,12 @@ namespace Web.Application.Factory
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.UseEnvironment("Testing");
-
             base.ConfigureWebHost(builder);
-        }   
+        }
+
+        protected override TestServer CreateServer(IWebHostBuilder builder)
+        {
+            return base.CreateServer(builder);
+        }
     }
 }

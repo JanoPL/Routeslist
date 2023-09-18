@@ -22,10 +22,12 @@
     </PackageReference>
 
     <PackageReference Include="bUnit" />
+    <PackageReference Include="Microsoft.Playwright" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TestSites\TestBasicBlazorServer\TestBasicBlazorServer.csproj" />
+    <ProjectReference Include="..\TestSites\TestBasicBlazorWebAssemblyApp\Server\TestBasicBlazorWebAssemblyApp.Server.csproj" />
     <ProjectReference Include="..\Web.Application.Factory\Web.Application.Factory.csproj" />
   </ItemGroup>
 

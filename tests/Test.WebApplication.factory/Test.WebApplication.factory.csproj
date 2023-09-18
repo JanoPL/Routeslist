@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
     <PackageReference Include="Moq" />
@@ -26,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TestSites\TestBasicBlazorServer\TestBasicBlazorServer.csproj" />
+    <ProjectReference Include="..\TestSites\TestBasicBlazorWebAssemblyApp\Server\TestBasicBlazorWebAssemblyApp.Server.csproj" />
     <ProjectReference Include="..\TestSites\TestBasicSiteRazor\TestBasicSiteRazor.csproj" />
     <ProjectReference Include="..\TestSites\TestBasicSite\TestBasicSite.csproj" />
     <ProjectReference Include="..\Web.Application.Factory\Web.Application.Factory.csproj" />

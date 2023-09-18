@@ -1,3 +1,4 @@
+using Microsoft.Playwright;
 using Web.Application.Factory;
 using Program1 = TestBasicBlazorServer.Program;
 using Program2 = TestBasicSiteRazor.Program;
