@@ -22,6 +22,7 @@
     <NeutralLanguage>en</NeutralLanguage>
     <PackageProjectUrl>https://github.com/JanoPL/Routeslist</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
     
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     
