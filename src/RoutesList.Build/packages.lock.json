@@ -1,74 +1,74 @@
 {
-  "version": 1,
+  "version": 2,
   "dependencies": {
     ".NETCoreApp,Version=v3.1": {
       "ConsoleTables": {
         "type": "Direct",
-        "requested": "(, )",
-        "resolved": "1.0.0",
-        "contentHash": "4rkFreAr7yb9mab3h5mGh5Tf0gXX3i0C2uTxKOKWqWaMeBWg3/ul82Tu9b2xDunuLKBw6X1VuOolyyZxnBHvSw=="
+        "requested": "[2.6.1, )",
+        "resolved": "2.6.1",
+        "contentHash": "TyU885plpk88kMxgayy5+QQvtt/t3ZR45+vSvaKqZiaK+YsGVE6Mv7sV3fwjUMv3jHT15DdkpxW/+o+uc+bAJQ=="
       },
       "Newtonsoft.Json": {
         "type": "Direct",
-        "requested": "(, )",
-        "resolved": "3.5.8",
-        "contentHash": "Xmri4q9s1NjuiBtOFkWMU9sUZdw5V7kFSf3CQQ3TlDyzWQHo94d5cHNxsSlnezGAZSPfdEG5k7bOrkzTe6rUOQ=="
+        "requested": "[13.0.3, )",
+        "resolved": "13.0.3",
+        "contentHash": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ=="
       }
     },
     ".NETCoreApp,Version=v5.0": {
       "ConsoleTables": {
         "type": "Direct",
-        "requested": "(, )",
-        "resolved": "1.0.0",
-        "contentHash": "4rkFreAr7yb9mab3h5mGh5Tf0gXX3i0C2uTxKOKWqWaMeBWg3/ul82Tu9b2xDunuLKBw6X1VuOolyyZxnBHvSw=="
+        "requested": "[2.6.1, )",
+        "resolved": "2.6.1",
+        "contentHash": "TyU885plpk88kMxgayy5+QQvtt/t3ZR45+vSvaKqZiaK+YsGVE6Mv7sV3fwjUMv3jHT15DdkpxW/+o+uc+bAJQ=="
       },
       "Newtonsoft.Json": {
         "type": "Direct",
-        "requested": "(, )",
-        "resolved": "3.5.8",
-        "contentHash": "Xmri4q9s1NjuiBtOFkWMU9sUZdw5V7kFSf3CQQ3TlDyzWQHo94d5cHNxsSlnezGAZSPfdEG5k7bOrkzTe6rUOQ=="
+        "requested": "[13.0.3, )",
+        "resolved": "13.0.3",
+        "contentHash": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ=="
       }
     },
     "net6.0": {
       "ConsoleTables": {
         "type": "Direct",
-        "requested": "(, )",
-        "resolved": "1.0.0",
-        "contentHash": "4rkFreAr7yb9mab3h5mGh5Tf0gXX3i0C2uTxKOKWqWaMeBWg3/ul82Tu9b2xDunuLKBw6X1VuOolyyZxnBHvSw=="
+        "requested": "[2.6.1, )",
+        "resolved": "2.6.1",
+        "contentHash": "TyU885plpk88kMxgayy5+QQvtt/t3ZR45+vSvaKqZiaK+YsGVE6Mv7sV3fwjUMv3jHT15DdkpxW/+o+uc+bAJQ=="
       },
       "Newtonsoft.Json": {
         "type": "Direct",
-        "requested": "(, )",
-        "resolved": "3.5.8",
-        "contentHash": "Xmri4q9s1NjuiBtOFkWMU9sUZdw5V7kFSf3CQQ3TlDyzWQHo94d5cHNxsSlnezGAZSPfdEG5k7bOrkzTe6rUOQ=="
+        "requested": "[13.0.3, )",
+        "resolved": "13.0.3",
+        "contentHash": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ=="
       }
     },
     "net7.0": {
       "ConsoleTables": {
         "type": "Direct",
-        "requested": "(, )",
-        "resolved": "1.0.0",
-        "contentHash": "4rkFreAr7yb9mab3h5mGh5Tf0gXX3i0C2uTxKOKWqWaMeBWg3/ul82Tu9b2xDunuLKBw6X1VuOolyyZxnBHvSw=="
+        "requested": "[2.6.1, )",
+        "resolved": "2.6.1",
+        "contentHash": "TyU885plpk88kMxgayy5+QQvtt/t3ZR45+vSvaKqZiaK+YsGVE6Mv7sV3fwjUMv3jHT15DdkpxW/+o+uc+bAJQ=="
       },
       "Newtonsoft.Json": {
         "type": "Direct",
-        "requested": "(, )",
-        "resolved": "3.5.8",
-        "contentHash": "Xmri4q9s1NjuiBtOFkWMU9sUZdw5V7kFSf3CQQ3TlDyzWQHo94d5cHNxsSlnezGAZSPfdEG5k7bOrkzTe6rUOQ=="
+        "requested": "[13.0.3, )",
+        "resolved": "13.0.3",
+        "contentHash": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ=="
       }
     },
     "net8.0": {
       "ConsoleTables": {
         "type": "Direct",
-        "requested": "(, )",
-        "resolved": "1.0.0",
-        "contentHash": "4rkFreAr7yb9mab3h5mGh5Tf0gXX3i0C2uTxKOKWqWaMeBWg3/ul82Tu9b2xDunuLKBw6X1VuOolyyZxnBHvSw=="
+        "requested": "[2.6.1, )",
+        "resolved": "2.6.1",
+        "contentHash": "TyU885plpk88kMxgayy5+QQvtt/t3ZR45+vSvaKqZiaK+YsGVE6Mv7sV3fwjUMv3jHT15DdkpxW/+o+uc+bAJQ=="
       },
       "Newtonsoft.Json": {
         "type": "Direct",
-        "requested": "(, )",
-        "resolved": "3.5.8",
-        "contentHash": "Xmri4q9s1NjuiBtOFkWMU9sUZdw5V7kFSf3CQQ3TlDyzWQHo94d5cHNxsSlnezGAZSPfdEG5k7bOrkzTe6rUOQ=="
+        "requested": "[13.0.3, )",
+        "resolved": "13.0.3",
+        "contentHash": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ=="
       }
     }
   }
