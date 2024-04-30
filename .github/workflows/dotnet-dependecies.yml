@@ -11,15 +11,15 @@ jobs:
     strategy:
       matrix:
         configuration: [ Release ]
-        dotnet-version: [ 'netcoreapp3.1', 'net5.0', 'net6.0', 'net7.0' ]
+        dotnet-version: [ 'netcoreapp3.1', 'net5.0', 'net6.0', 'net7.0', 'net8.0' ]
 
     steps:
     - name: Checkout
       id: checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: store cache packages
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.nuget/packages
         key: |
@@ -27,29 +27,15 @@ jobs:
         restore-keys: |
             ${{ runner.os }}-${{ github.workflow }}-${{ matrix.configuration }}-${{ matrix.dotnet-version }}-nuget-${{ hashFiles('**/packages.lock.json') }}
 
-    - name: Setup .NET Core SDK netcoreapp3.1
-      if: matrix.dotnet-version == "netcoreapp3.1"
-      uses: actions/setup-dotnet@v3
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4
       with:
-          dotnet-version: 3.1.x
-      
-    - name: Setup .NET Core SDK net5.0
-      if: matrix.dotnet-version == "net5.0"
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 5.0.x
-
-    - name: Setup .NET Core SDK net6.0
-      if: matrix.dotnet-version == "net6.0"
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 6.0.x
-
-    - name: Setup .NET Core SDK net7.0
-      if: matrix.dotnet-version == "net7.0"
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
+          dotnet-version: |
+            3.1.x
+            5.0.x
+            6.0.x
+            7.0.x
+            8.0.x
 
     - name: Tools
       id: tools

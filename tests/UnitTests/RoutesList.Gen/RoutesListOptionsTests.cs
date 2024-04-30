@@ -24,7 +24,7 @@ namespace RoutesList.Gen.Tests
 
             options.SetTableClasses(classes);
 
-            Assert.Equal(options.GetTableClasses(), classes);
+            Assert.Equal<string[]>(options.GetTableClasses(), classes);
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace RoutesList.Gen.Tests
         public void SetTableClassesNullTest()
         {
             options.SetTableClasses(null);
-            Assert.Equal(options.GetTableClasses(), new[] { "table" });
+            Assert.Equal<string[]>(options.GetTableClasses(), new[] { "table" });
         }
 
         [Fact]
