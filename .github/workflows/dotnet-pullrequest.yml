@@ -2,9 +2,23 @@ name: Net RoutesList PR
 
 on:
   pull_request:
-    branches:
-      - master
+    branches: [ master, main ]
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+' #semantic version format
 
+  workflow_dispatch: 
+    inputs: 
+      verbosity: 
+        description: verbose level
+        default: "minimal"
+        type: choice
+        options:
+          - quiet
+          - minimal
+          - normal
+          - detailed
+          - diagnostic
+  
 jobs:
   build-windows:
     runs-on: windows-latest
@@ -53,9 +67,14 @@ jobs:
       
       - name: Build
         run: dotnet build --configuration ${{ matrix.configuration }} --no-restore
-      
+
       - name: Test
-        run: dotnet test --no-restore --verbosity minimal --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }} 
+        if: github.event.inputs.verbosity != ''
+        run: dotnet test --no-restore --verbosity ${{ github.event.inputs.verbosity }} --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }}
+
+      - name: Test
+        if: github.event.inputs.verbosity == ''
+        run: dotnet test --no-restore --verbosity minimal --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }}
   
   build-linux:
     runs-on: ubuntu-latest
@@ -105,6 +124,11 @@ jobs:
         run: dotnet build --configuration ${{ matrix.configuration }} --no-restore
       
       - name: Test
+        if: github.event.inputs.verbosity != ''
+        run: dotnet test --no-restore --verbosity ${{ github.event.inputs.verbosity }} --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }} --collect "XPlat Code Coverage"
+
+      - name: Test
+        if: github.event.inputs.verbosity == ''
         run: dotnet test --no-restore --verbosity minimal --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }} --collect "XPlat Code Coverage"
 
       - name: Rename and move Cobertura test to ${{ github.workspace }}/coverage directory
