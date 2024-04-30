@@ -25,7 +25,7 @@ namespace RoutesList.Build.Models.Tests
 
             options.SetClasses(classes);
 
-            Assert.Equal(options.GetClasses(), classes);
+            Assert.Equal<string[]>(options.GetClasses(), classes);
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace RoutesList.Build.Models.Tests
         public void SetClassesNullTest()
         {
             options.SetClasses(null);
-            Assert.Equal(options.GetClasses(), new[] { "table" });
+            Assert.Equal<string[]>(options.GetClasses(), new[] { "table" });
         }
 
         [Fact]
