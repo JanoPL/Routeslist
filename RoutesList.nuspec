@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<package >
+<package>
   <metadata>
+    <readme>Readme.md</readme>
     <id>RoutesList</id>
     <version>1.1.2</version>
     <authors>JanoPL</authors>
@@ -70,6 +71,7 @@
     </frameworkReferences>
   </metadata>
   <files>
+    <file src=".\Readme.md" target="\" />
     <file src=".\src\RoutesList.Build\bin\Release\netcoreapp3.1\RoutesList.Build.dll" target="lib\netcoreapp3.1"/>
     <file src=".\src\RoutesList.Gen\bin\Release\netcoreapp3.1\RoutesList.Gen.dll" target="lib\netcoreapp3.1" />
     <file src=".\src\RoutesList.Build\bin\Release\netcoreapp3.1\RoutesList.Build.pdb" target="lib\netcoreapp3.1"/>
