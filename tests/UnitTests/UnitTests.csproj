@@ -26,10 +26,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="bUnit" Condition="'$(TargetFramework)' == 'net5.0'" />
-    <PackageReference Include="bUnit" Condition="'$(TargetFramework)' == 'net6.0'" />
-    <PackageReference Include="bUnit" Condition="'$(TargetFramework)' == 'net7.0'" />
-    <PackageReference Include="bUnit" Condition="'$(TargetFramework)' == 'net8.0'" />
   </ItemGroup>
 
   <ItemGroup>

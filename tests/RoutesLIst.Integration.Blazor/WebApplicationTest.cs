@@ -1,8 +1,4 @@
-using Bunit;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using RoutesList.Build.Services;
-using Xunit.Abstractions;
 
 namespace RoutesLIst.Integration.Blazor
 {
@@ -37,7 +33,5 @@ namespace RoutesLIst.Integration.Blazor
                 response?.Content?.Headers?.ContentType?.ToString()
             );
         }
-
-        //TODO: add component test with bunit
     }
 }
