@@ -26,9 +26,5 @@
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="[6.0,7.0)" Condition="'$(TargetFramework)' == 'net6.0'" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="[7.0,8.0)" Condition="'$(TargetFramework)' == 'net7.0'" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="[8.0,9.0)" Condition="'$(TargetFramework)' == 'net8.0'" />
-    <PackageVersion Include="bUnit" Version="1.28.9" Condition="'$(TargetFramework)' == 'net5.0'" />
-    <PackageVersion Include="bUnit" Version="1.28.9" Condition="'$(TargetFramework)' == 'net6.0'" />
-    <PackageVersion Include="bUnit" Version="1.28.9" Condition="'$(TargetFramework)' == 'net7.0'" />
-    <PackageVersion Include="bUnit" Version="1.28.9" Condition="'$(TargetFramework)' == 'net8.0'" />
   </ItemGroup>
 </Project>
