@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using ConsoleTables;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 using RoutesList.Build.Enums;
 using RoutesList.Build.Extensions;
@@ -109,10 +111,10 @@ namespace RoutesList.Services
             ListRoutes = _routes.getRoutesInformation(_actionDescriptorCollectionProvider);
 
             if (isJson) {
-                string serialize = String.Empty;
+                var serialize = new StringBuilder();
 
                 if (IsCompiledPageActionDescriptor()) {
-                    serialize = JsonConvert.SerializeObject(
+                    serialize.AppendLine(JsonConvert.SerializeObject(
                             ListRoutes.Select(x => {
                                 return new {
                                     x.RelativePath,
@@ -121,11 +123,11 @@ namespace RoutesList.Services
                                     x.Template,
                                 };
                             })
-                    );
+                    ));
                 }
 
                 if (IsControllerActionDescriptor()) {
-                    serialize = JsonConvert.SerializeObject(
+                    serialize.AppendLine(JsonConvert.SerializeObject(
                         ListRoutes.Select(x => {
                             return new {
                                 x.Display_name,
@@ -135,10 +137,10 @@ namespace RoutesList.Services
                                 x.Method_name,
                             };
                         })
-                    );
+                    ));
                 }
 
-                return await Task.FromResult(serialize);
+                return await Task.FromResult(serialize.ToString());
             }
 
             return await Task.FromResult("");
@@ -186,7 +188,12 @@ namespace RoutesList.Services
         {
             if (route.IsCompiledPageActionDescriptor) {
                 string linkString = $"<a href=/{route.ViewEnginePath}>{route.ViewEnginePath ?? route.Template ?? "/"} </a>";
-                table.AddRow(route.Display_name, linkString, route.RelativePath);
+
+                if (table.Columns.Count > 3) {
+                    table.AddRow(null, linkString, route.Display_name, null, route.RelativePath);
+                } else {
+                    table.AddRow(route.Display_name, linkString, route.RelativePath);
+                }
             }
 
             if (!route.IsCompiledPageActionDescriptor) {
