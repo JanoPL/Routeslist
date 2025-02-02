@@ -15,6 +15,8 @@
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
 
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    
+    <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
 
   <ItemGroup>
