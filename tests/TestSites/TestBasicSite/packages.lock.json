@@ -2,25 +2,33 @@
   "version": 2,
   "dependencies": {
     ".NETCoreApp,Version=v3.1": {
+      "Wcwidth": {
+        "type": "Transitive",
+        "resolved": "1.0.0",
+        "contentHash": "aekut5BeF4c1Jr2qab3aXcttcgPEfPb2ok2L8911EIzn3RnDBYnUWgx/1OVlqrSXCdwAkBpNgYWXb6b5t4cBng=="
+      },
       "routeslist.build": {
         "type": "Project",
         "dependencies": {
-          "ConsoleTables": "[2.6.1, )",
+          "ConsoleTables": "[2.6.2, )",
           "Newtonsoft.Json": "[13.0.3, )"
         }
       },
       "routeslist.gen": {
         "type": "Project",
         "dependencies": {
-          "ConsoleTables": "[2.6.1, )",
-          "RoutesList.Build": "[1.1.2, )"
+          "ConsoleTables": "[2.6.2, )",
+          "RoutesList.Build": "[1.1.3, )"
         }
       },
       "ConsoleTables": {
         "type": "CentralTransitive",
-        "requested": "[2.6.1, )",
-        "resolved": "2.6.1",
-        "contentHash": "TyU885plpk88kMxgayy5+QQvtt/t3ZR45+vSvaKqZiaK+YsGVE6Mv7sV3fwjUMv3jHT15DdkpxW/+o+uc+bAJQ=="
+        "requested": "[2.6.2, )",
+        "resolved": "2.6.2",
+        "contentHash": "/bH4u0Lni2FPUtGvg1oAKpsEzmhhBlqj0DD67kvV/4qELaEBXDbVo9w3lHFQFe00vLEAZi+5Rr8Nai0D2z7+bg==",
+        "dependencies": {
+          "Wcwidth": "1.0.0"
+        }
       },
       "Newtonsoft.Json": {
         "type": "CentralTransitive",
@@ -30,25 +38,33 @@
       }
     },
     ".NETCoreApp,Version=v5.0": {
+      "Wcwidth": {
+        "type": "Transitive",
+        "resolved": "1.0.0",
+        "contentHash": "aekut5BeF4c1Jr2qab3aXcttcgPEfPb2ok2L8911EIzn3RnDBYnUWgx/1OVlqrSXCdwAkBpNgYWXb6b5t4cBng=="
+      },
       "routeslist.build": {
         "type": "Project",
         "dependencies": {
-          "ConsoleTables": "[2.6.1, )",
+          "ConsoleTables": "[2.6.2, )",
           "Newtonsoft.Json": "[13.0.3, )"
         }
       },
       "routeslist.gen": {
         "type": "Project",
         "dependencies": {
-          "ConsoleTables": "[2.6.1, )",
-          "RoutesList.Build": "[1.1.2, )"
+          "ConsoleTables": "[2.6.2, )",
+          "RoutesList.Build": "[1.1.3, )"
         }
       },
       "ConsoleTables": {
         "type": "CentralTransitive",
-        "requested": "[2.6.1, )",
-        "resolved": "2.6.1",
-        "contentHash": "TyU885plpk88kMxgayy5+QQvtt/t3ZR45+vSvaKqZiaK+YsGVE6Mv7sV3fwjUMv3jHT15DdkpxW/+o+uc+bAJQ=="
+        "requested": "[2.6.2, )",
+        "resolved": "2.6.2",
+        "contentHash": "/bH4u0Lni2FPUtGvg1oAKpsEzmhhBlqj0DD67kvV/4qELaEBXDbVo9w3lHFQFe00vLEAZi+5Rr8Nai0D2z7+bg==",
+        "dependencies": {
+          "Wcwidth": "1.0.0"
+        }
       },
       "Newtonsoft.Json": {
         "type": "CentralTransitive",
@@ -58,25 +74,33 @@
       }
     },
     "net6.0": {
+      "Wcwidth": {
+        "type": "Transitive",
+        "resolved": "1.0.0",
+        "contentHash": "aekut5BeF4c1Jr2qab3aXcttcgPEfPb2ok2L8911EIzn3RnDBYnUWgx/1OVlqrSXCdwAkBpNgYWXb6b5t4cBng=="
+      },
       "routeslist.build": {
         "type": "Project",
         "dependencies": {
-          "ConsoleTables": "[2.6.1, )",
+          "ConsoleTables": "[2.6.2, )",
           "Newtonsoft.Json": "[13.0.3, )"
         }
       },
       "routeslist.gen": {
         "type": "Project",
         "dependencies": {
-          "ConsoleTables": "[2.6.1, )",
-          "RoutesList.Build": "[1.1.2, )"
+          "ConsoleTables": "[2.6.2, )",
+          "RoutesList.Build": "[1.1.3, )"
         }
       },
       "ConsoleTables": {
         "type": "CentralTransitive",
-        "requested": "[2.6.1, )",
-        "resolved": "2.6.1",
-        "contentHash": "TyU885plpk88kMxgayy5+QQvtt/t3ZR45+vSvaKqZiaK+YsGVE6Mv7sV3fwjUMv3jHT15DdkpxW/+o+uc+bAJQ=="
+        "requested": "[2.6.2, )",
+        "resolved": "2.6.2",
+        "contentHash": "/bH4u0Lni2FPUtGvg1oAKpsEzmhhBlqj0DD67kvV/4qELaEBXDbVo9w3lHFQFe00vLEAZi+5Rr8Nai0D2z7+bg==",
+        "dependencies": {
+          "Wcwidth": "1.0.0"
+        }
       },
       "Newtonsoft.Json": {
         "type": "CentralTransitive",
@@ -86,25 +110,33 @@
       }
     },
     "net7.0": {
+      "Wcwidth": {
+        "type": "Transitive",
+        "resolved": "1.0.0",
+        "contentHash": "aekut5BeF4c1Jr2qab3aXcttcgPEfPb2ok2L8911EIzn3RnDBYnUWgx/1OVlqrSXCdwAkBpNgYWXb6b5t4cBng=="
+      },
       "routeslist.build": {
         "type": "Project",
         "dependencies": {
-          "ConsoleTables": "[2.6.1, )",
+          "ConsoleTables": "[2.6.2, )",
           "Newtonsoft.Json": "[13.0.3, )"
         }
       },
       "routeslist.gen": {
         "type": "Project",
         "dependencies": {
-          "ConsoleTables": "[2.6.1, )",
-          "RoutesList.Build": "[1.1.2, )"
+          "ConsoleTables": "[2.6.2, )",
+          "RoutesList.Build": "[1.1.3, )"
         }
       },
       "ConsoleTables": {
         "type": "CentralTransitive",
-        "requested": "[2.6.1, )",
-        "resolved": "2.6.1",
-        "contentHash": "TyU885plpk88kMxgayy5+QQvtt/t3ZR45+vSvaKqZiaK+YsGVE6Mv7sV3fwjUMv3jHT15DdkpxW/+o+uc+bAJQ=="
+        "requested": "[2.6.2, )",
+        "resolved": "2.6.2",
+        "contentHash": "/bH4u0Lni2FPUtGvg1oAKpsEzmhhBlqj0DD67kvV/4qELaEBXDbVo9w3lHFQFe00vLEAZi+5Rr8Nai0D2z7+bg==",
+        "dependencies": {
+          "Wcwidth": "1.0.0"
+        }
       },
       "Newtonsoft.Json": {
         "type": "CentralTransitive",
@@ -114,25 +146,69 @@
       }
     },
     "net8.0": {
+      "Wcwidth": {
+        "type": "Transitive",
+        "resolved": "1.0.0",
+        "contentHash": "aekut5BeF4c1Jr2qab3aXcttcgPEfPb2ok2L8911EIzn3RnDBYnUWgx/1OVlqrSXCdwAkBpNgYWXb6b5t4cBng=="
+      },
       "routeslist.build": {
         "type": "Project",
         "dependencies": {
-          "ConsoleTables": "[2.6.1, )",
+          "ConsoleTables": "[2.6.2, )",
           "Newtonsoft.Json": "[13.0.3, )"
         }
       },
       "routeslist.gen": {
         "type": "Project",
         "dependencies": {
-          "ConsoleTables": "[2.6.1, )",
-          "RoutesList.Build": "[1.1.2, )"
+          "ConsoleTables": "[2.6.2, )",
+          "RoutesList.Build": "[1.1.3, )"
         }
       },
       "ConsoleTables": {
         "type": "CentralTransitive",
-        "requested": "[2.6.1, )",
-        "resolved": "2.6.1",
-        "contentHash": "TyU885plpk88kMxgayy5+QQvtt/t3ZR45+vSvaKqZiaK+YsGVE6Mv7sV3fwjUMv3jHT15DdkpxW/+o+uc+bAJQ=="
+        "requested": "[2.6.2, )",
+        "resolved": "2.6.2",
+        "contentHash": "/bH4u0Lni2FPUtGvg1oAKpsEzmhhBlqj0DD67kvV/4qELaEBXDbVo9w3lHFQFe00vLEAZi+5Rr8Nai0D2z7+bg==",
+        "dependencies": {
+          "Wcwidth": "1.0.0"
+        }
+      },
+      "Newtonsoft.Json": {
+        "type": "CentralTransitive",
+        "requested": "[13.0.3, )",
+        "resolved": "13.0.3",
+        "contentHash": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ=="
+      }
+    },
+    "net9.0": {
+      "Wcwidth": {
+        "type": "Transitive",
+        "resolved": "1.0.0",
+        "contentHash": "aekut5BeF4c1Jr2qab3aXcttcgPEfPb2ok2L8911EIzn3RnDBYnUWgx/1OVlqrSXCdwAkBpNgYWXb6b5t4cBng=="
+      },
+      "routeslist.build": {
+        "type": "Project",
+        "dependencies": {
+          "ConsoleTables": "[2.6.2, )",
+          "Newtonsoft.Json": "[13.0.3, )"
+        }
+      },
+      "routeslist.gen": {
+        "type": "Project",
+        "dependencies": {
+          "ConsoleTables": "[2.6.2, )",
+          "RoutesList.Build": "[1.1.3, )"
+        }
+      },
+      "ConsoleTables": {
+        "type": "CentralTransitive",
+        "requested": "[2.6.2, )",
+        "resolved": "2.6.2",
+        "contentHash": "/bH4u0Lni2FPUtGvg1oAKpsEzmhhBlqj0DD67kvV/4qELaEBXDbVo9w3lHFQFe00vLEAZi+5Rr8Nai0D2z7+bg==",
+        "dependencies": {
+          "Wcwidth": "1.0.0"
+        }
       },
       "Newtonsoft.Json": {
         "type": "CentralTransitive",

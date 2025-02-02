@@ -22,7 +22,7 @@ jobs:
     strategy:
       matrix:
         configuration: [ Debug ]
-        dotnet-version: [ 'netcoreapp3.1', 'net5.0', 'net6.0', 'net7.0', 'net8.0' ]
+        dotnet-version: [ 'netcoreapp3.1', 'net5.0', 'net6.0', 'net7.0', 'net8.0', 'net9.0' ]
     steps:
       - uses: actions/checkout@v4
 
@@ -58,6 +58,11 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
+
+      - name: Setup .NET Core SDK net9.0
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
       
       - name: Install dependencies
         run: dotnet restore
@@ -78,7 +83,7 @@ jobs:
     strategy:
       matrix:
         configuration: [ Debug ]
-        dotnet-version: [ 'netcoreapp3.1', 'net5.0', 'net6.0', 'net7.0', 'net8.0' ]
+        dotnet-version: [ 'netcoreapp3.1', 'net5.0', 'net6.0', 'net7.0', 'net8.0', 'net9.0' ]
     steps: 
       - uses: actions/checkout@v4
 
@@ -113,7 +118,12 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
-    
+       
+      - name: Setup .NET Core SDK net9.0
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
       - name: Install dependencies
         run: dotnet restore
       
@@ -129,7 +139,7 @@ jobs:
         run: dotnet test --no-restore --verbosity minimal --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }} --collect "XPlat Code Coverage"
 
       - name: Rename and move Cobertura test to ${{ github.workspace }}/coverage directory
-        if: ${{ matrix.dotnet-version == 'net8.0' }}
+        if: ${{ matrix.dotnet-version == 'net9.0' }}
         run: |
           mkdir -p ${{ github.workspace }}/coverage
           cp ${{ github.workspace }}/tests/UnitTests/TestResults/**/coverage.cobertura.xml ${{ github.workspace }}/coverage/coverage1.xml
@@ -140,7 +150,7 @@ jobs:
           ls ${{ github.workspace }}/coverage 
 
       - name: Send coverage reports to Codacy 
-        if: ${{ matrix.dotnet-version == 'net8.0' }}
+        if: ${{ matrix.dotnet-version == 'net9.0' }}
         run: |
           bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage1.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
           bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage2.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
@@ -149,5 +159,5 @@ jobs:
           bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage5.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
 
       - name: Finalize codacy reporter
-        if: ${{ matrix.dotnet-version == 'net8.0' }}
+        if: ${{ matrix.dotnet-version == 'net9.0' }}
         run: bash <(curl -Ls https://coverage.codacy.com/get.sh) final -t ${{ secrets.CODACY_PROJECT_SECRET }}

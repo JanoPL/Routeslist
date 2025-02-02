@@ -17,6 +17,9 @@ clean:
 build-debug: get-dependencies
 	dotnet build /p:Configuration=Debug .\\..\\RoutesList.sln
 
+build-debug-net9.0: get-dependencies
+    dotnet build /p:Configuration=Debug .\\..\\RoutesList.sln -f net9.0
+
 build-debug-net8.0: get-dependencies
     dotnet build /p:Configuration=Debug .\\..\\RoutesList.sln -f net8.0
 
@@ -45,14 +48,20 @@ test: get-dependencies
 coverage: build-debug
 	dotnet test .\\..\\RoutesList.sln --collect:"XPlat Code Coverage" --no-build
 
+coverage-net9.0: build-debug-net9.0
+	dotnet test .\\..\\RoutesList.sln --collect:"XPlat Code Coverage" --no-build -f net9.0
+
+coverage-net8.0: build-debug-net8.0
+	dotnet test .\\..\\RoutesList.sln --collect:"XPlat Code Coverage" --no-build -f net8.0
+
 coverage-net7.0: build-debug-net7.0
-	dotnet test .\\..\\RoutesList.sln --collect:"XPlat Code Coverage" --no-build
+	dotnet test .\\..\\RoutesList.sln --collect:"XPlat Code Coverage" --no-build -f net7.0
 
 coverage-net6.0: build-debug-net6.0
-	dotnet test .\\..\\RoutesList.sln --collect:"XPlat Code Coverage" --no-build
+	dotnet test .\\..\\RoutesList.sln --collect:"XPlat Code Coverage" --no-build -f net6.0
 
 coverage-net5.0: build-debug-net5.0
-	dotnet test .\\..\\RoutesList.sln --collect:"XPlat Code Coverage" --no-build
+	dotnet test .\\..\\RoutesList.sln --collect:"XPlat Code Coverage" --no-build -f net5.0
 
 coverage-netcoreapp3.1: build-debug-netcoreapp3.1
 	dotnet test .\\..\\RoutesList.sln --collect:"XPlat Code Coverage" --no-build

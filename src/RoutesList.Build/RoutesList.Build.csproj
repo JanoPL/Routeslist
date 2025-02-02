@@ -1,24 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net5.0;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
     
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
     
-    <AssemblyVersion>1.1.2.1</AssemblyVersion>
-    <FileVersion>1.1.2.1</FileVersion>
-    <Version>1.1.2.1</Version>
+    <AssemblyVersion>1.1.3</AssemblyVersion>
+    <FileVersion>1.1.3</FileVersion>
+    <Version>1.1.3</Version>
     
     <Authors>JanoPL</Authors>
     <Company>JanoPL</Company>
     <Copyright>JanoPL</Copyright>
     
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
     
     <Description>Routing debugger for DotNet Core applications - Builder</Description>    
     <RepositoryUrl>https://github.com/JanoPL/Routeslist</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>Route list, Analizer Route, Debugging, Debugger, development, dev, tools, route, list, RoutesList</PackageTags>
+    <PackageTags>Route list, Analizer Route, Debugging, Debugger, debug, development, dev, tools, route, routes, list, RoutesList, developing</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageProjectUrl>https://github.com/JanoPL/Routeslist</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -56,6 +58,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0|AnyCPU'">
+    <Optimize>False</Optimize>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
     <Optimize>True</Optimize>
   </PropertyGroup>
@@ -76,6 +83,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0|AnyCPU'">
+    <Optimize>True</Optimize>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0|AnyCPU'">
     <Optimize>True</Optimize>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>

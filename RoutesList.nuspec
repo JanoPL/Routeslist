@@ -23,29 +23,33 @@
     <repository type="git" url="https://github.com/JanoPL/Routeslist" />
     <dependencies>
       <group targetFramework=".NETCoreApp3.1">
-        <dependency id="ConsoleTables" version="2.6.1" />
+        <dependency id="ConsoleTables" version="2.6.2" />
         <dependency id="Newtonsoft.Json" version="13.0.3"/>
       </group>
       
       <group targetFramework="net5.0">
-        <dependency id="ConsoleTables" version="2.6.1" />
+        <dependency id="ConsoleTables" version="2.6.2" />
         <dependency id="Newtonsoft.Json" version="13.0.3"/>
       </group>
       
       <group targetFramework=".net6.0">
-        <dependency id="ConsoleTables" version="2.6.1" />
+        <dependency id="ConsoleTables" version="2.6.2" />
         <dependency id="Newtonsoft.Json" version="13.0.3"/>
       </group>
       
       <group targetFramework=".net7.0">
-        <dependency id="ConsoleTables" version="2.6.1" />
+        <dependency id="ConsoleTables" version="2.6.2" />
         <dependency id="Newtonsoft.Json" version="13.0.3"/>
       </group>
 
       <group targetFramework=".net8.0">
-        <dependency id="ConsoleTables" version="2.6.1" />
+        <dependency id="ConsoleTables" version="2.6.2" />
         <dependency id="Newtonsoft.Json" version="13.0.3"/>
       </group>
+    <group targetFramework=".net9.0">
+      <dependency id="ConsoleTables" version="2.6.2" />
+      <dependency id="Newtonsoft.Json" version="13.0.3"/>
+    </group>
     </dependencies>
     
     <frameworkReferences>
@@ -96,5 +100,10 @@
     <file src=".\src\RoutesList.Gen\bin\Release\net8.0\RoutesList.Gen.dll" target="lib\net8.0" />
     <file src=".\src\RoutesList.Build\bin\Release\net8.0\RoutesList.Build.pdb" target="lib\net8.0"/>
     <file src=".\src\RoutesList.Gen\bin\Release\net8.0\RoutesList.Gen.pdb" target="lib\net8.0" />
+
+    <file src=".\src\RoutesList.Build\bin\Release\net8.0\RoutesList.Build.dll" target="lib\net9.0"/>
+    <file src=".\src\RoutesList.Gen\bin\Release\net8.0\RoutesList.Gen.dll" target="lib\net9.0" />
+    <file src=".\src\RoutesList.Build\bin\Release\net8.0\RoutesList.Build.pdb" target="lib\net9.0"/>
+    <file src=".\src\RoutesList.Gen\bin\Release\net8.0\RoutesList.Gen.pdb" target="lib\net9.0" />
   </files>
 </package>
