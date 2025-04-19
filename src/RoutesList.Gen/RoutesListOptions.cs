@@ -33,7 +33,7 @@ namespace RoutesList.Gen
             _tableClasses = value switch {
                 string => (string)value,
                 string[] => (string[])value,
-                null => new string[] { "table" },
+                null => new[] { "table" },
                 _ => throw new RuntimeBinderException($"It should be one of type string of string[], you provide: {value.GetType()}"),
             };
         }

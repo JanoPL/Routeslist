@@ -8,7 +8,7 @@ namespace RoutesList.Gen
 {
     public static class RoutesListView
     {
-        public static IApplicationBuilder UseRoutesList(
+        private static IApplicationBuilder UseRoutesList(
             this IApplicationBuilder app,
             RoutesListOptions options)
         {

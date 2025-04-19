@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RoutesList.Gen.Extensions
 {
@@ -12,7 +9,8 @@ namespace RoutesList.Gen.Extensions
             this IEndpointRouteBuilder endpoints,
             string pattern,
             RoutesListOptions options
-        ) {
+        )
+        {
             var pipeline = endpoints.CreateApplicationBuilder()
                 .UseMiddleware<RoutesListMiddleware>(options)
                 .Build();

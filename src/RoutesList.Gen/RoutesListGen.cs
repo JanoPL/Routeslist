@@ -1,7 +1,8 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
+using RoutesList.Build.Interfaces;
+using RoutesList.Build.Services;
 using RoutesList.Build.Services.StaticFileBuilder;
-using RoutesList.Interfaces;
 using RoutesList.Services;
 
 namespace RoutesList.Gen
