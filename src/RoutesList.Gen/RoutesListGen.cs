@@ -2,7 +2,6 @@
 using RoutesList.Build.Interfaces;
 using RoutesList.Build.Services;
 using RoutesList.Build.Services.StaticFileBuilder;
-using RoutesList.Services;
 
 namespace RoutesList.Gen
 {
@@ -23,6 +22,7 @@ namespace RoutesList.Gen
             services.AddTransient<IRoutes, Routes>();
             services.AddTransient<ITableBuilder, TableBuilder>();
             services.AddSingleton<IBuilder, Builder>();
+            services.AddSingleton<Build.Services.RoutesBuilder.IBuilder, Build.Services.RoutesBuilder.Builder>();
 
             return services;
         }
