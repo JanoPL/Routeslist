@@ -6,12 +6,21 @@ using RoutesList.Build.Models;
 
 namespace RoutesList.Gen
 {
+    /// <summary>
+    /// Middleware component that handles requests for displaying routes information in HTML or JSON format.
+    /// </summary>
     public class RoutesListMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly RoutesListOptions _options;
         private readonly ITableBuilder _tableBuilder;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RoutesListMiddleware"/> class.
+        /// </summary>
+        /// <param name="options">The options for configuring the routes list.</param>
+        /// <param name="next">The next middleware in the pipeline.</param>
+        /// <param name="tableBuilder">The service for building the routes table.</param>
         public RoutesListMiddleware(RoutesListOptions options, RequestDelegate next, ITableBuilder tableBuilder)
         {
             _options = options ?? new RoutesListOptions();
@@ -19,6 +28,11 @@ namespace RoutesList.Gen
             _tableBuilder = tableBuilder;
         }
 
+        /// <summary>
+        /// Processes an HTTP request to either display routes information or continue the pipeline.
+        /// </summary>
+        /// <param name="context">The HTTP context for the request.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task Invoke(HttpContext context)
         {
             if (!RequestRoutesList(context.Request))
@@ -42,6 +56,11 @@ namespace RoutesList.Gen
             }
         }
 
+        /// <summary>
+        /// Determines if the request is for the routes list.
+        /// </summary>
+        /// <param name="request">The HTTP request to check.</param>
+        /// <returns>True if the request is for routes list, otherwise false.</returns>
         private static bool RequestRoutesList(HttpRequest request)
         {
             if (request.Method != "GET") return false;
@@ -49,12 +68,22 @@ namespace RoutesList.Gen
             return true;
         }
 
+        /// <summary>
+        /// Performs a redirect to the specified location.
+        /// </summary>
+        /// <param name="response">The HTTP response.</param>
+        /// <param name="location">The location to redirect to.</param>
         private static void Redirect(HttpResponse response, string location)
         {
             response.StatusCode = 301;
             response.Headers["location"] = location;
         }
 
+        /// <summary>
+        /// Responds with HTML format of the routes list.
+        /// </summary>
+        /// <param name="response">The HTTP response to write to.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
         private async Task RespondWithHtml(HttpResponse response)
         {
             response.StatusCode = 200;
@@ -77,6 +106,11 @@ namespace RoutesList.Gen
             await response.WriteAsync(htmlBuilderResult, Encoding.UTF8);
         }
 
+        /// <summary>
+        /// Responds with JSON format of the routes list.
+        /// </summary>
+        /// <param name="response">The HTTP response to write to.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
         private async Task RespondWithJson(HttpResponse response)
         {
             response.StatusCode = 200;
