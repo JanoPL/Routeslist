@@ -3,21 +3,39 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RoutesList.Build.Enums
 {
+    /// <summary>
+    /// Defines the column headers for controller action descriptor table representation.
+    /// </summary>
     public enum TableHeaderControllerActionDescriptor
     {
-        [Display(Name = "Method"), Description("Method")]
+        /// <summary>
+        /// The HTTP method of the endpoint.
+        /// </summary>
+        [Display(Name = "HTTP Method"), Description("HTTP Method")]
         Method,
 
-        [Display(Name = "Uri"), Description("Uri")]
+        /// <summary>
+        /// The URI pattern of the endpoint.
+        /// </summary>
+        [Display(Name = "URI Pattern"), Description("URI Pattern")]
         Uri,
 
-        [Display(Name = "Controller name"), Description("Controller Name")]
+        /// <summary>
+        /// The name of the controller.
+        /// </summary>
+        [Display(Name = "Controller"), Description("Controller")]
         Controller,
 
-        [Display(Name = "Action"), Description("Action")]
+        /// <summary>
+        /// The name of the action method.
+        /// </summary>
+        [Display(Name = "Action Method"), Description("Action Method")]
         Action,
 
-        [Display(Name = "Full Name"), Description("Full Name")]
+        /// <summary>
+        /// The full qualified name of the endpoint.
+        /// </summary>
+        [Display(Name = "Full Name"), Description("Full Qualified Name")]
         Name,
     }
 }
