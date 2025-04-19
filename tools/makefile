@@ -1,9 +1,9 @@
 HOME:=$(shell pwd)
 NAME:=RoutesList
 
-BASE_VERSION = 1.1
+BASE_VERSION = 1.2
 
-BUILD_NUMBER ?= 3
+BUILD_NUMBER ?= 0
 VERSION = $(BASE_VERSION).$(BUILD_NUMBER)
 
 all: get-dependencies build-release package
