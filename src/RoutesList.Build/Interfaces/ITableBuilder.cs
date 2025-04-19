@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using RoutesList.Build.Models;
 
-namespace RoutesList.Interfaces
+namespace RoutesList.Build.Interfaces
 {
     public interface ITableBuilder
     {

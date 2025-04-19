@@ -11,10 +11,10 @@ namespace RoutesList.Build.Services.StaticFileBuilder
     public class IndexCompiler
     {
         private readonly StringBuilder _stringBuilder;
-        protected Dictionary<string, string> _header;
-        protected Dictionary<string, string> _body;
-        protected Dictionary<string, string> _footer;
-        protected Dictionary<string, string> _classes;
+        private Dictionary<string, string> _header;
+        private Dictionary<string, string> _body;
+        private Dictionary<string, string> _footer;
+        private Dictionary<string, string> _classes;
         private readonly RoutesListOptions _options;
         public string BodyContent { get; set; } = string.Empty;
         public string AdditionalHeader { get; set; } = string.Empty;
@@ -118,7 +118,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         {
             _header = new Dictionary<string, string> {
                 { "$(charsetEncoding)", _options.CharSet },
-                { "$(title)", _options.Tittle },
+                { "$(title)", _options.Title },
                 { "$(additionalHead)",  AdditionalHeader },
                 { "$(description)", _options.Description },
             };
@@ -137,8 +137,11 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         {
             string classes = "table";
 
-            if (_options.GetClasses() != null && _options.GetClasses().Length > 0) {
-                classes = String.Join(" ", _options.GetClasses());
+            if (_options.Classes is string[] classArray && classArray.Length > 0) {
+                classes = String.Join(" ", classArray);
+            }
+            else if (_options.Classes is string classString && !string.IsNullOrEmpty(classString)) {
+                classes = classString;
             }
 
             _classes = new Dictionary<string, string> {

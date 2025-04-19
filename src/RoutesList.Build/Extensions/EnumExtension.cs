@@ -9,44 +9,53 @@ namespace RoutesList.Build.Extensions
 {
     public static class EnumExtension
     {
-        public static Dictionary<int, string> ToDictionary(Enum myEnum)
+        /// <summary>
+        /// Converts an enum to a dictionary of integer values and display names.
+        /// </summary>
+        /// <typeparam name="T">The enum type.</typeparam>
+        /// <param name="myEnum">The enum value to convert.</param>
+        /// <returns>A dictionary containing enum values as keys and their display names as values.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when myEnum is null.</exception>
+        public static Dictionary<int, string> ToDictionary<T>(T myEnum) where T : Enum
         {
+            if (myEnum == null) throw new ArgumentNullException(nameof(myEnum));
             var myEnumType = myEnum.GetType();
-
+        
             var names = myEnumType.GetFields()
                 .Where(m => m.GetCustomAttribute<DisplayAttribute>() != null)
-                .Select(e => e.GetCustomAttribute<DisplayAttribute>().Name);
-
-            var values = Enum.GetValues(myEnumType).Cast<int>();
-
-            return names.Zip(values, (n, v) => new KeyValuePair<int, string>(v, n))
+                .Select(e => e.GetCustomAttribute<DisplayAttribute>()?.Name)
+                .ToList();
+        
+            var values = Enum.GetValues(myEnumType).Cast<int>().ToList();
+        
+            return names.Zip(values, (n, v) => new KeyValuePair<int, string>(v, n ?? string.Empty))
                 .ToDictionary(kv => kv.Key, kv => kv.Value);
         }
 
-        public static List<string> GetListOfDescription<T>() where T : struct
+        /// <summary>
+        /// Gets a list of descriptions for all values in an enum type.
+        /// </summary>
+        /// <typeparam name="T">The enum type.</typeparam>
+        /// <returns>A list of enum descriptions, or an empty list if the type is not an enum.</returns>
+        public static List<string> GetListOfDescription<T>() where T : struct, Enum
         {
-            Type t = typeof(T);
-            return !t.IsEnum ? null : Enum.GetValues(t).Cast<Enum>().Select(x => x.GetDescription()).ToList();
+            return Enum.GetValues(typeof(T))
+                .Cast<T>()
+                .Select(x => x.GetDescription() ?? x.ToString())
+                .ToList();
         }
 
+        /// <summary>
+        /// Gets the description of an enum value using the DescriptionAttribute.
+        /// </summary>
+        /// <param name="value">The enum value.</param>
+        /// <returns>The description of the enum value, or null if no description is found.</returns>
         public static string GetDescription(this Enum value)
         {
-            Type type = value.GetType();
-            string name = Enum.GetName(type, value);
-
-            if (name != null) {
-                FieldInfo field = type.GetField(name);
-
-                if (field != null) {
-                    DescriptionAttribute attr = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
-
-                    if (attr != null) {
-                        return attr.Description;
-                    }
-                }
-            }
-
-            return null;
+            if (value == null) return null;
+            
+            var field = value.GetType().GetField(value.ToString());
+            return field?.GetCustomAttribute<DescriptionAttribute>()?.Description;
         }
     }
 }

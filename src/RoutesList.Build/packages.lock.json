@@ -4,71 +4,133 @@
     ".NETCoreApp,Version=v3.1": {
       "ConsoleTables": {
         "type": "Direct",
-        "requested": "[2.6.1, )",
-        "resolved": "2.6.1",
-        "contentHash": "TyU885plpk88kMxgayy5+QQvtt/t3ZR45+vSvaKqZiaK+YsGVE6Mv7sV3fwjUMv3jHT15DdkpxW/+o+uc+bAJQ=="
+        "requested": "[2.6.2, )",
+        "resolved": "2.6.2",
+        "contentHash": "/bH4u0Lni2FPUtGvg1oAKpsEzmhhBlqj0DD67kvV/4qELaEBXDbVo9w3lHFQFe00vLEAZi+5Rr8Nai0D2z7+bg==",
+        "dependencies": {
+          "Wcwidth": "1.0.0"
+        }
       },
       "Newtonsoft.Json": {
         "type": "Direct",
         "requested": "[13.0.3, )",
         "resolved": "13.0.3",
         "contentHash": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ=="
+      },
+      "Wcwidth": {
+        "type": "Transitive",
+        "resolved": "1.0.0",
+        "contentHash": "aekut5BeF4c1Jr2qab3aXcttcgPEfPb2ok2L8911EIzn3RnDBYnUWgx/1OVlqrSXCdwAkBpNgYWXb6b5t4cBng=="
       }
     },
     ".NETCoreApp,Version=v5.0": {
       "ConsoleTables": {
         "type": "Direct",
-        "requested": "[2.6.1, )",
-        "resolved": "2.6.1",
-        "contentHash": "TyU885plpk88kMxgayy5+QQvtt/t3ZR45+vSvaKqZiaK+YsGVE6Mv7sV3fwjUMv3jHT15DdkpxW/+o+uc+bAJQ=="
+        "requested": "[2.6.2, )",
+        "resolved": "2.6.2",
+        "contentHash": "/bH4u0Lni2FPUtGvg1oAKpsEzmhhBlqj0DD67kvV/4qELaEBXDbVo9w3lHFQFe00vLEAZi+5Rr8Nai0D2z7+bg==",
+        "dependencies": {
+          "Wcwidth": "1.0.0"
+        }
       },
       "Newtonsoft.Json": {
         "type": "Direct",
         "requested": "[13.0.3, )",
         "resolved": "13.0.3",
         "contentHash": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ=="
+      },
+      "Wcwidth": {
+        "type": "Transitive",
+        "resolved": "1.0.0",
+        "contentHash": "aekut5BeF4c1Jr2qab3aXcttcgPEfPb2ok2L8911EIzn3RnDBYnUWgx/1OVlqrSXCdwAkBpNgYWXb6b5t4cBng=="
       }
     },
     "net6.0": {
       "ConsoleTables": {
         "type": "Direct",
-        "requested": "[2.6.1, )",
-        "resolved": "2.6.1",
-        "contentHash": "TyU885plpk88kMxgayy5+QQvtt/t3ZR45+vSvaKqZiaK+YsGVE6Mv7sV3fwjUMv3jHT15DdkpxW/+o+uc+bAJQ=="
+        "requested": "[2.6.2, )",
+        "resolved": "2.6.2",
+        "contentHash": "/bH4u0Lni2FPUtGvg1oAKpsEzmhhBlqj0DD67kvV/4qELaEBXDbVo9w3lHFQFe00vLEAZi+5Rr8Nai0D2z7+bg==",
+        "dependencies": {
+          "Wcwidth": "1.0.0"
+        }
       },
       "Newtonsoft.Json": {
         "type": "Direct",
         "requested": "[13.0.3, )",
         "resolved": "13.0.3",
         "contentHash": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ=="
+      },
+      "Wcwidth": {
+        "type": "Transitive",
+        "resolved": "1.0.0",
+        "contentHash": "aekut5BeF4c1Jr2qab3aXcttcgPEfPb2ok2L8911EIzn3RnDBYnUWgx/1OVlqrSXCdwAkBpNgYWXb6b5t4cBng=="
       }
     },
     "net7.0": {
       "ConsoleTables": {
         "type": "Direct",
-        "requested": "[2.6.1, )",
-        "resolved": "2.6.1",
-        "contentHash": "TyU885plpk88kMxgayy5+QQvtt/t3ZR45+vSvaKqZiaK+YsGVE6Mv7sV3fwjUMv3jHT15DdkpxW/+o+uc+bAJQ=="
+        "requested": "[2.6.2, )",
+        "resolved": "2.6.2",
+        "contentHash": "/bH4u0Lni2FPUtGvg1oAKpsEzmhhBlqj0DD67kvV/4qELaEBXDbVo9w3lHFQFe00vLEAZi+5Rr8Nai0D2z7+bg==",
+        "dependencies": {
+          "Wcwidth": "1.0.0"
+        }
       },
       "Newtonsoft.Json": {
         "type": "Direct",
         "requested": "[13.0.3, )",
         "resolved": "13.0.3",
         "contentHash": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ=="
+      },
+      "Wcwidth": {
+        "type": "Transitive",
+        "resolved": "1.0.0",
+        "contentHash": "aekut5BeF4c1Jr2qab3aXcttcgPEfPb2ok2L8911EIzn3RnDBYnUWgx/1OVlqrSXCdwAkBpNgYWXb6b5t4cBng=="
       }
     },
     "net8.0": {
       "ConsoleTables": {
         "type": "Direct",
-        "requested": "[2.6.1, )",
-        "resolved": "2.6.1",
-        "contentHash": "TyU885plpk88kMxgayy5+QQvtt/t3ZR45+vSvaKqZiaK+YsGVE6Mv7sV3fwjUMv3jHT15DdkpxW/+o+uc+bAJQ=="
+        "requested": "[2.6.2, )",
+        "resolved": "2.6.2",
+        "contentHash": "/bH4u0Lni2FPUtGvg1oAKpsEzmhhBlqj0DD67kvV/4qELaEBXDbVo9w3lHFQFe00vLEAZi+5Rr8Nai0D2z7+bg==",
+        "dependencies": {
+          "Wcwidth": "1.0.0"
+        }
       },
       "Newtonsoft.Json": {
         "type": "Direct",
         "requested": "[13.0.3, )",
         "resolved": "13.0.3",
         "contentHash": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ=="
+      },
+      "Wcwidth": {
+        "type": "Transitive",
+        "resolved": "1.0.0",
+        "contentHash": "aekut5BeF4c1Jr2qab3aXcttcgPEfPb2ok2L8911EIzn3RnDBYnUWgx/1OVlqrSXCdwAkBpNgYWXb6b5t4cBng=="
+      }
+    },
+    "net9.0": {
+      "ConsoleTables": {
+        "type": "Direct",
+        "requested": "[2.6.2, )",
+        "resolved": "2.6.2",
+        "contentHash": "/bH4u0Lni2FPUtGvg1oAKpsEzmhhBlqj0DD67kvV/4qELaEBXDbVo9w3lHFQFe00vLEAZi+5Rr8Nai0D2z7+bg==",
+        "dependencies": {
+          "Wcwidth": "1.0.0"
+        }
+      },
+      "Newtonsoft.Json": {
+        "type": "Direct",
+        "requested": "[13.0.3, )",
+        "resolved": "13.0.3",
+        "contentHash": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ=="
+      },
+      "Wcwidth": {
+        "type": "Transitive",
+        "resolved": "1.0.0",
+        "contentHash": "aekut5BeF4c1Jr2qab3aXcttcgPEfPb2ok2L8911EIzn3RnDBYnUWgx/1OVlqrSXCdwAkBpNgYWXb6b5t4cBng=="
       }
     }
   }

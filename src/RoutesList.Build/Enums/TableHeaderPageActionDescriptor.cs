@@ -3,15 +3,27 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RoutesList.Build.Enums
 {
+    /// <summary>
+    /// Describes the column headers for the page action table.
+    /// </summary>
     public enum TableHeaderPageActionDescriptor
     {
-        [Display(Name = "Full Name"), Description("Full Name")]
+        /// <summary>
+        /// Full name of the page action.
+        /// </summary>
+        [Display(Name = "Full Name")]
         Name,
 
-        [Display(Name = "Relative Engine Path"), Description("Relative Engine Path")]
-        ViewEnginePath,
-
-        [Display(Name = "Relative Path"), Description("Relative Path")]
+        /// <summary>
+        /// Relative path of the page action.
+        /// </summary>
+        [Display(Name = "Relative Path")]
         RelativePath,
+
+        /// <summary>
+        /// Relative engine path of the page action.
+        /// </summary>
+        [Display(Name = "Relative Engine Path")]
+        ViewEnginePath
     }
 }

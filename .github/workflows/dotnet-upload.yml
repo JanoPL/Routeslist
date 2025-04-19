@@ -1,41 +1,44 @@
-name: Net RoutesList publish
+name: Net RoutesList - Release & NuGet Publishing
 
 on:
   release:
-    types: [ created ]
+    types: [ published ]
 
 jobs:
- build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest]
-        nuget: [latest, preview]
-    name: NuGet@${{ matrix.nuget }} build package
+  build-and-publish:
+    runs-on: windows-latest
+    name: Build Release Packages & Publish to NuGet
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/cache@v4
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
         with:
           path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          key: ${{ runner.os }}-nuget-packages-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-nuget-
+            ${{ runner.os }}-nuget-packages-
 
-      - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v2.0.0
-
-      - name: Setup NuGet.exe
-        uses: nuget/setup-nuget@v2
+      - name: Setup .NET SDK Environments
+        uses: actions/setup-dotnet@v4
         with:
-          nuget-api-key: ${{ secrets.NUGETKEY }}
-          nuget-version: ${{ matrix.nuget }}
+          dotnet-version: |
+            3.1.x
+            5.0.x
+            6.0.x
+            7.0.x
+            8.0.x
+            9.0.x
 
-      - name: Restore nuget packages
-        run: nuget restore RoutesList.sln
+      - name: Build solution in Release mode
+        run: dotnet build RoutesList.sln -c Release
 
-      - name: Build
-        run: msbuild .\RoutesList.sln /t:Restore /p:Configuration=Release /t:build
+      - name: Create NuGet packages with symbols
+        run: dotnet pack RoutesList.sln -c Release --no-build --include-symbols -p:SymbolPackageFormat=snupkg
 
-      - name: pack
-        run: nuget pack .\RoutesList.nuspec
+      - name: Publish main packages to NuGet.org
+        run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGETKEY }} --skip-duplicate
+
+      - name: Publish debug symbols to NuGet.org
+        run: dotnet nuget push **/*.snupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGETKEY }} --skip-duplicate

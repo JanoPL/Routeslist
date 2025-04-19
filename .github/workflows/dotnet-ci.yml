@@ -1,50 +1,48 @@
-name: Net RoutesList - Pull Request Validation
+﻿name: Net RoutesList CI
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 on:
+  push:
+    branches-ignore: [ master, main ]
   pull_request:
     branches: [ master, main ]
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+' #semantic version format
-
-  workflow_dispatch: 
-    inputs: 
+  workflow_dispatch:
+    inputs:
       verbosity:
         description: verbose level
-        default: "minimal"
         type: choice
+        default: "minimal"
         options:
           - quiet
           - minimal
           - normal
           - detailed
           - diagnostic
-  
+
 jobs:
   build-windows:
-    name: Windows Build & Test
     runs-on: windows-latest
-    timeout-minutes: 30
     strategy:
       matrix:
-        configuration: [ Release ]
+        configuration: [ 'Debug', 'Release' ]
         dotnet-version: [ 'netcoreapp3.1', 'net5.0', 'net6.0', 'net7.0', 'net8.0', 'net9.0' ]
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Cache NuGet packages
+      - name: store cache packages
         uses: actions/cache@v4
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-${{ github.workflow }}-${{ matrix.configuration }}-${{ matrix.dotnet-version }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-${{ github.workflow }}-${{ matrix.configuration }}-${{ matrix.dotnet-version }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-    
-      - name: Setup .NET SDK environments
+
+      - name: Setup .NET Core SDKs
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: |
@@ -55,59 +53,82 @@ jobs:
             8.0.x
             9.0.x
       
-      - name: Restore NuGet dependencies
+      - name: Install dependencies
         run: dotnet restore
       
-      - name: Build solution
+      - name: Build
         run: dotnet build --configuration ${{ matrix.configuration }} --no-restore
-
-      - name: Run unit tests
+      
+      - name: Test
         run: dotnet test --no-restore --verbosity ${{ github.event.inputs.verbosity || 'minimal' }} --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }}
   
   build-linux:
-    name: Linux Build & Code Coverage
     runs-on: ubuntu-latest
-    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
-        configuration: [ Release ]
-        dotnet-version: [ 'netcoreapp3.1', 'net5.0', 'net6.0', 'net7.0', 'net8.0', 'net9.0' ]
+        configuration: [ 'Debug', 'Release' ]
+        dotnet-version: [ 'net6.0', 'net7.0', 'net8.0', 'net9.0' ]
     steps: 
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Cache NuGet packages
-        uses: actions/cache@v4
+      - uses: actions/cache@v4
         with:
           path: ~/.nuget/packages
-          key: ${{ runner.os }}-${{ github.workflow }}-${{ matrix.configuration }}-${{ matrix.dotnet-version }}-nuget-${{ hashFiles('**/packages.lock.json', '**/Directory.Packages.props', '**/*.csproj') }}
+          key: ${{ runner.os }}-${{ github.workflow }}-${{ matrix.configuration }}-${{ matrix.dotnet-version }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-${{ github.workflow }}-${{ matrix.configuration }}-${{ matrix.dotnet-version }}-nuget-${{ hashFiles('**/packages.lock.json', '**/Directory.Packages.props', '**/*.csproj') }}
+            ${{ runner.os }}-${{ github.workflow }}-${{ matrix.configuration }}-${{ matrix.dotnet-version }}-nuget-${{ hashFiles('**/packages.lock.json') }}
       
-      - name: Setup .NET SDK environments
+      - name: Set up Homebrew
+        if: github.event_name == 'push'
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Export environment variables
+        if: github.event_name == 'push'
+        run: |
+            export PATH=/usr/local/opt/openssl@3/bin:/usr/local/bin:$PATH
+            export LDFLAGS="-L/usr/local/opt/openssl@3/lib"
+            export CPPFLAGS="-I/usr/local/opt/openssl@3/include"
+            export PKG_CONFIG_PATH="/usr/local/opt/openssl@3/lib/pkgconfig"
+            export DYLD_LIBRARY_PATH="/usr/local/opt/openssl@3/lib:$DYLD_LIBRARY_PATH"
+
+      - name: Setup .NET Core SDK net6.0
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: |
-            3.1.x
-            5.0.x
-            6.0.x
-            7.0.x
-            8.0.x
-            9.0.x
-    
-      - name: Restore NuGet dependencies
+          dotnet-version: 6.0.x
+
+      - name: Setup .NET Core SDK net7.0
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 7.0.x
+
+      - name: Setup .NET Core SDK net8.0
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+       
+      - name: Setup .NET Core SDK net9.0
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Install dependencies
         run: dotnet restore
       
-      - name: Build solution
+      - name: Build
         run: dotnet build --configuration ${{ matrix.configuration }} --no-restore
-      
-      - name: Run tests with code coverage
-        run: dotnet test --no-restore --verbosity ${{ github.event.inputs.verbosity || 'minimal' }} --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }} --collect "XPlat Code Coverage"
 
-      - name: Collect and prepare code coverage data
+      - name: Test
+        if: ${{ matrix.dotnet-version != 'net9.0' }}
+        run: dotnet test --no-restore --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }}
+
+      - name: Test
         if: ${{ matrix.dotnet-version == 'net9.0' }}
-        continue-on-error: true
+        run: dotnet test --no-restore --verbosity minimal --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }} --collect "XPlat Code Coverage"
+
+      - name: Rename and move Cobertura test to ${{ github.workspace }}/coverage directory
+        if: ${{ matrix.dotnet-version == 'net9.0' }}
         run: |
           mkdir -p ${{ github.workspace }}/coverage
           for i in {1..5}; do
@@ -123,9 +144,8 @@ jobs:
           done
           ls ${{ github.workspace }}/coverage || echo "No coverage files found"
 
-      - name: Submit code coverage to Codacy
+      - name: Send coverage reports to Codacy 
         if: ${{ matrix.dotnet-version == 'net9.0' }}
-        timeout-minutes: 10
         run: |
           bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage1.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
           bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage2.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
@@ -133,6 +153,6 @@ jobs:
           bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage4.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
           bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage5.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
 
-      - name: Finalize Codacy coverage report
+      - name: Finalize codacy reporter
         if: ${{ matrix.dotnet-version == 'net9.0' }}
         run: bash <(curl -Ls https://coverage.codacy.com/get.sh) final -t ${{ secrets.CODACY_PROJECT_SECRET }}

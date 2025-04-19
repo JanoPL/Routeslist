@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using RoutesList.Gen.Extensions;
 using System;
+using RoutesList.Build.Models;
+using RoutesList.Gen.Extensions;
 
 namespace RoutesList.Gen
 {
     public static class RoutesListView
     {
-        public static IApplicationBuilder UseRoutesList(
+        private static IApplicationBuilder UseRoutesList(
             this IApplicationBuilder app,
             RoutesListOptions options)
         {

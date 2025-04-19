@@ -2,43 +2,40 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-
+using RoutesList.Build.Extensions;
 using RoutesList.Build.Services.RoutesBuilder;
 
 namespace RoutesList.Build.Services.Strategies
 {
-    public class BuildCompiledPageDescriptorStrategy : AbstractBuilderMethod, IStrategy
+    public class BuildCompiledPageDescriptorStrategy : IRouteProcessingStrategy
     {
         private int Id { set; get; }
-        private IEnumerable<ActionDescriptor> Items { get; set; }
+        private readonly Dictionary<string, CompiledPageActionDescriptor> _compiledPageLookup;
 
         public BuildCompiledPageDescriptorStrategy(int id, IEnumerable<ActionDescriptor> items)
         {
             Id = id;
-            Items = items;
+            // Pre-process the items once during initialization
+            _compiledPageLookup = items.OfType<CompiledPageActionDescriptor>()
+                .ToDictionary(a => a.Id.ToString());
         }
 
-        public Builder Process(ActionDescriptor route)
+        public bool CanProcess(ActionDescriptor descriptor)
         {
-            Builder builder = new Builder().Create(Id);
+            return descriptor is CompiledPageActionDescriptor;
+        }
 
-            var compiledPageActionDescriptor = Items.OfType<CompiledPageActionDescriptor>()
-                        .Where(r => r.Id == route.Id)
-                        .Select(a => new {
-                            a.DisplayName,
-                            a.ViewEnginePath,
-                            a.RelativePath
-                        }).First();
-
-            string viewEnginePath = compiledPageActionDescriptor?.ViewEnginePath;
-            string relativePath = compiledPageActionDescriptor?.RelativePath;
-            string displayName = compiledPageActionDescriptor?.DisplayName;
-
-            builder.IsCompiledpageActionDescriptior(true);
-
-            AddDisplayName(displayName, builder);
-            AddViewEnginePath(viewEnginePath, builder);
-            AddRelativePath(relativePath, builder);
+        public IBuilder Process(ActionDescriptor route)
+        {
+            IBuilder builder = new Builder().Create(Id);
+            
+            if (_compiledPageLookup.TryGetValue(route.Id, out CompiledPageActionDescriptor descriptor))
+            {
+                builder.IsCompiledPageActionDescriptior(true)
+                    .SafeDisplayName(descriptor.DisplayName)
+                    .SafeViewEnginePath(descriptor.ViewEnginePath)
+                    .SafeRelativePath(descriptor.RelativePath);
+            }
 
             return builder;
         }

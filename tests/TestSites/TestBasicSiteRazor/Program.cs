@@ -36,9 +36,9 @@ namespace TestBasicSiteRazor
             string[] classes = dict["table"] = new string[2] { "table", "table-striped" };
 
             app.UseRoutesList(options => {
-                options.Tittle = "Title";
+                options.Title = "Title";
                 options.Endpoint = "routes";
-                options.SetTableClasses(classes);
+                options.Classes = classes;
             });
 
             app.Run();

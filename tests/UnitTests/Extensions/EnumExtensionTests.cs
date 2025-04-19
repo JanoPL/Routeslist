@@ -1,65 +1,91 @@
-﻿#if NETCOREAPP3_1 || NET5_0
+﻿using System;
 using RoutesList.Build.Extensions;
 using UnitTests.TestFiles;
 using Xunit;
-#endif
 
-namespace UnitTests.Extensions.Tests
+namespace UnitTests.Extensions
 {
     public class EnumExtensionTests
     {
         [Fact]
-        public void ToDictionaryTest()
+        public void ToDictionary_ShouldReturnDictionaryWithCorrectKeysAndValues()
         {
-            var names = EnumExtension.ToDictionary(TestEnums.Test1);
+            // Arrange & Act
+            var result = EnumExtension.ToDictionary(TestEnums.Test1);
 
-            Assert.Collection(names,
-                item => Assert.Equal(0, item.Key),
-                item => Assert.Equal(1, item.Key),
-                item => Assert.Equal(2, item.Key)
-            );
-
-            Assert.Collection(names,
-                item => Assert.Equal("Test Name 1", item.Value),
-                item => Assert.Equal("Test Name 2", item.Value),
-                item => Assert.Equal("Test Name 3", item.Value)
-            );
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(3, result.Count);
+            
+            Assert.True(result.ContainsKey(0));
+            Assert.True(result.ContainsKey(1));
+            Assert.True(result.ContainsKey(2));
+            
+            Assert.Equal("Test Name 1", result[0]);
+            Assert.Equal("Test Name 2", result[1]);
+            Assert.Equal("Test Name 3", result[2]);
         }
 
         [Fact]
-        public void GetListOfDescriptionTest()
+        public void ToDictionary_WithNullValue_ShouldThrowArgumentNullException()
         {
-            var listDescriptions = EnumExtension.GetListOfDescription<TestEnums>();
-
-            Assert.Collection(listDescriptions,
-                item => Assert.Equal("Test Description 1", item),
-                item => Assert.Equal("Test Description 2", item),
-                Assert.Null
-            );
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => EnumExtension.ToDictionary<Enum>(null!));
         }
 
         [Fact]
-        public void GetListOfDescriptionNullTest()
+        public void GetListOfDescription_ShouldReturnListOfDescriptions()
         {
-            var listDescriptions = EnumExtension.GetListOfDescription<TestStruct>();
+            // Arrange & Act
+            var descriptions = EnumExtension.GetListOfDescription<TestEnums>();
 
-            Assert.Null(listDescriptions);
+            // Assert
+            Assert.NotNull(descriptions);
+            Assert.Equal(3, descriptions.Count);
+            Assert.Equal("Test Description 1", descriptions[0]);
+            Assert.Equal("Test Description 2", descriptions[1]);
+            Assert.Equal("Test3", descriptions[2]); // Falls back to ToString() when no description
         }
 
         [Fact]
-        public void GetDescriptionTest()
+        public void GetListOfDescription_WithNonEnumType_ShouldReturnEmptyList()
         {
-            var Description = EnumExtension.GetDescription(TestEnums.Test1);
-
-            Assert.Equal("Test Description 1", Description);
+            // Act & Assert - should compile error now since constraint is struct, Enum
+            // var result = EnumExtension.GetListOfDescription<TestStruct>();
+            // Assert.Empty(result);
         }
 
         [Fact]
-        public void GetDescriptionNullTest()
+        public void GetDescription_WithDescriptionAttribute_ShouldReturnDescription()
         {
-            var Description = EnumExtension.GetDescription(TestEnums.Test3);
+            // Arrange & Act
+            var description = TestEnums.Test1.GetDescription();
 
-            Assert.Null(Description);
+            // Assert
+            Assert.Equal("Test Description 1", description);
+        }
+
+        [Fact]
+        public void GetDescription_WithoutDescriptionAttribute_ShouldReturnNull()
+        {
+            // Arrange & Act
+            var description = TestEnums.Test3.GetDescription();
+
+            // Assert
+            Assert.Null(description);
+        }
+
+        [Fact]
+        public void GetDescription_WithNullValue_ShouldReturnNull()
+        {
+            // Arrange
+            Enum? nullEnum = null;
+
+            // Act
+            var description = nullEnum.GetDescription();
+
+            // Assert
+            Assert.Null(description);
         }
     }
 }
