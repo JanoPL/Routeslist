@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSiteRazorPages", "tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoutesList.Integration.RazorPages", "tests\RoutesList.Integration.RazorPages\RoutesList.Integration.RazorPages.csproj", "{6F07D810-ED3D-46C4-BC56-40899A0AB27F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoutesList.Tests.Services", "tests\RoutesList.Tests.Services\RoutesList.Tests.Services.csproj", "{CE142622-FFFA-4533-9E7A-7548938EFC0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{6F07D810-ED3D-46C4-BC56-40899A0AB27F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F07D810-ED3D-46C4-BC56-40899A0AB27F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F07D810-ED3D-46C4-BC56-40899A0AB27F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE142622-FFFA-4533-9E7A-7548938EFC0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE142622-FFFA-4533-9E7A-7548938EFC0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE142622-FFFA-4533-9E7A-7548938EFC0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE142622-FFFA-4533-9E7A-7548938EFC0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -108,6 +114,7 @@ Global
 		{C77FC416-83A9-4B73-B80F-A012C955EEDF} = {BB691CA0-5B87-4B21-80A2-CA63DD00F898}
 		{EA8C1C54-37E6-4309-AB3C-38C75CE024E7} = {BB691CA0-5B87-4B21-80A2-CA63DD00F898}
 		{6F07D810-ED3D-46C4-BC56-40899A0AB27F} = {D2236F00-56A6-4BA8-91F9-7CD970A46F33}
+		{CE142622-FFFA-4533-9E7A-7548938EFC0B} = {D2236F00-56A6-4BA8-91F9-7CD970A46F33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {87DFA115-5F76-4EB2-8EDE-48DE379CA43B}

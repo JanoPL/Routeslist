@@ -28,5 +28,6 @@
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="[7.0.16,8.0)" Condition="'$(TargetFramework)' == 'net7.0'"/>
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="[8.0.2,9.0)" Condition="'$(TargetFramework)' == 'net8.0'"/>
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="[9.0.0,10.0)" Condition="'$(TargetFramework)' == 'net9.0'"/>
+    <PackageVersion Include="Moq" Version="4.20.72" />
   </ItemGroup>
 </Project>

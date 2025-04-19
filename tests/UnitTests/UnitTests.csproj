@@ -4,10 +4,12 @@
     <TargetFrameworks>netcoreapp3.1;net5.0;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
 
+    <ImplicitUsings Condition="'$(TargetFramework)' == 'netcoreapp3.1'">disable</ImplicitUsings>
     <ImplicitUsings Condition="'$(TargetFramework)' == 'net5.0'">disable</ImplicitUsings>
     <ImplicitUsings Condition="'$(TargetFramework)' == 'net6.0'">enable</ImplicitUsings>
     <ImplicitUsings Condition="'$(TargetFramework)' == 'net7.0'">enable</ImplicitUsings>
     <ImplicitUsings Condition="'$(TargetFramework)' == 'net8.0'">enable</ImplicitUsings>
+    <ImplicitUsings Condition="'$(TargetFramework)' == 'net9.0'">enable</ImplicitUsings>
 
     <Nullable>enable</Nullable>
 
