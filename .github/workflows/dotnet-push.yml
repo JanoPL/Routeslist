@@ -1,5 +1,9 @@
 name: Net RoutesList Dev
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
     branches-ignore: [ master, main ]
@@ -33,36 +37,17 @@ jobs:
           key: ${{ runner.os }}-${{ github.workflow }}-${{ matrix.configuration }}-${{ matrix.dotnet-version }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-${{ github.workflow }}-${{ matrix.configuration }}-${{ matrix.dotnet-version }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-    
-      - name: Setup .NET Core SDK netcoreapp3.1
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 3.1.x
-      
-      - name: Setup .NET Core SDK net5.0
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 5.0.x
 
-      - name: Setup .NET Core SDK net6.0
+      - name: Setup .NET Core SDKs
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 6.0.x
-
-      - name: Setup .NET Core SDK net7.0
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 7.0.x
-
-      - name: Setup .NET Core SDK net8.0
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0.x
-
-      - name: Setup .NET Core SDK net9.0
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 9.0.x
+          dotnet-version: |
+            3.1.x
+            5.0.x
+            6.0.x
+            7.0.x
+            8.0.x
+            9.0.x
       
       - name: Install dependencies
         run: dotnet restore
@@ -71,16 +56,12 @@ jobs:
         run: dotnet build --configuration ${{ matrix.configuration }} --no-restore
       
       - name: Test
-        if: github.event.inputs.verbosity != ''
-        run: dotnet test --no-restore --verbosity ${{ github.event.inputs.verbosity }} --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }}
-      
-      - name: Test
-        if: github.event.inputs.verbosity == ''
-        run: dotnet test --no-restore --verbosity minimal --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }}
+        run: dotnet test --no-restore --verbosity ${{ github.event.inputs.verbosity || 'minimal' }} --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }}
   
   build-linux:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         configuration: [ Debug ]
         dotnet-version: [ 'netcoreapp3.1', 'net5.0', 'net6.0', 'net7.0', 'net8.0', 'net9.0' ]
@@ -157,12 +138,18 @@ jobs:
         if: ${{ matrix.dotnet-version == 'net9.0' }}
         run: |
           mkdir -p ${{ github.workspace }}/coverage
-          cp ${{ github.workspace }}/tests/UnitTests/TestResults/**/coverage.cobertura.xml ${{ github.workspace }}/coverage/coverage1.xml
-          cp ${{ github.workspace }}/tests/Test.WebApplication.factory/TestResults/**/coverage.cobertura.xml ${{ github.workspace }}/coverage/coverage2.xml
-          cp ${{ github.workspace }}/tests/RouteList.IntegrationTest/TestResults/**/coverage.cobertura.xml ${{ github.workspace }}/coverage/coverage3.xml
-          cp ${{ github.workspace }}/tests/RoutesList.Integration.Razor/TestResults/**/coverage.cobertura.xml ${{ github.workspace }}/coverage/coverage4.xml
-          cp ${{ github.workspace }}/tests/RoutesLIst.Integration.Blazor/TestResults/**/coverage.cobertura.xml ${{ github.workspace }}/coverage/coverage5.xml
-          ls ${{ github.workspace }}/coverage 
+          for i in {1..5}; do
+            source=""
+            case $i in
+              1) source="tests/UnitTests/TestResults" ;;
+              2) source="tests/Test.WebApplication.factory/TestResults" ;;
+              3) source="tests/RouteList.IntegrationTest/TestResults" ;;
+              4) source="tests/RoutesList.Integration.Razor/TestResults" ;;
+              5) source="tests/RoutesLIst.Integration.Blazor/TestResults" ;;
+            esac
+            cp ${{ github.workspace }}/$source/**/coverage.cobertura.xml ${{ github.workspace }}/coverage/coverage$i.xml || echo "Warning: Coverage file $i not found"
+          done
+          ls ${{ github.workspace }}/coverage || echo "No coverage files found"
 
       - name: Send coverage reports to Codacy 
         if: ${{ matrix.dotnet-version == 'net9.0' }}
