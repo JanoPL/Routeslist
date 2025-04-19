@@ -1,4 +1,4 @@
-# RoutesList
+# <img src="assets/logo.jpg" alt="RoutesList Logo" height="30"/> RoutesList
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/f784633bc28c46a1ad2e85bbadc448e1)](https://app.codacy.com/gh/JanoPL/Routeslist/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/f784633bc28c46a1ad2e85bbadc448e1)](https://app.codacy.com/gh/JanoPL/Routeslist/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
@@ -6,14 +6,15 @@
 RoutesList is a handy tool that lets you see all the routes in your .NET application in a clear and concise way.
 You can easily inspect the methods, URIs, controllers, actions and middleware of your routes,
 and customize the output to suit your needs.
-RoutesList works with .NET Core app 3.1, .NET5.0, .NET 6, .NET7.0, Razor Pages, ASP.NET MVC and Blazor Server projects.
+RoutesList works with .NET Core app 3.1, .NET5.0, .NET 6, .NET7.0, .NET 8.0, .NET 9.0, Razor Pages, ASP.NET MVC and
+Blazor Server projects.
 
 Compatible with:
 
-- NET Core app 3.1.x, .NET 5.0.x, .NET 6.0.x, .NET 7.0.x, .NET 8.0.x
-- Razors Pages
-- ASP.NET projects with MVC
-- Blazor Server App
+- .NET Core 3.1.x, .NET 5.0.x, .NET 6.0.x, .NET 7.0.x, .NET 8.0.x, .NET 9.0.x
+- Razor Pages
+- ASP.NET MVC projects
+- Blazor Server Apps
 
 ## Features
 
@@ -51,10 +52,10 @@ Example:
 Startup.cs
 
 ```C#
-\\...
+//...
 public void ConfigureServices(IServiceCollection services)
 {
-    \\...
+    //...
     services.AddRoutesList();
 }
 ```
@@ -167,12 +168,12 @@ public partial class Program { }
 
 In app.UseRoutesList you can pass options
 
-|Name             | Description                                                     |
-|:---------------:|:---------------------------------------------------------------:|
-| Endpoint        | endpoint name                                                   |
-| Title           | Title for web site                                              |
-| SetTableClasses | Add template classes for table                                  |
-| SetAppAssembly  | Set current application assembly together with blazor component |
+| Name            | Description                                             |
+|:----------------|:--------------------------------------------------------|
+| Endpoint        | Endpoint name                                           |
+| Title           | Title for website                                       |
+| SetTableClasses | Add template classes for table                          |
+| SetAppAssembly  | Set current application assembly with Blazor components |
 
 ### Example:
 Startup.cs
@@ -236,4 +237,6 @@ Program.cs
 
 ## Contributing
 
-Contributions are always welcome, whether adding/suggesting new features, bug fixes, documenting new file formats or simply editing some grammar. for this create new github issue and descript your problem and add issue tag for Bug/enhancement
+Contributions are always welcome, whether adding/suggesting new features, bug fixes, documenting new file formats, or
+simply editing grammar. To contribute, create a new GitHub issue describing your problem and add the appropriate
+Bug/Enhancement tag.
