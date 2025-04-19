@@ -1,62 +1,81 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Reflection;
 using Microsoft.CSharp.RuntimeBinder;
+using RoutesList.Build.Models;
 #if !NET6_0_OR_GREATER
 using Xunit;
 #endif
 
-namespace RoutesList.Build.Models.Tests
+namespace UnitTests.RoutesList.Build
 {
     public class RoutesListOptionsTests
     {
-        private readonly RoutesListOptions options = new RoutesListOptions();
+        private readonly RoutesListOptions _options = new RoutesListOptions();
 
         [Fact]
-        public void GetClassesTest()
+        [Trait("Category", "ClassesProperty")]
+        public void When_SetClassesToNull_Then_ShouldReturnDefaultTable()
         {
-            Assert.Equal(options.GetClasses(), "table");
+            _options.Classes = null;
+            Assert.Equal(new[] { "table" }, _options.Classes);
         }
 
         [Fact]
-        public void SetClassesArrayTest()
+        [Trait("Category", "ClassesProperty")]
+        public void When_SetInvalidType_Then_ShouldThrowRuntimeBinderException()
         {
-            IDictionary<string, string[]> dict = new Dictionary<string, string[]>();
-            string[] classes = dict["table"] = new[] { "table", "table-striped" };
-
-            options.SetClasses(classes);
-
-            Assert.Equal<string[]>(options.GetClasses(), classes);
+            Assert.Throws<RuntimeBinderException>(() => _options.Classes = 123);
         }
 
         [Fact]
-        public void SetClassesStringTest()
+        public void AppAssemblyPropertyTest()
         {
-            options.SetClasses("table");
-
-            Assert.Equal(options.GetClasses(), "table");
+            var assembly = Assembly.GetExecutingAssembly();
+            _options.AppAssembly = assembly;
+            Assert.Equal(assembly, _options.AppAssembly);
         }
 
         [Fact]
-        public void SetClassesNullTest()
+        [Trait("Category", "ClassesProperty")]
+        public void When_SwitchingBetweenStringAndArray_Then_ShouldPreserveValues()
         {
-            options.SetClasses(null);
-            Assert.Equal<string[]>(options.GetClasses(), new[] { "table" });
+            _options.Classes = "table table-striped";
+            Assert.Equal("table table-striped", _options.Classes);
+
+            var classArray = new[] { "table", "table-bordered" };
+            _options.Classes = classArray;
+            Assert.Equal(classArray, _options.Classes);
         }
 
-        [Fact]
-        public void SetClassesExceptionTest()
+        [Trait("Category", "ClassesProperty")]
+        public class ClassesPropertyTests
         {
-            Assert.Throws<RuntimeBinderException>(() => options.SetClasses(123));
-        }
+            private readonly RoutesListOptions _options = new RoutesListOptions();
 
-        [Fact]
-        public void SetAppAssembly()
-        {
-            Assembly assembly = Assembly.GetExecutingAssembly();
+            [Fact]
+            public void When_NewInstance_Then_DefaultClassesPropertyShouldBeTable()
+            {
+                Assert.Equal("table", _options.Classes);
+            }
 
-            options.SetAppAssembly(assembly);
+            [Theory]
+            [InlineData("table")]
+            [InlineData("table table-striped")]
+            [InlineData("custom-table")]
+            [Trait("Category", "ClassesProperty")]
+            public void When_SetValidClassString_Then_ShouldReturnSameValue(string className)
+            {
+                _options.Classes = className;
+                Assert.Equal(className, _options.Classes);
+            }
 
-            Assert.Equal(options.GetAppAssembly(), assembly);
+            [Fact]
+            [Trait("Category", "ClassesProperty")]
+            public void When_SetClassesArray_Then_ShouldReturnSameArray()
+            {
+                var classes = new[] { "table", "table-striped" };
+                _options.Classes = classes;
+                Assert.Equal(classes, _options.Classes);
+            }
         }
     }
 }

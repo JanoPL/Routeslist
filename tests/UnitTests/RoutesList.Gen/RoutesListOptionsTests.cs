@@ -1,19 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.CSharp.RuntimeBinder;
+using RoutesList.Build.Models;
+
 #if !NET6_0_OR_GREATER
 using Xunit;
 #endif
 
-namespace RoutesList.Gen.Tests
+namespace UnitTests.RoutesList.Gen
 {
     public class RoutesListOptionsTests
     {
-        private readonly RoutesListOptions options = new RoutesListOptions();
+        private readonly RoutesListOptions _options = new RoutesListOptions();
         [Fact]
         public void GetTableClassesTest()
         {
-            Assert.Equal(options.GetTableClasses(), "table");
+            Assert.Equal(_options.Classes, "table");
         }
 
         [Fact]
@@ -22,30 +24,30 @@ namespace RoutesList.Gen.Tests
             IDictionary<string, string[]> dict = new Dictionary<string, string[]>();
             string[] classes = dict["table"] = new[] { "table", "table-striped" };
 
-            options.SetTableClasses(classes);
+            _options.Classes = classes;
 
-            Assert.Equal<string[]>(options.GetTableClasses(), classes);
+            Assert.Equal(classes, _options.Classes);
         }
 
         [Fact]
         public void SetTableClassesStringTest()
         {
-            options.SetTableClasses("table");
+            _options.Classes = "table";
 
-            Assert.Equal(options.GetTableClasses(), "table");
+            Assert.Equal("table", _options.Classes);
         }
 
         [Fact]
         public void SetTableClassesNullTest()
         {
-            options.SetTableClasses(null);
-            Assert.Equal<string[]>(options.GetTableClasses(), new[] { "table" });
+            _options.Classes = null;
+            Assert.Equal(new[] { "table" }, _options.Classes);
         }
 
         [Fact]
         public void SetTableClassesExceptionTest()
         {
-            Assert.Throws<RuntimeBinderException>(() => options.SetTableClasses(123));
+            Assert.Throws<RuntimeBinderException>(() => _options.Classes = 123);
         }
 
         [Fact]
@@ -53,9 +55,9 @@ namespace RoutesList.Gen.Tests
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
 
-            options.SetAppAssembly(assembly);
+            _options.AppAssembly = assembly;
 
-            Assert.Equal(options.GetAppAssembly(), assembly);
+            Assert.Equal(assembly, _options.AppAssembly);
         }
     }
 }
