@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using RoutesList.Build.Services.RoutesBuilder;
@@ -23,27 +24,34 @@ namespace RoutesList.Build.Services.Strategies
         public Builder Process(ActionDescriptor route)
         {
             Builder builder = new Builder().Create(Id);
-
-            var controllerName = GetRouteValue(route, "controller");
-            var actionName = GetRouteValue(route, "action");
-            var displayName = route.DisplayName;
-            var template = route.AttributeRouteInfo?.Template;
-            var methodName = GetHttpMethod(route);
-        
-            AddControllerName(controllerName, builder);
-            AddActionName(actionName, builder);
-            AddDisplayName(displayName, builder);
-            AddTemplate(template, builder);
-            AddMethodName(methodName, builder);
+            
+            AddControllerName(GetRouteValue(route, "controller"), builder);
+            AddActionName(GetRouteValue(route, "action"), builder);
+            AddDisplayName(route.DisplayName, builder);
+            AddTemplate(route.AttributeRouteInfo?.Template, builder);
+            AddMethodName(GetHttpMethod(route), builder);
         
             return builder;
         }
         
         private static string GetRouteValue(ActionDescriptor route, string key)
-            => route.RouteValues.First(value => value.Key == key).Value;
+        {
+            // Using TryGetValue for more efficient dictionary lookup
+            return route.RouteValues.TryGetValue(key, out var value) ? value : null;
+        }
         
         private static string GetHttpMethod(ActionDescriptor route)
-            => route.ActionConstraints?.OfType<HttpMethodActionConstraint>()
-                .SingleOrDefault()?.HttpMethods.First();
+        {
+            if (route.ActionConstraints == null)
+                return null;
+                
+            // Get HttpMethodActionConstraint in one pass
+            var httpConstraint = route.ActionConstraints
+                .OfType<HttpMethodActionConstraint>()
+                .FirstOrDefault();
+                
+            // Get the first method if constraint exists and has methods
+            return httpConstraint?.HttpMethods?.FirstOrDefault();
+        }
     }
 }
