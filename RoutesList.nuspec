@@ -3,11 +3,11 @@
   <metadata>
     <readme>Readme.md</readme>
     <id>RoutesList</id>
-    <version>1.1.2.1</version>
+    <version>$version$</version>
     <authors>JanoPL</authors>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <license type="expression">MIT</license>
-    <!-- <icon>icon.png</icon> -->
+    <icon>assets\logo.jpg</icon>
     <projectUrl>https://github.com/JanoPL/Routeslist</projectUrl>
     <description>
       RoutesList is a handy tool that lets you see all the routes in your .NET application in a clear and concise way.
@@ -15,7 +15,7 @@
       and customize the output to suit your needs. 
       RoutesList works with .NET Core app 3.1, .NET5.0, .NET 6, .NET7.0, .NET8.0 Razor Pages, ASP.NET MVC and Blazor Server projects.
    </description>
-    <!--<releaseNotes>Summary of changes made in this release of the package.</releaseNotes>-->
+    <releaseNotes>Please see https://github.com/JanoPL/Routeslist/releases for release notes</releaseNotes>
     <copyright>$copyright$</copyright>
 
     <tags>Route list, Analizer Route, Debugging, Debugger, development, dev, tools, route, list, RoutesList, NETCoreApp3.1, NET5, NET6, NET7, NET8, Blazor, Razor, MVC</tags>
@@ -31,22 +31,22 @@
         <dependency id="ConsoleTables" version="2.6.2" />
         <dependency id="Newtonsoft.Json" version="13.0.3"/>
       </group>
-      
-      <group targetFramework=".net6.0">
-        <dependency id="ConsoleTables" version="2.6.2" />
-        <dependency id="Newtonsoft.Json" version="13.0.3"/>
-      </group>
-      
-      <group targetFramework=".net7.0">
-        <dependency id="ConsoleTables" version="2.6.2" />
+
+      <group targetFramework="net6.0">
+      <dependency id="ConsoleTables" version="2.6.2" />
         <dependency id="Newtonsoft.Json" version="13.0.3"/>
       </group>
 
-      <group targetFramework=".net8.0">
-        <dependency id="ConsoleTables" version="2.6.2" />
+      <group targetFramework="net7.0">
+      <dependency id="ConsoleTables" version="2.6.2" />
         <dependency id="Newtonsoft.Json" version="13.0.3"/>
       </group>
-    <group targetFramework=".net9.0">
+
+      <group targetFramework="net8.0">
+      <dependency id="ConsoleTables" version="2.6.2" />
+        <dependency id="Newtonsoft.Json" version="13.0.3"/>
+      </group>
+      <group targetFramework="net9.0">
       <dependency id="ConsoleTables" version="2.6.2" />
       <dependency id="Newtonsoft.Json" version="13.0.3"/>
     </group>
@@ -70,6 +70,10 @@
       </group>
 
       <group targetFramework="net8.0">
+        <frameworkReference name="Microsoft.AspNetCore.App" />
+      </group>
+
+      <group targetFramework="net9.0">
         <frameworkReference name="Microsoft.AspNetCore.App" />
       </group>
     </frameworkReferences>
@@ -101,9 +105,9 @@
     <file src=".\src\RoutesList.Build\bin\Release\net8.0\RoutesList.Build.pdb" target="lib\net8.0"/>
     <file src=".\src\RoutesList.Gen\bin\Release\net8.0\RoutesList.Gen.pdb" target="lib\net8.0" />
 
-    <file src=".\src\RoutesList.Build\bin\Release\net8.0\RoutesList.Build.dll" target="lib\net9.0"/>
-    <file src=".\src\RoutesList.Gen\bin\Release\net8.0\RoutesList.Gen.dll" target="lib\net9.0" />
-    <file src=".\src\RoutesList.Build\bin\Release\net8.0\RoutesList.Build.pdb" target="lib\net9.0"/>
-    <file src=".\src\RoutesList.Gen\bin\Release\net8.0\RoutesList.Gen.pdb" target="lib\net9.0" />
+    <file src=".\src\RoutesList.Build\bin\Release\net9.0\RoutesList.Build.dll" target="lib\net9.0"/>
+    <file src=".\src\RoutesList.Gen\bin\Release\net9.0\RoutesList.Gen.dll" target="lib\net9.0"/>
+    <file src=".\src\RoutesList.Build\bin\Release\net9.0\RoutesList.Build.pdb" target="lib\net9.0"/>
+    <file src=".\src\RoutesList.Gen\bin\Release\net9.0\RoutesList.Gen.pdb" target="lib\net9.0"/>
   </files>
 </package>
