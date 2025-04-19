@@ -53,6 +53,7 @@ jobs:
             7.0.x
             8.0.x
             9.0.x
+            9.0.x
       
       - name: Restore NuGet dependencies
         run: dotnet restore
@@ -102,6 +103,36 @@ jobs:
       
       - name: Run tests with code coverage
         run: dotnet test --no-restore --verbosity ${{ github.event.inputs.verbosity || 'minimal' }} --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }} --collect "XPlat Code Coverage"
+
+      - name: Collect and prepare code coverage data
+        if: ${{ matrix.dotnet-version == 'net9.0' }}
+        run: |
+          mkdir -p ${{ github.workspace }}/coverage
+          for i in {1..5}; do
+            source=""
+            case $i in
+              1) source="tests/UnitTests/TestResults" ;;
+              2) source="tests/Test.WebApplication.factory/TestResults" ;;
+              3) source="tests/RouteList.IntegrationTest/TestResults" ;;
+              4) source="tests/RoutesList.Integration.Razor/TestResults" ;;
+              5) source="tests/RoutesLIst.Integration.Blazor/TestResults" ;;
+            esac
+            cp ${{ github.workspace }}/$source/**/coverage.cobertura.xml ${{ github.workspace }}/coverage/coverage$i.xml || echo "Warning: Coverage file $i not found"
+          done
+          ls ${{ github.workspace }}/coverage || echo "No coverage files found"
+
+      - name: Submit code coverage to Codacy
+        if: ${{ matrix.dotnet-version == 'net9.0' }}
+        run: |
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage1.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage2.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage3.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage4.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage5.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
+
+      - name: Finalize Codacy coverage report
+        if: ${{ matrix.dotnet-version == 'net9.0' }}
+        run: bash <(curl -Ls https://coverage.codacy.com/get.sh) final -t ${{ secrets.CODACY_PROJECT_SECRET }}
 
       - name: Collect and prepare code coverage data
         if: ${{ matrix.dotnet-version == 'net9.0' }}
