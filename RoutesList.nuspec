@@ -10,10 +10,13 @@
     <icon>assets\logo.jpg</icon>
     <projectUrl>https://github.com/JanoPL/Routeslist</projectUrl>
     <description>
-      RoutesList is a handy tool that lets you see all the routes in your .NET application in a clear and concise way.
-      You can easily inspect the methods, URIs, controllers, actions and middleware of your routes,
-      and customize the output to suit your needs. 
-      RoutesList works with .NET Core app 3.1, .NET5.0, .NET 6, .NET7.0, .NET8.0 Razor Pages, ASP.NET MVC and Blazor Server projects.
+      RoutesList is a powerful .NET tool for visualizing and analyzing all routes in your application with clarity and
+      precision.
+      It provides comprehensive inspection of HTTP methods, URIs, controllers, actions, middleware and routing
+      configurations.
+      Features include customizable output formats, filtering options, and detailed route information display.
+      Fully compatible with .NET Core 3.1, .NET 5.0, .NET 6.0, .NET 7.0, .NET 8.0, .NET 9.0 and supports Razor Pages, ASP.NET MVC,
+      and Blazor Server applications.
    </description>
     <releaseNotes>Please see https://github.com/JanoPL/Routeslist/releases for release notes</releaseNotes>
     <copyright>$copyright$</copyright>

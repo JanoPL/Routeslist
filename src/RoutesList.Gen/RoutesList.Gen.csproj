@@ -5,9 +5,9 @@
     
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
     
-    <AssemblyVersion>1.1.3</AssemblyVersion>
-    <FileVersion>1.1.3</FileVersion>
-    <Version>1.1.3</Version>
+    <AssemblyVersion>1.2</AssemblyVersion>
+    <FileVersion>1.2</FileVersion>
+    <Version>1.2</Version>
     
     <Authors>JanoPL</Authors>
     <Company>JanoPL</Company>
