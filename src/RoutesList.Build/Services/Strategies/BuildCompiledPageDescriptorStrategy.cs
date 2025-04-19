@@ -34,7 +34,7 @@ namespace RoutesList.Build.Services.Strategies
             string relativePath = compiledPageActionDescriptor?.RelativePath;
             string displayName = compiledPageActionDescriptor?.DisplayName;
 
-            builder.IsCompiledpageActionDescriptior(true);
+            builder.IsCompiledPageActionDescriptior(true);
 
             AddDisplayName(displayName, builder);
             AddViewEnginePath(viewEnginePath, builder);

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Routing.Template;
 using RoutesList.Build.Models;
 
 namespace RoutesList.Build.Services
@@ -62,7 +60,7 @@ namespace RoutesList.Build.Services
             RoutesInformationModel route = new RoutesInformationModel();
 
             route.Template = routeAttribute.Template;
-            route.Display_name = component.FullName;
+            route.DisplayName = component.FullName;
 
             route.RelativePath = component.FullName.Replace(".", "/") + ".razor";
 

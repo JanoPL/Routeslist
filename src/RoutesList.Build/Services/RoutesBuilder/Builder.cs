@@ -44,7 +44,7 @@ namespace RoutesList.Build.Services.RoutesBuilder
         /// <returns></returns>
         public Builder ControllerName(string name)
         {
-            _model.Controller_name = name;
+            _model.ControllerName = name;
             return this;
         }
 
@@ -55,7 +55,7 @@ namespace RoutesList.Build.Services.RoutesBuilder
         /// <returns></returns>
         public Builder ActionName(string name)
         {
-            _model.Action_name = name;
+            _model.ActionName = name;
             return this;
         }
 
@@ -66,7 +66,7 @@ namespace RoutesList.Build.Services.RoutesBuilder
         /// <returns></returns>
         public Builder DisplayName(string name)
         {
-            _model.Display_name = name;
+            _model.DisplayName = name;
             return this;
         }
 
@@ -77,7 +77,7 @@ namespace RoutesList.Build.Services.RoutesBuilder
         /// <returns></returns>
         public Builder MethodName(string name)
         {
-            _model.Method_name = name;
+            _model.MethodName = name;
             return this;
         }
 
@@ -114,7 +114,7 @@ namespace RoutesList.Build.Services.RoutesBuilder
             return this;
         }
 
-        public Builder IsCompiledpageActionDescriptior(bool isCompiled)
+        public Builder IsCompiledPageActionDescriptior(bool isCompiled)
         {
             _model.IsCompiledPageActionDescriptor = isCompiled;
             return this;
