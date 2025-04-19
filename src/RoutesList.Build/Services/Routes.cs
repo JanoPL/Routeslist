@@ -1,18 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using RoutesList.Build.Interfaces;
 using RoutesList.Build.Models;
-using RoutesList.Build.Services;
 using RoutesList.Build.Services.Strategies;
 
-namespace RoutesList.Services
+namespace RoutesList.Build.Services
 {
     public class Routes : IRoutes
     {
+        private readonly List<IRouteProcessingStrategy> _strategies;
+
+        public Routes()
+        {
+            // Initialize with empty list - strategies will be created per request
+            _strategies = new List<IRouteProcessingStrategy>();
+        }
+
         private Assembly _assembly { get; set; }
 
         public void SetAssembly(Assembly assembly)
@@ -20,26 +26,27 @@ namespace RoutesList.Services
             _assembly = assembly;
         }
 
-        public IList<RoutesInformationModel> GetRoutesInformation(IActionDescriptorCollectionProvider collectionProvider)
+        public IList<RoutesInformationModel> GetRoutesInformation(
+            IActionDescriptorCollectionProvider collectionProvider)
         {
             IList<RoutesInformationModel> routes = new List<RoutesInformationModel>();
 
-            int id = 1;
-            IEnumerable<ActionDescriptor> items = GetActionDescriptorRoutes(collectionProvider);
+            var id = 1;
+            var items = GetActionDescriptorRoutes(collectionProvider);
 
-            foreach (ActionDescriptor route in items) {
-                RoutesInformationModel routesInformationModel;
-                Context context;
+            // Initialize strategies once for all routes
+            InitializeStrategies(id, items);
 
-                if (IsCompiledPageDescriptor(route)) {
-                    context = new Context(new BuildCompiledPageDescriptorStrategy(id, items), route);
-                } else if (IsControllerActionDescriptor(route)) {
-                    context = new Context(new BuildControllerActionDescriptorStrategy(id), route);
-                } else {
+            foreach (var route in items)
+            {
+                // Find the first strategy that can process this route
+                var strategy = _strategies.FirstOrDefault(s => s.CanProcess(route));
+
+                if (strategy == null)
                     continue;
-                }
 
-                routesInformationModel = context.Execute();
+                var routeStrategyExecutor = new RouteStrategyExecutor(strategy, route);
+                var routesInformationModel = routeStrategyExecutor.Execute();
 
                 routes.Add(routesInformationModel);
                 id++;
@@ -47,13 +54,26 @@ namespace RoutesList.Services
 
             IList<RoutesInformationModel> routesInformationModelsItems = GetComponentsRoutes().ToList();
             routes = routes.Union(routesInformationModelsItems).ToList();
-            
+
             return routes;
         }
 
-        private IEnumerable<ActionDescriptor> GetActionDescriptorRoutes(IActionDescriptorCollectionProvider collectionProvider)
+        private void InitializeStrategies(int startId, IEnumerable<ActionDescriptor> items)
         {
-            if (collectionProvider != null) {
+            _strategies.Clear();
+
+            // Add known strategies
+            _strategies.Add(new BuildCompiledPageDescriptorStrategy(startId, items));
+            _strategies.Add(new BuildControllerActionDescriptorStrategy(startId));
+
+            // Could add more strategies here in the future
+        }
+
+        private IEnumerable<ActionDescriptor> GetActionDescriptorRoutes(
+            IActionDescriptorCollectionProvider collectionProvider)
+        {
+            if (collectionProvider != null)
+            {
                 IEnumerable<ActionDescriptor> routes = collectionProvider
                     .ActionDescriptors
                     .Items;
@@ -66,20 +86,10 @@ namespace RoutesList.Services
 
         private IEnumerable<RoutesInformationModel> GetComponentsRoutes()
         {
-            IEnumerable<RoutesInformationModel> componentsRoutes = RoutesComponent.GetRoutesToRender(_assembly);
-            List<RoutesInformationModel> routesInformationModels = componentsRoutes.ToList();
-            
+            var componentsRoutes = RoutesComponent.GetRoutesToRender(_assembly);
+            var routesInformationModels = componentsRoutes.ToList();
+
             return routesInformationModels.Any() ? routesInformationModels : Enumerable.Empty<RoutesInformationModel>();
-        }
-
-        private static bool IsCompiledPageDescriptor(ActionDescriptor actionDescriptor)
-        {
-            return actionDescriptor.GetType().FullName == "Microsoft.AspNetCore.Mvc.RazorPages.CompiledPageActionDescriptor";
-        }
-
-        private static bool IsControllerActionDescriptor(ActionDescriptor actionDescriptor)
-        {
-            return actionDescriptor.GetType().FullName == "Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor";
         }
     }
 }

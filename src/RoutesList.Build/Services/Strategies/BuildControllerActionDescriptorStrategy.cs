@@ -1,42 +1,44 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using RoutesList.Build.Extensions;
 using RoutesList.Build.Services.RoutesBuilder;
 
 namespace RoutesList.Build.Services.Strategies
 {
     #if NET8_0_OR_GREATER
-    public class BuildControllerActionDescriptorStrategy(int id) : AbstractBuilderMethod, IStrategy
+    public class BuildControllerActionDescriptorStrategy(int id) : RouteProcessingStrategyBase<ControllerActionDescriptor>(id)
     {
-        private int Id { get; set; } = id;
+        private new int Id { get; set; } = id;
     #else
-    public class BuildControllerActionDescriptorStrategy : AbstractBuilderMethod, IStrategy
+    public class BuildControllerActionDescriptorStrategy : RouteProcessingStrategyBase<ControllerActionDescriptor>
+
     {
-        private int Id { get; set; }
-    
-        public BuildControllerActionDescriptorStrategy(int id)
-        {
-            Id = id;
-        }
+        private new int Id { get; set; }
+        public BuildControllerActionDescriptorStrategy(int id) : base(id) { }
     #endif
 
-        public Builder Process(ActionDescriptor route)
+        public new bool CanProcess(ActionDescriptor descriptor)
         {
-            Builder builder = new Builder().Create(Id);
-            
-            AddControllerName(GetRouteValue(route, "controller"), builder);
-            AddActionName(GetRouteValue(route, "action"), builder);
-            AddDisplayName(route.DisplayName, builder);
-            AddTemplate(route.AttributeRouteInfo?.Template, builder);
-            AddMethodName(GetHttpMethod(route), builder);
-        
-            return builder;
+            return descriptor is ControllerActionDescriptor;
+        }
+
+        public override IBuilder Process(ControllerActionDescriptor descriptor)
+        {
+            return new Builder()
+                .Create(Id)
+                .SafeControllerName(GetRouteValue(descriptor, "controller"))
+                .SafeActionName(GetRouteValue(descriptor, "action"))
+                .SafeDisplayName(descriptor.DisplayName)
+                .SafeTemplate(descriptor.AttributeRouteInfo?.Template)
+                .SafeMethodName(GetHttpMethod(descriptor))
+            ;
         }
         
         private static string GetRouteValue(ActionDescriptor route, string key)
         {
-            // Using TryGetValue for more efficient dictionary lookup
+            // Using TryGetValue for a more efficient dictionary lookup
             return route.RouteValues.TryGetValue(key, out var value) ? value : null;
         }
         
@@ -50,8 +52,8 @@ namespace RoutesList.Build.Services.Strategies
                 .OfType<HttpMethodActionConstraint>()
                 .FirstOrDefault();
                 
-            // Get the first method if constraint exists and has methods
-            return httpConstraint?.HttpMethods?.FirstOrDefault();
+            // Get the first method if the constraint exists and has methods
+            return httpConstraint?.HttpMethods.FirstOrDefault();
         }
     }
 }

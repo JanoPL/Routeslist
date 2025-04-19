@@ -6,7 +6,7 @@ namespace RoutesList.Build.Services.RoutesBuilder
     /// Builder for RoutesInformationModel 
     /// <see cref="RoutesInformationModel"/>
     /// </summary>
-    public class Builder
+    public class Builder : IBuilder
     {
 #if NET5_0_OR_GREATER
         private readonly RoutesInformationModel _model = new();
@@ -20,7 +20,7 @@ namespace RoutesList.Build.Services.RoutesBuilder
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Builder Create(
+        public IBuilder Create(
             int? id
         )
         {
@@ -42,7 +42,7 @@ namespace RoutesList.Build.Services.RoutesBuilder
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public Builder ControllerName(string name)
+        public IBuilder ControllerName(string name)
         {
             _model.ControllerName = name;
             return this;
@@ -53,7 +53,7 @@ namespace RoutesList.Build.Services.RoutesBuilder
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public Builder ActionName(string name)
+        public IBuilder ActionName(string name)
         {
             _model.ActionName = name;
             return this;
@@ -64,7 +64,7 @@ namespace RoutesList.Build.Services.RoutesBuilder
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public Builder DisplayName(string name)
+        public IBuilder DisplayName(string name)
         {
             _model.DisplayName = name;
             return this;
@@ -75,7 +75,7 @@ namespace RoutesList.Build.Services.RoutesBuilder
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public Builder MethodName(string name)
+        public IBuilder MethodName(string name)
         {
             _model.MethodName = name;
             return this;
@@ -86,7 +86,7 @@ namespace RoutesList.Build.Services.RoutesBuilder
         /// </summary>
         /// <param name="templateName"></param>
         /// <returns></returns>
-        public Builder Template(string templateName)
+        public IBuilder Template(string templateName)
         {
             _model.Template = templateName;
             return this;
@@ -97,7 +97,7 @@ namespace RoutesList.Build.Services.RoutesBuilder
         /// </summary>
         /// <param name="enginePath"></param>
         /// <returns></returns>
-        public Builder ViewEnginePath(string enginePath)
+        public IBuilder ViewEnginePath(string enginePath)
         {
             _model.ViewEnginePath = enginePath;
             return this;
@@ -108,13 +108,13 @@ namespace RoutesList.Build.Services.RoutesBuilder
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public Builder RelativePath(string path)
+        public IBuilder RelativePath(string path)
         {
             _model.RelativePath = path;
             return this;
         }
 
-        public Builder IsCompiledPageActionDescriptior(bool isCompiled)
+        public IBuilder IsCompiledPageActionDescriptior(bool isCompiled)
         {
             _model.IsCompiledPageActionDescriptor = isCompiled;
             return this;

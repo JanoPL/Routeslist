@@ -2,11 +2,12 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using RoutesList.Build.Extensions;
 using RoutesList.Build.Services.RoutesBuilder;
 
 namespace RoutesList.Build.Services.Strategies
 {
-    public class BuildCompiledPageDescriptorStrategy : AbstractBuilderMethod, IStrategy
+    public class BuildCompiledPageDescriptorStrategy : IRouteProcessingStrategy
     {
         private int Id { set; get; }
         private readonly Dictionary<string, CompiledPageActionDescriptor> _compiledPageLookup;
@@ -19,17 +20,21 @@ namespace RoutesList.Build.Services.Strategies
                 .ToDictionary(a => a.Id.ToString());
         }
 
-        public Builder Process(ActionDescriptor route)
+        public bool CanProcess(ActionDescriptor descriptor)
         {
-            Builder builder = new Builder().Create(Id);
+            return descriptor is CompiledPageActionDescriptor;
+        }
 
+        public IBuilder Process(ActionDescriptor route)
+        {
+            IBuilder builder = new Builder().Create(Id);
+            
             if (_compiledPageLookup.TryGetValue(route.Id, out CompiledPageActionDescriptor descriptor))
             {
-                builder.IsCompiledPageActionDescriptior(true);
-
-                AddDisplayName(descriptor.DisplayName, builder);
-                AddViewEnginePath(descriptor.ViewEnginePath, builder);
-                AddRelativePath(descriptor.RelativePath, builder);
+                builder.IsCompiledPageActionDescriptior(true)
+                    .SafeDisplayName(descriptor.DisplayName)
+                    .SafeViewEnginePath(descriptor.ViewEnginePath)
+                    .SafeRelativePath(descriptor.RelativePath);
             }
 
             return builder;

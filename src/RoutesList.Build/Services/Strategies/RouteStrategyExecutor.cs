@@ -7,17 +7,17 @@ namespace RoutesList.Build.Services.Strategies
     /// Represents a context for executing route processing strategies.
     /// Implements the strategy pattern to handle different types of route processing.
     /// </summary>
-    public class Context
+    public class RouteStrategyExecutor
     {
         private readonly ActionDescriptor _actionDescriptor;
-        private readonly IStrategy _strategy;
+        private readonly IRouteProcessingStrategy _strategy;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Context"/> class.
+        /// Initializes a new instance of the <see cref="RouteStrategyExecutor"/> class.
         /// </summary>
         /// <param name="strategy">The strategy implementation to process the route.</param>
         /// <param name="actionDescriptor">The action descriptor containing route information.</param>
-        public Context(IStrategy strategy, ActionDescriptor actionDescriptor)
+        public RouteStrategyExecutor(IRouteProcessingStrategy strategy, ActionDescriptor actionDescriptor)
         {
             _strategy = strategy;
             _actionDescriptor = actionDescriptor;
