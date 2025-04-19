@@ -3,11 +3,11 @@ using System.Reflection;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using RoutesList.Build.Models;
 
-namespace RoutesList.Interfaces
+namespace RoutesList.Build.Interfaces
 {
     public interface IRoutes
     {
-        IList<RoutesInformationModel> getRoutesInformation(IActionDescriptorCollectionProvider collectionProvider);
+        IList<RoutesInformationModel> GetRoutesInformation(IActionDescriptorCollectionProvider collectionProvider);
         public void SetAssembly(Assembly assembly);
     }
 }

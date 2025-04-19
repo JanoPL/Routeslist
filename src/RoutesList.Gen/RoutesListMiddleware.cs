@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using RoutesList.Build.Interfaces;
+using RoutesList.Build.Models;
 
 namespace RoutesList.Gen
 {
@@ -31,13 +32,13 @@ namespace RoutesList.Gen
 
             if (httpMethod == "GET")
             {
-                if (path.EndsWith($"/{_options.Endpoint}/json"))
+                if (path != null && path.EndsWith("/" + _options.Endpoint + "/json"))
                 {
                     await RespondWithJson(context.Response);
                     return;
                 }
 
-                if (path.EndsWith($"/{_options.Endpoint}")) await RespondWithHtml(context.Response);
+                if (path != null && path.EndsWith("/" + _options.Endpoint)) await RespondWithHtml(context.Response);
             }
         }
 
@@ -60,21 +61,18 @@ namespace RoutesList.Gen
             response.ContentType = "text/html";
 #if NETCOREAPP3_1 || NET5_0
             Build.Models.RoutesListOptions buildOptions = new Build.Models.RoutesListOptions {
-                Tittle = _options.Tittle,
+                Title = _options.Title,
                 CharSet = "UTF-8",
             };
 #endif
 #if NET6_0_OR_GREATER
             Build.Models.RoutesListOptions buildOptions = new()
             {
-                Tittle = _options.Tittle,
+                Title = _options.Title,
                 CharSet = "UTF-8"
             };
 #endif
-            buildOptions.SetClasses(_options.GetTableClasses());
-            buildOptions.SetAppAssembly(_options.GetAppAssembly());
-
-            var htmlBuilderResult = _tableBuilder.AsyncGenerateTable(buildOptions).GetAwaiter().GetResult();
+            var htmlBuilderResult = _tableBuilder.AsyncGenerateTable(_options).GetAwaiter().GetResult();
 
             await response.WriteAsync(htmlBuilderResult, Encoding.UTF8);
         }
@@ -84,23 +82,7 @@ namespace RoutesList.Gen
             response.StatusCode = 200;
             response.ContentType = "application/json; charset=utf-8";
 
-#if NETCOREAPP3_1 || NET5_0
-            Build.Models.RoutesListOptions buildOptions = new Build.Models.RoutesListOptions {
-                Tittle = _options.Tittle,
-                CharSet = "UTF-8",
-            };
-#endif
-#if NET6_0_OR_GREATER
-            Build.Models.RoutesListOptions buildOptions = new()
-            {
-                Tittle = _options.Tittle,
-                CharSet = "UTF-8"
-            };
-#endif
-
-            buildOptions.SetAppAssembly(_options.GetAppAssembly());
-
-            var htmlBuilderResult = _tableBuilder.AsyncGenerateTable(true, buildOptions).GetAwaiter().GetResult();
+            var htmlBuilderResult = _tableBuilder.AsyncGenerateTable(true, _options).GetAwaiter().GetResult();
 
             await response.WriteAsync(htmlBuilderResult, Encoding.UTF8);
         }

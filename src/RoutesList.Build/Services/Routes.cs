@@ -4,10 +4,10 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using RoutesList.Build.Interfaces;
 using RoutesList.Build.Models;
 using RoutesList.Build.Services;
 using RoutesList.Build.Services.Strategies;
-using RoutesList.Interfaces;
 
 namespace RoutesList.Services
 {
@@ -20,7 +20,7 @@ namespace RoutesList.Services
             _assembly = assembly;
         }
 
-        public IList<RoutesInformationModel> getRoutesInformation(IActionDescriptorCollectionProvider collectionProvider)
+        public IList<RoutesInformationModel> GetRoutesInformation(IActionDescriptorCollectionProvider collectionProvider)
         {
             IList<RoutesInformationModel> routes = new List<RoutesInformationModel>();
 
@@ -67,12 +67,9 @@ namespace RoutesList.Services
         private IEnumerable<RoutesInformationModel> GetComponentsRoutes()
         {
             IEnumerable<RoutesInformationModel> componentsRoutes = RoutesComponent.GetRoutesToRender(_assembly);
+            List<RoutesInformationModel> routesInformationModels = componentsRoutes.ToList();
             
-            if (componentsRoutes.Any()) {
-                return componentsRoutes;
-            }
-            
-            return Enumerable.Empty<RoutesInformationModel>();
+            return routesInformationModels.Any() ? routesInformationModels : Enumerable.Empty<RoutesInformationModel>();
         }
 
         private static bool IsCompiledPageDescriptor(ActionDescriptor actionDescriptor)

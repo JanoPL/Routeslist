@@ -5,15 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using ConsoleTables;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 using RoutesList.Build.Enums;
 using RoutesList.Build.Extensions;
+using RoutesList.Build.Interfaces;
 using RoutesList.Build.Models;
 using RoutesList.Build.Services.StaticFileBuilder;
-using RoutesList.Interfaces;
 
-namespace RoutesList.Services
+namespace RoutesList.Build.Services
 {
     public class TableBuilder : ITableBuilder
     {
@@ -89,8 +88,8 @@ namespace RoutesList.Services
 #if NETCOREAPP3_1
             ConsoleTable table = new ConsoleTable();
 #endif
-            _routes.SetAssembly(options.GetAppAssembly());
-            ListRoutes = _routes.getRoutesInformation(_actionDescriptorCollectionProvider);
+            _routes.SetAssembly(options.AppAssembly);
+            ListRoutes = _routes.GetRoutesInformation(_actionDescriptorCollectionProvider);
 
             table = BuildHeaders(table);
 
@@ -105,10 +104,10 @@ namespace RoutesList.Services
         private async Task<string> GenerateTable(bool isJson, RoutesListOptions? options)
         {
             if (options != null) {
-                _routes.SetAssembly(options.GetAppAssembly());
+                _routes.SetAssembly(options.AppAssembly);
             }
 
-            ListRoutes = _routes.getRoutesInformation(_actionDescriptorCollectionProvider);
+            ListRoutes = _routes.GetRoutesInformation(_actionDescriptorCollectionProvider);
 
             if (isJson) {
                 var serialize = new StringBuilder();
@@ -119,7 +118,7 @@ namespace RoutesList.Services
                                 return new {
                                     x.RelativePath,
                                     x.ViewEnginePath,
-                                    x.Display_name,
+                                    x.DisplayName,
                                     x.Template,
                                 };
                             })
@@ -130,11 +129,11 @@ namespace RoutesList.Services
                     serialize.AppendLine(JsonConvert.SerializeObject(
                         ListRoutes.Select(x => {
                             return new {
-                                x.Display_name,
-                                x.Controller_name,
+                                x.DisplayName,
+                                x.ControllerName,
                                 x.Template,
-                                x.Action_name,
-                                x.Method_name,
+                                x.ActionName,
+                                x.MethodName,
                             };
                         })
                     ));
@@ -160,7 +159,7 @@ namespace RoutesList.Services
                     table.AddColumn(headers);
                 }
 
-                if (!String.IsNullOrEmpty(ListRoutes[0].Controller_name)) {
+                if (!String.IsNullOrEmpty(ListRoutes[0].ControllerName)) {
                     foreach (var headerName in EnumExtension.GetListOfDescription<TableHeaderControllerActionDescriptor>()) {
                         headers.Add(headerName);
                     }
@@ -190,15 +189,15 @@ namespace RoutesList.Services
                 string linkString = $"<a href=/{route.ViewEnginePath}>{route.ViewEnginePath ?? route.Template ?? "/"} </a>";
 
                 if (table.Columns.Count > 3) {
-                    table.AddRow(null, linkString, route.Display_name, null, route.RelativePath);
+                    table.AddRow(null, linkString, route.DisplayName, null, route.RelativePath);
                 } else {
-                    table.AddRow(route.Display_name, linkString, route.RelativePath);
+                    table.AddRow(route.DisplayName, linkString, route.RelativePath);
                 }
             }
 
             if (!route.IsCompiledPageActionDescriptor) {
                 string linkString = $"<a href=/{route.Template}>{route.Template ?? "/"} </a>";
-                table.AddRow(route.Method_name, linkString, route.Controller_name, route.Action_name, route.Display_name);
+                table.AddRow(route.MethodName, linkString, route.ControllerName, route.ActionName, route.DisplayName);
             }
         }
     }
