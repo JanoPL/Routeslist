@@ -29,7 +29,6 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        # Use Debug for push, Release for pull request
         configuration: [ ${{ github.event_name == 'push' && 'Debug' || 'Release' }} ]
         dotnet-version: [ 'netcoreapp3.1', 'net5.0', 'net6.0', 'net7.0', 'net8.0', 'net9.0' ]
     steps:
@@ -68,7 +67,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Użyj Debug dla push, Release dla pull request
         configuration: [ ${{ github.event_name == 'push' && 'Debug' || 'Release' }} ]
         dotnet-version: [ 'netcoreapp3.1', 'net5.0', 'net6.0', 'net7.0', 'net8.0', 'net9.0' ]
     steps: 
@@ -81,18 +79,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ github.workflow }}-${{ matrix.configuration }}-${{ matrix.dotnet-version }}-nuget-${{ hashFiles('**/packages.lock.json') }}
       
-      # Tylko dla push workflow (dotnet-push.yml)
       - name: Set up Homebrew
         if: github.event_name == 'push'
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
-      # Tylko dla push workflow (dotnet-push.yml)
       - name: Install openssl
         if: github.event_name == 'push'
         run: brew install openssl@3
 
-      # Tylko dla push workflow (dotnet-push.yml)
       - name: Export environment variables
         if: github.event_name == 'push'
         run: |
@@ -146,7 +141,6 @@ jobs:
         if: github.event.inputs.verbosity == ''
         run: dotnet test --no-restore --verbosity minimal --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }} --collect "XPlat Code Coverage"
 
-      # Uses net9.0 for both push and pull request
       - name: Rename and move Cobertura test to ${{ github.workspace }}/coverage directory
         if: ${{ matrix.dotnet-version == 'net9.0' }}
         run: |
@@ -164,7 +158,6 @@ jobs:
           done
           ls ${{ github.workspace }}/coverage || echo "No coverage files found"
 
-      # Uses net9.0 for both push and pull request
       - name: Send coverage reports to Codacy 
         if: ${{ matrix.dotnet-version == 'net9.0' }}
         run: |
@@ -174,7 +167,6 @@ jobs:
           bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage4.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
           bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage5.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
 
-      # Uses net9.0 for both push and pull request
       - name: Finalize codacy reporter
         if: ${{ matrix.dotnet-version == 'net9.0' }}
         run: bash <(curl -Ls https://coverage.codacy.com/get.sh) final -t ${{ secrets.CODACY_PROJECT_SECRET }}

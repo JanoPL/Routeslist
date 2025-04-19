@@ -12,7 +12,7 @@ on:
 
   workflow_dispatch: 
     inputs: 
-      verbosity: 
+      verbosity:
         description: verbose level
         default: "minimal"
         type: choice
