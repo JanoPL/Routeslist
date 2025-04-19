@@ -37,7 +37,7 @@ namespace TestBasicBlazorServer
             app.MapFallbackToPage("/_Host");
 
             app.UseRoutesList(options => {
-                options.SetAppAssembly(typeof(Program).Assembly);
+                options.AppAssembly = typeof(Program).Assembly;
             });
 
             app.Run();
