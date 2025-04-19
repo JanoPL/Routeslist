@@ -2,7 +2,6 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-
 using RoutesList.Build.Services.RoutesBuilder;
 
 namespace RoutesList.Build.Services.Strategies
@@ -10,35 +9,28 @@ namespace RoutesList.Build.Services.Strategies
     public class BuildCompiledPageDescriptorStrategy : AbstractBuilderMethod, IStrategy
     {
         private int Id { set; get; }
-        private IEnumerable<ActionDescriptor> Items { get; set; }
+        private readonly Dictionary<string, CompiledPageActionDescriptor> _compiledPageLookup;
 
         public BuildCompiledPageDescriptorStrategy(int id, IEnumerable<ActionDescriptor> items)
         {
             Id = id;
-            Items = items;
+            // Pre-process the items once during initialization
+            _compiledPageLookup = items.OfType<CompiledPageActionDescriptor>()
+                .ToDictionary(a => a.Id.ToString());
         }
 
         public Builder Process(ActionDescriptor route)
         {
             Builder builder = new Builder().Create(Id);
 
-            var compiledPageActionDescriptor = Items.OfType<CompiledPageActionDescriptor>()
-                        .Where(r => r.Id == route.Id)
-                        .Select(a => new {
-                            a.DisplayName,
-                            a.ViewEnginePath,
-                            a.RelativePath
-                        }).First();
+            if (_compiledPageLookup.TryGetValue(route.Id, out CompiledPageActionDescriptor descriptor))
+            {
+                builder.IsCompiledPageActionDescriptior(true);
 
-            string viewEnginePath = compiledPageActionDescriptor?.ViewEnginePath;
-            string relativePath = compiledPageActionDescriptor?.RelativePath;
-            string displayName = compiledPageActionDescriptor?.DisplayName;
-
-            builder.IsCompiledPageActionDescriptior(true);
-
-            AddDisplayName(displayName, builder);
-            AddViewEnginePath(viewEnginePath, builder);
-            AddRelativePath(relativePath, builder);
+                AddDisplayName(descriptor.DisplayName, builder);
+                AddViewEnginePath(descriptor.ViewEnginePath, builder);
+                AddRelativePath(descriptor.RelativePath, builder);
+            }
 
             return builder;
         }
