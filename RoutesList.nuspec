@@ -3,7 +3,7 @@
   <metadata>
     <readme>Readme.md</readme>
     <id>RoutesList</id>
-    <version>1.2</version>
+    <version>1.2.1</version>
     <authors>JanoPL</authors>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <license type="expression">MIT</license>
@@ -21,7 +21,7 @@
     <releaseNotes>Please see https://github.com/JanoPL/Routeslist/releases for release notes</releaseNotes>
     <copyright>$copyright$</copyright>
 
-    <tags>Route list, Analizer Route, Debugging, Debugger, development, dev, tools, route, list, RoutesList, NETCoreApp3.1, NET5, NET6, NET7, NET8, Blazor, Razor, MVC</tags>
+    <tags>Routes list, Route list, Analyzer Route, Analyzer, Debugging, Debugger, development, dev, tools, route, routes, list, RoutesList, NETCoreApp3.1, NET5, NET6, NET7, NET8, NET9, Blazor, Razor, MVC</tags>
     
     <repository type="git" url="https://github.com/JanoPL/Routeslist" />
     <dependencies>
