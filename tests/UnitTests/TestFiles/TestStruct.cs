@@ -1,26 +1,16 @@
-﻿#if NETCOREAPP3_1 || NET5_0
+﻿using System;
+#if NETCOREAPP3_1 || NET5_0
 #endif
 
 namespace UnitTests.TestFiles
 {
-    struct TestStruct
+    struct TestStruct : IEquatable<TestStruct>
     {
-#if NET6_0_OR_GREATER
-        public TestStruct()
-        {
-        }
-
-        public string Test { get; set; } = "Test";
-#endif
-
-#if NETCOREAPP3_1 || NET5_0
-        string _value;
+        
+        private string _value;
 
         public string Test {
-            get 
-            {
-                return _value;
-            }
+            get => _value;
             set
             {
                 if (string.IsNullOrEmpty(value)) {
@@ -28,6 +18,20 @@ namespace UnitTests.TestFiles
                 }
             }
         }
-#endif
+
+        public bool Equals(TestStruct other)
+        {
+            return _value == other._value;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is TestStruct other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return _value.GetHashCode();
+        }
     }
 }
