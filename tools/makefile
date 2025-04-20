@@ -67,4 +67,7 @@ coverage-netcoreapp3.1: build-debug-netcoreapp3.1
 	dotnet test .\\..\\RoutesList.sln --collect:"XPlat Code Coverage" --no-build
 
 coverage-generate-report: coverage
-	reportgenerator.exe -reports:.\\..\\tests\\*\\TestResults\\*\\coverage.cobertura.xml -targetdir:coveragereport;
+	reportgenerator.exe -reports:.\\..\\tests\\*\\TestResults\\*\\coverage.cobertura.xml -targetdir:coveragereport
+
+coverage-generate-report-net9: coverage-net9.0
+	reportgenerator.exe -reports:.\\..\\tests\\*\\TestResults\\*\\coverage.cobertura.xml -targetdir:coveragereport
