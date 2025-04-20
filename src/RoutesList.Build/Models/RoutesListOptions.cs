@@ -55,12 +55,12 @@ namespace RoutesList.Build.Models
                 _classes = value switch {
                     string s => s,
                     string[] arr => arr,
-                    null => new string[] { "table" },
+                    null => new[] { "table" },
                     _ => throw new RuntimeBinderException($"It should be one of type string or string[], you provided: {value.GetType()}")
                 };
         #else
                 if (value is null) {
-                    _classes = new string[] { "table" };
+                    _classes = new[] { "table" };
                     return;
                 }
         
@@ -126,12 +126,12 @@ namespace RoutesList.Build.Models
             _classes = value switch {
                 string s => s,
                 string[] arr => arr,
-                null => new string[] { "table" },
+                null => new[] { "table" },
                 _ => throw new RuntimeBinderException($"It should be one of type string or string[], you provided: {value.GetType()}")
             };
 #else
             if (value is null) {
-                Classes = new string[] { "table" };
+                Classes = new[] { "table" };
                 return;
             }
 

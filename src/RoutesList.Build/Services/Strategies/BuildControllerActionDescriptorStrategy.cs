@@ -45,8 +45,10 @@ namespace RoutesList.Build.Services.Strategies
         private static string GetHttpMethod(ActionDescriptor route)
         {
             if (route.ActionConstraints == null)
+            {
                 return null;
-                
+            }
+
             // Get HttpMethodActionConstraint in one pass
             var httpConstraint = route.ActionConstraints
                 .OfType<HttpMethodActionConstraint>()

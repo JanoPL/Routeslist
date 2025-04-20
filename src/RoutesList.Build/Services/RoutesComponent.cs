@@ -39,7 +39,7 @@ namespace RoutesList.Build.Services
                 .Where(t => t.IsSubclassOf(typeof(ComponentBase)));
 
             var list = components
-                .Select(component => GetRouteFromComponent(component))
+                .Select(GetRouteFromComponent)
                 .Where(config => config is not null);
 
             return list;
@@ -67,12 +67,12 @@ namespace RoutesList.Build.Services
             route.IsCompiledPageActionDescriptor = true;
 
             if (string.IsNullOrEmpty(route.Template)) {
-                throw new Exception($"RouteAttribute in component '{component}' has empty route template");
+                throw new ArgumentException($"RouteAttribute in component '{component}' has empty route template");
             }
 
             // Doesn't support tokens yet
             if (route.Template.Contains('{')) {
-                throw new Exception($"RouteAttribute for component '{component}' contains route values. Route values are invalid for prerendering");
+                throw new ArgumentException($"RouteAttribute for component '{component}' contains route values. Route values are invalid for prerendering");
             }
 
             return route;

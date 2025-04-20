@@ -43,7 +43,9 @@ namespace RoutesList.Build.Services
                 var strategy = _strategies.FirstOrDefault(s => s.CanProcess(route));
 
                 if (strategy == null)
+                {
                     continue;
+                }
 
                 var routeStrategyExecutor = new RouteStrategyExecutor(strategy, route);
                 var routesInformationModel = routeStrategyExecutor.Execute();
