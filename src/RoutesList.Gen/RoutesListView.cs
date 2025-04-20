@@ -9,13 +9,6 @@ namespace RoutesList.Gen
 {
     public static class RoutesListView
     {
-        private static IApplicationBuilder UseRoutesList(
-            this IApplicationBuilder app,
-            RoutesListOptions options)
-        {
-            return app;
-        }
-
         public static IApplicationBuilder UseRoutesList(
             this IApplicationBuilder app,
             Action<RoutesListOptions> routesListOptions)
@@ -31,7 +24,7 @@ namespace RoutesList.Gen
                 endpoints.MapRouteList($"{options.Endpoint}/json", options);
             });
 
-            return app.UseRoutesList(options);
+            return app;
         }
 
         public static IApplicationBuilder UseRoutesList(this IApplicationBuilder app)
@@ -47,7 +40,7 @@ namespace RoutesList.Gen
                 endpoints.MapRouteList($"{options.Endpoint}/json", options);
             });
 
-            return app.UseRoutesList(options);
+            return app;
         }
     }
 }
