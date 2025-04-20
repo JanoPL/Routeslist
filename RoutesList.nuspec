@@ -1,117 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<package>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
-    <readme>Readme.md</readme>
     <id>RoutesList</id>
-    <version>1.2</version>
+    <version>$version$</version>
+    <title>RoutesList - ASP.NET Route Analyzer</title>
     <authors>JanoPL</authors>
+    <owners>JanoPL</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <icon>assets\logo.jpg</icon>
+    <readme>docs\Readme.md</readme>
     <projectUrl>https://github.com/JanoPL/Routeslist</projectUrl>
-    <description>
-      RoutesList is a powerful .NET tool for visualizing and analyzing all routes in your application with clarity and
-      precision.
-      It provides comprehensive inspection of HTTP methods, URIs, controllers, actions, middleware and routing
-      configurations.
-      Features include customizable output formats, filtering options, and detailed route information display.
-      Fully compatible with .NET Core 3.1, .NET 5.0, .NET 6.0, .NET 7.0, .NET 8.0, .NET 9.0 and supports Razor Pages, ASP.NET MVC,
-      and Blazor Server applications.
-   </description>
-    <releaseNotes>Please see https://github.com/JanoPL/Routeslist/releases for release notes</releaseNotes>
-    <copyright>$copyright$</copyright>
-
-    <tags>Route list, Analizer Route, Debugging, Debugger, development, dev, tools, route, list, RoutesList, NETCoreApp3.1, NET5, NET6, NET7, NET8, Blazor, Razor, MVC</tags>
+    <repository type="git" url="https://github.com/JanoPL/Routeslist" branch="main" />
     
-    <repository type="git" url="https://github.com/JanoPL/Routeslist" />
+    <description>
+      RoutesList is a powerful .NET tool for visualizing and analyzing all routes in your application with clarity and precision.
+      
+      Key Features:
+      • Comprehensive inspection of HTTP methods, URIs, controllers, actions, middleware and routing configurations
+      • Customizable output formats for flexible integration
+      • Detailed filtering options to focus on specific routes
+      • Complete route information display for debugging and documentation
+      
+      Compatible with .NET Core 3.1, .NET 5.0, .NET 6.0, .NET 7.0, .NET 8.0, .NET 9.0 and supports Razor Pages, ASP.NET MVC, and Blazor Server applications.
+    </description>
+    
+    <releaseNotes>See https://github.com/JanoPL/Routeslist/releases for detailed release notes</releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>routes routing analyzer debugging development tools aspnetcore netcore razor blazor mvc</tags>
+    
     <dependencies>
       <group targetFramework=".NETCoreApp3.1">
         <dependency id="ConsoleTables" version="2.6.2" />
-        <dependency id="Newtonsoft.Json" version="13.0.3"/>
+        <dependency id="Newtonsoft.Json" version="13.0.3" />
       </group>
-      
       <group targetFramework="net5.0">
         <dependency id="ConsoleTables" version="2.6.2" />
-        <dependency id="Newtonsoft.Json" version="13.0.3"/>
+        <dependency id="Newtonsoft.Json" version="13.0.3" />
       </group>
-
       <group targetFramework="net6.0">
-      <dependency id="ConsoleTables" version="2.6.2" />
-        <dependency id="Newtonsoft.Json" version="13.0.3"/>
+        <dependency id="ConsoleTables" version="2.6.2" />
+        <dependency id="Newtonsoft.Json" version="13.0.3" />
       </group>
-
       <group targetFramework="net7.0">
-      <dependency id="ConsoleTables" version="2.6.2" />
-        <dependency id="Newtonsoft.Json" version="13.0.3"/>
+        <dependency id="ConsoleTables" version="2.6.2" />
+        <dependency id="Newtonsoft.Json" version="13.0.3" />
       </group>
-
       <group targetFramework="net8.0">
-      <dependency id="ConsoleTables" version="2.6.2" />
-        <dependency id="Newtonsoft.Json" version="13.0.3"/>
+        <dependency id="ConsoleTables" version="2.6.2" />
+        <dependency id="Newtonsoft.Json" version="13.0.3" />
       </group>
       <group targetFramework="net9.0">
-      <dependency id="ConsoleTables" version="2.6.2" />
-      <dependency id="Newtonsoft.Json" version="13.0.3"/>
-    </group>
+        <dependency id="ConsoleTables" version="2.6.2" />
+        <dependency id="Newtonsoft.Json" version="13.0.3" />
+      </group>
     </dependencies>
     
     <frameworkReferences>
       <group targetFramework=".NETCoreApp3.1">
         <frameworkReference name="Microsoft.AspNetCore.App" />
       </group>
-      
       <group targetFramework="net5.0">
         <frameworkReference name="Microsoft.AspNetCore.App" />
       </group>
-      
       <group targetFramework="net6.0">
         <frameworkReference name="Microsoft.AspNetCore.App" />
       </group>
-      
       <group targetFramework="net7.0">
         <frameworkReference name="Microsoft.AspNetCore.App" />
       </group>
-
       <group targetFramework="net8.0">
         <frameworkReference name="Microsoft.AspNetCore.App" />
       </group>
-
       <group targetFramework="net9.0">
         <frameworkReference name="Microsoft.AspNetCore.App" />
       </group>
     </frameworkReferences>
   </metadata>
+  
   <files>
-    <file src=".\Readme.md" target="\" />
-    <file src=".\assets\logo.jpg" target="assets\logo.jpg" />
-    <file src=".\src\RoutesList.Build\bin\Release\netcoreapp3.1\RoutesList.Build.dll" target="lib\netcoreapp3.1"/>
-    <file src=".\src\RoutesList.Gen\bin\Release\netcoreapp3.1\RoutesList.Gen.dll" target="lib\netcoreapp3.1" />
-    <file src=".\src\RoutesList.Build\bin\Release\netcoreapp3.1\RoutesList.Build.pdb" target="lib\netcoreapp3.1"/>
-    <file src=".\src\RoutesList.Gen\bin\Release\netcoreapp3.1\RoutesList.Gen.pdb" target="lib\netcoreapp3.1" />
-
-    <file src=".\src\RoutesList.Build\bin\Release\net5.0\RoutesList.Build.dll" target="lib\net5.0"/>
-    <file src=".\src\RoutesList.Gen\bin\Release\net5.0\RoutesList.Gen.dll" target="lib\net5.0" />
-    <file src=".\src\RoutesList.Build\bin\Release\net5.0\RoutesList.Build.pdb" target="lib\net5.0"/>
-    <file src=".\src\RoutesList.Gen\bin\Release\net5.0\RoutesList.Gen.pdb" target="lib\net5.0" />
+    <!-- Documentation -->
+    <file src=".\Readme.md" target="docs\" />
+    <file src=".\LICENSE.md" target="docs\" />
     
-    <file src=".\src\RoutesList.Build\bin\Release\net6.0\RoutesList.Build.dll" target="lib\net6.0"/>
-    <file src=".\src\RoutesList.Gen\bin\Release\net6.0\RoutesList.Gen.dll" target="lib\net6.0" />
-    <file src=".\src\RoutesList.Build\bin\Release\net6.0\RoutesList.Build.pdb" target="lib\net6.0"/>
-    <file src=".\src\RoutesList.Gen\bin\Release\net6.0\RoutesList.Gen.pdb" target="lib\net6.0" />
+    <!-- Assets -->
+    <file src=".\assets\logo.jpg" target="assets\" />
     
-    <file src=".\src\RoutesList.Build\bin\Release\net7.0\RoutesList.Build.dll" target="lib\net7.0"/>
-    <file src=".\src\RoutesList.Gen\bin\Release\net7.0\RoutesList.Gen.dll" target="lib\net7.0" />
-    <file src=".\src\RoutesList.Build\bin\Release\net7.0\RoutesList.Build.pdb" target="lib\net7.0"/>
-    <file src=".\src\RoutesList.Gen\bin\Release\net7.0\RoutesList.Gen.pdb" target="lib\net7.0" />
+    <!-- Libraries for .NET Core 3.1 -->
+    <file src=".\src\RoutesList.Build\bin\Release\netcoreapp3.1\RoutesList.Build.dll" target="lib\netcoreapp3.1\" />
+    <file src=".\src\RoutesList.Gen\bin\Release\netcoreapp3.1\RoutesList.Gen.dll" target="lib\netcoreapp3.1\" />
+    <file src=".\src\RoutesList.Build\bin\Release\netcoreapp3.1\RoutesList.Build.pdb" target="lib\netcoreapp3.1\" />
+    <file src=".\src\RoutesList.Gen\bin\Release\netcoreapp3.1\RoutesList.Gen.pdb" target="lib\netcoreapp3.1\" />
+    <file src=".\src\RoutesList.Build\bin\Release\netcoreapp3.1\RoutesList.Build.xml" target="lib\netcoreapp3.1\" />
+    <file src=".\src\RoutesList.Gen\bin\Release\netcoreapp3.1\RoutesList.Gen.xml" target="lib\netcoreapp3.1\" />
 
-    <file src=".\src\RoutesList.Build\bin\Release\net8.0\RoutesList.Build.dll" target="lib\net8.0"/>
-    <file src=".\src\RoutesList.Gen\bin\Release\net8.0\RoutesList.Gen.dll" target="lib\net8.0" />
-    <file src=".\src\RoutesList.Build\bin\Release\net8.0\RoutesList.Build.pdb" target="lib\net8.0"/>
-    <file src=".\src\RoutesList.Gen\bin\Release\net8.0\RoutesList.Gen.pdb" target="lib\net8.0" />
+    <!-- Libraries for .NET 5.0 -->
+    <file src=".\src\RoutesList.Build\bin\Release\net5.0\RoutesList.Build.dll" target="lib\net5.0\" />
+    <file src=".\src\RoutesList.Gen\bin\Release\net5.0\RoutesList.Gen.dll" target="lib\net5.0\" />
+    <file src=".\src\RoutesList.Build\bin\Release\net5.0\RoutesList.Build.pdb" target="lib\net5.0\" />
+    <file src=".\src\RoutesList.Gen\bin\Release\net5.0\RoutesList.Gen.pdb" target="lib\net5.0\" />
+    <file src=".\src\RoutesList.Build\bin\Release\net5.0\RoutesList.Build.xml" target="lib\net5.0\" />
+    <file src=".\src\RoutesList.Gen\bin\Release\net5.0\RoutesList.Gen.xml" target="lib\net5.0\" />
+    
+    <!-- Libraries for .NET 6.0 -->
+    <file src=".\src\RoutesList.Build\bin\Release\net6.0\RoutesList.Build.dll" target="lib\net6.0\" />
+    <file src=".\src\RoutesList.Gen\bin\Release\net6.0\RoutesList.Gen.dll" target="lib\net6.0\" />
+    <file src=".\src\RoutesList.Build\bin\Release\net6.0\RoutesList.Build.pdb" target="lib\net6.0\" />
+    <file src=".\src\RoutesList.Gen\bin\Release\net6.0\RoutesList.Gen.pdb" target="lib\net6.0\" />
+    <file src=".\src\RoutesList.Build\bin\Release\net6.0\RoutesList.Build.xml" target="lib\net6.0\" />
+    <file src=".\src\RoutesList.Gen\bin\Release\net6.0\RoutesList.Gen.xml" target="lib\net6.0\" />
+    
+    <!-- Libraries for .NET 7.0 -->
+    <file src=".\src\RoutesList.Build\bin\Release\net7.0\RoutesList.Build.dll" target="lib\net7.0\" />
+    <file src=".\src\RoutesList.Gen\bin\Release\net7.0\RoutesList.Gen.dll" target="lib\net7.0\" />
+    <file src=".\src\RoutesList.Build\bin\Release\net7.0\RoutesList.Build.pdb" target="lib\net7.0\" />
+    <file src=".\src\RoutesList.Gen\bin\Release\net7.0\RoutesList.Gen.pdb" target="lib\net7.0\" />
+    <file src=".\src\RoutesList.Build\bin\Release\net7.0\RoutesList.Build.xml" target="lib\net7.0\" />
+    <file src=".\src\RoutesList.Gen\bin\Release\net7.0\RoutesList.Gen.xml" target="lib\net7.0\" />
 
-    <file src=".\src\RoutesList.Build\bin\Release\net9.0\RoutesList.Build.dll" target="lib\net9.0"/>
-    <file src=".\src\RoutesList.Gen\bin\Release\net9.0\RoutesList.Gen.dll" target="lib\net9.0"/>
-    <file src=".\src\RoutesList.Build\bin\Release\net9.0\RoutesList.Build.pdb" target="lib\net9.0"/>
-    <file src=".\src\RoutesList.Gen\bin\Release\net9.0\RoutesList.Gen.pdb" target="lib\net9.0"/>
+    <!-- Libraries for .NET 8.0 -->
+    <file src=".\src\RoutesList.Build\bin\Release\net8.0\RoutesList.Build.dll" target="lib\net8.0\" />
+    <file src=".\src\RoutesList.Gen\bin\Release\net8.0\RoutesList.Gen.dll" target="lib\net8.0\" />
+    <file src=".\src\RoutesList.Build\bin\Release\net8.0\RoutesList.Build.pdb" target="lib\net8.0\" />
+    <file src=".\src\RoutesList.Gen\bin\Release\net8.0\RoutesList.Gen.pdb" target="lib\net8.0\" />
+    <file src=".\src\RoutesList.Build\bin\Release\net8.0\RoutesList.Build.xml" target="lib\net8.0\" />
+    <file src=".\src\RoutesList.Gen\bin\Release\net8.0\RoutesList.Gen.xml" target="lib\net8.0\" />
+
+    <!-- Libraries for .NET 9.0 -->
+    <file src=".\src\RoutesList.Build\bin\Release\net9.0\RoutesList.Build.dll" target="lib\net9.0\" />
+    <file src=".\src\RoutesList.Gen\bin\Release\net9.0\RoutesList.Gen.dll" target="lib\net9.0\" />
+    <file src=".\src\RoutesList.Build\bin\Release\net9.0\RoutesList.Build.pdb" target="lib\net9.0\" />
+    <file src=".\src\RoutesList.Gen\bin\Release\net9.0\RoutesList.Gen.pdb" target="lib\net9.0\" />
+    <file src=".\src\RoutesList.Build\bin\Release\net9.0\RoutesList.Build.xml" target="lib\net9.0\" />
+    <file src=".\src\RoutesList.Gen\bin\Release\net9.0\RoutesList.Gen.xml" target="lib\net9.0\" />
   </files>
 </package>
