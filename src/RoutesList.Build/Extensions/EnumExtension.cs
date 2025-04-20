@@ -18,7 +18,10 @@ namespace RoutesList.Build.Extensions
         /// <exception cref="ArgumentNullException">Thrown when myEnum is null.</exception>
         public static Dictionary<int, string> ToDictionary<T>(T myEnum) where T : Enum
         {
-            if (myEnum == null) throw new ArgumentNullException(nameof(myEnum));
+            if (myEnum == null)
+            {
+                throw new ArgumentNullException(nameof(myEnum));
+            }
             var myEnumType = myEnum.GetType();
         
             var names = myEnumType.GetFields()
@@ -52,7 +55,10 @@ namespace RoutesList.Build.Extensions
         /// <returns>The description of the enum value, or null if no description is found.</returns>
         public static string GetDescription(this Enum value)
         {
-            if (value == null) return null;
+            if (value == null)
+            {
+                return null;
+            }
             
             var field = value.GetType().GetField(value.ToString());
             return field?.GetCustomAttribute<DescriptionAttribute>()?.Description;

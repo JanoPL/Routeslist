@@ -50,32 +50,14 @@ namespace RoutesList.Build.Services
 
         private bool IsControllerActionDescriptor()
         {
-#if NET5_0_OR_GREATER
-            List<bool> result = new();
-#endif
-#if NETCOREAPP3_1
-            List<bool> result = new List<bool>();
-#endif
-
-            foreach (var route in ListRoutes) {
-                result.Add(route.IsCompiledPageActionDescriptor == false);
-            }
+            List<bool> result = ListRoutes.Select(route => route.IsCompiledPageActionDescriptor == false).ToList();
 
             return result.TrueForAll(x => x);
         }
 
         private bool IsCompiledPageActionDescriptor()
         {
-#if NET5_0_OR_GREATER
-            List<bool> result = new();
-#endif
-#if NETCOREAPP3_1
-            List<bool> result = new List<bool>();
-#endif
-
-            foreach (var route in ListRoutes) {
-                result.Add(route.IsCompiledPageActionDescriptor == true);
-            }
+            List<bool> result = ListRoutes.Select(route => route.IsCompiledPageActionDescriptor).ToList();
 
             return result.TrueForAll(x => x);
         }
@@ -109,40 +91,42 @@ namespace RoutesList.Build.Services
 
             ListRoutes = _routes.GetRoutesInformation(_actionDescriptorCollectionProvider);
 
-            if (isJson) {
-                var serialize = new StringBuilder();
+            if (!isJson)
+            {
+                return await Task.FromResult("");
+            }
+            
+            var serialize = new StringBuilder();
 
-                if (IsCompiledPageActionDescriptor()) {
-                    serialize.AppendLine(JsonConvert.SerializeObject(
-                            ListRoutes.Select(x => {
-                                return new {
-                                    x.RelativePath,
-                                    x.ViewEnginePath,
-                                    x.DisplayName,
-                                    x.Template,
-                                };
-                            })
-                    ));
-                }
-
-                if (IsControllerActionDescriptor()) {
-                    serialize.AppendLine(JsonConvert.SerializeObject(
-                        ListRoutes.Select(x => {
-                            return new {
-                                x.DisplayName,
-                                x.ControllerName,
-                                x.Template,
-                                x.ActionName,
-                                x.MethodName,
-                            };
-                        })
-                    ));
-                }
-
-                return await Task.FromResult(serialize.ToString());
+            if (IsCompiledPageActionDescriptor()) {
+                serialize.AppendLine(JsonConvert.SerializeObject(
+                    ListRoutes.Select(x => {
+                        return new {
+                            x.RelativePath,
+                            x.ViewEnginePath,
+                            x.DisplayName,
+                            x.Template,
+                        };
+                    })
+                ));
             }
 
-            return await Task.FromResult("");
+            if (IsControllerActionDescriptor()) {
+                serialize.AppendLine(JsonConvert.SerializeObject(
+                    ListRoutes.Select(x => {
+                        return new {
+                            x.DisplayName,
+                            x.ControllerName,
+                            x.Template,
+                            x.ActionName,
+                            x.MethodName,
+                        };
+                    })
+                ));
+            }
+
+            return await Task.FromResult(serialize.ToString());
+
         }
 #nullable disable
 
@@ -150,22 +134,25 @@ namespace RoutesList.Build.Services
         {
             IList<string> headers = new List<string>();
 
-            if (ListRoutes.Count > 0) {
-                if (!String.IsNullOrEmpty(ListRoutes[0].ViewEnginePath) || !String.IsNullOrEmpty(ListRoutes[0].RelativePath)) {
-                    foreach (var headerName in EnumExtension.GetListOfDescription<TableHeaderPageActionDescriptor>()) {
-                        headers.Add(headerName);
-                    }
-
-                    table.AddColumn(headers);
+            if (ListRoutes.Count <= 0)
+            {
+                return table;
+            }
+            
+            if (!String.IsNullOrEmpty(ListRoutes[0].ViewEnginePath) || !String.IsNullOrEmpty(ListRoutes[0].RelativePath)) {
+                foreach (var headerName in EnumExtension.GetListOfDescription<TableHeaderPageActionDescriptor>()) {
+                    headers.Add(headerName);
                 }
 
-                if (!String.IsNullOrEmpty(ListRoutes[0].ControllerName)) {
-                    foreach (var headerName in EnumExtension.GetListOfDescription<TableHeaderControllerActionDescriptor>()) {
-                        headers.Add(headerName);
-                    }
+                table.AddColumn(headers);
+            }
 
-                    table.AddColumn(headers);
+            if (!String.IsNullOrEmpty(ListRoutes[0].ControllerName)) {
+                foreach (var headerName in EnumExtension.GetListOfDescription<TableHeaderControllerActionDescriptor>()) {
+                    headers.Add(headerName);
                 }
+
+                table.AddColumn(headers);
             }
 
 
@@ -174,10 +161,10 @@ namespace RoutesList.Build.Services
 
         private ConsoleTable BuildRows(ConsoleTable table)
         {
-            if (ListRoutes.Count > 0) {
-                foreach (RoutesInformationModel route in ListRoutes) {
-                    AddTableRow(ref table, route);
-                }
+            if (ListRoutes.Count <= 0) return table;
+            
+            foreach (RoutesInformationModel route in ListRoutes) {
+                AddTableRow(ref table, route);
             }
 
             return table;

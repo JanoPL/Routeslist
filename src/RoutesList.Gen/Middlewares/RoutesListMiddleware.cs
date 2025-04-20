@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using RoutesList.Build.Interfaces;
 using RoutesList.Build.Models;
 
-namespace RoutesList.Gen
+namespace RoutesList.Gen.Middlewares
 {
     /// <summary>
     /// Middleware component that handles requests for displaying routes information in HTML or JSON format.
@@ -21,8 +21,11 @@ namespace RoutesList.Gen
         /// <param name="options">The options for configuring the routes list.</param>
         /// <param name="next">The next middleware in the pipeline.</param>
         /// <param name="tableBuilder">The service for building the routes table.</param>
-        public RoutesListMiddleware(RoutesListOptions options, RequestDelegate next, ITableBuilder tableBuilder)
-        {
+        public RoutesListMiddleware(
+            RoutesListOptions options,
+            RequestDelegate next,
+            ITableBuilder tableBuilder
+        ) {
             _options = options ?? new RoutesListOptions();
             _next = next;
             _tableBuilder = tableBuilder;
@@ -63,9 +66,7 @@ namespace RoutesList.Gen
         /// <returns>True if the request is for routes list, otherwise false.</returns>
         private static bool RequestRoutesList(HttpRequest request)
         {
-            if (request.Method != "GET") return false;
-
-            return true;
+            return request.Method == "GET";
         }
 
         /// <summary>
@@ -88,19 +89,7 @@ namespace RoutesList.Gen
         {
             response.StatusCode = 200;
             response.ContentType = "text/html";
-#if NETCOREAPP3_1 || NET5_0
-            Build.Models.RoutesListOptions buildOptions = new Build.Models.RoutesListOptions {
-                Title = _options.Title,
-                CharSet = "UTF-8",
-            };
-#endif
-#if NET6_0_OR_GREATER
-            Build.Models.RoutesListOptions buildOptions = new()
-            {
-                Title = _options.Title,
-                CharSet = "UTF-8"
-            };
-#endif
+
             var htmlBuilderResult = _tableBuilder.AsyncGenerateTable(_options).GetAwaiter().GetResult();
 
             await response.WriteAsync(htmlBuilderResult, Encoding.UTF8);

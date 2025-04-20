@@ -43,7 +43,9 @@ namespace RoutesList.Build.Services
                 var strategy = _strategies.FirstOrDefault(s => s.CanProcess(route));
 
                 if (strategy == null)
+                {
                     continue;
+                }
 
                 var routeStrategyExecutor = new RouteStrategyExecutor(strategy, route);
                 var routesInformationModel = routeStrategyExecutor.Execute();
@@ -72,16 +74,17 @@ namespace RoutesList.Build.Services
         private IEnumerable<ActionDescriptor> GetActionDescriptorRoutes(
             IActionDescriptorCollectionProvider collectionProvider)
         {
-            if (collectionProvider != null)
+            if (collectionProvider == null)
             {
-                IEnumerable<ActionDescriptor> routes = collectionProvider
-                    .ActionDescriptors
-                    .Items;
-
-                return routes;
+                return Enumerable.Empty<ActionDescriptor>();
             }
+            
+            IEnumerable<ActionDescriptor> routes = collectionProvider
+                .ActionDescriptors
+                .Items;
 
-            return Enumerable.Empty<ActionDescriptor>();
+            return routes;
+
         }
 
         private IEnumerable<RoutesInformationModel> GetComponentsRoutes()

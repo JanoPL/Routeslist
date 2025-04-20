@@ -15,7 +15,7 @@ namespace RoutesList.Tests.Services
     public partial class RoutesTests
     {
         [Fact]
-        public void GetRoutesInformation_WithNullCollectionProvider_ReturnsOnlyComponentRoutes()
+        public virtual void GetRoutesInformation_WithNullCollectionProvider_ReturnsOnlyComponentRoutes()
         {
             // Arrange
             var routes = new Routes();
@@ -57,7 +57,7 @@ namespace RoutesList.Tests.Services
         }
 
         [Fact]
-        public void GetRoutesInformation_WithControllerActionDescriptors_ProcessesCorrectly()
+        public virtual void GetRoutesInformation_WithControllerActionDescriptors_ProcessesCorrectly()
         {
             // Arrange
             var routes = new Routes();
@@ -95,7 +95,7 @@ namespace RoutesList.Tests.Services
         }
 
         [Fact]
-        public void GetRoutesInformation_WithCompiledPageDescriptors_ProcessesCorrectly()
+        public virtual void GetRoutesInformation_WithCompiledPageDescriptors_ProcessesCorrectly()
         {
             // Arrange
             var routes = new Routes();
@@ -131,7 +131,7 @@ namespace RoutesList.Tests.Services
         }
 
         [Fact]
-        public void GetRoutesInformation_WithMixedDescriptors_ProcessesAllTypes()
+        public virtual void GetRoutesInformation_WithMixedDescriptors_ProcessesAllTypes()
         {
             // Arrange
             var routes = new Routes();
@@ -197,9 +197,6 @@ namespace RoutesList.Tests.Services
                 // Create mock component routes
                 mockComponentRoutes.Add(new RoutesInformationModel { DisplayName = "Component" + i });
             }
-
-            // Use a function replacement/stub for RoutesComponent.GetRoutesToRender
-            // RoutesComponent.GetRoutesToRender() = mockComponentRoutes;
 
             return mockComponentRoutes;
         }

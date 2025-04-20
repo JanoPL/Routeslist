@@ -48,14 +48,6 @@ namespace UnitTests.Extensions
         }
 
         [Fact]
-        public void GetListOfDescription_WithNonEnumType_ShouldReturnEmptyList()
-        {
-            // Act & Assert - should compile error now since constraint is struct, Enum
-            // var result = EnumExtension.GetListOfDescription<TestStruct>();
-            // Assert.Empty(result);
-        }
-
-        [Fact]
         public void GetDescription_WithDescriptionAttribute_ShouldReturnDescription()
         {
             // Arrange & Act
