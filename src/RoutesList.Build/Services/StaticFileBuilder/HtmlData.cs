@@ -34,9 +34,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         {
             Type type = typeof(T);
 
-            if (!Data.ContainsKey(type)) {
-                Data.Add(type, data);
-            } else {
+            if (!Data.TryAdd(type, data)) {
                 Update<T>(data);
             }
         }
@@ -46,7 +44,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         /// </summary>
         /// <typeparam name="T">The type used as dictionary key.</typeparam>
         /// <param name="data">The new data to store.</param>
-        public static void Update<T>(object data) where T : class
+        private static void Update<T>(object data) where T : class
         {
             Type type = typeof(T);
 

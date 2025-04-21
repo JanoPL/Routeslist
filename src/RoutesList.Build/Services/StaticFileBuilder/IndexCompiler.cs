@@ -24,7 +24,7 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         /// <summary>
         /// Gets or sets additional content to be inserted into the header section of the template.
         /// </summary>
-        public string AdditionalHeader { get; set; } = string.Empty;
+        private string AdditionalHeader { get; set; } = string.Empty;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IndexCompiler"/> class.
@@ -41,11 +41,11 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         /// <summary>
         /// Compiles the template with optional header compilation.
         /// </summary>
-        /// <param name="compileheader">If true, includes header compilation in the process.</param>
+        /// <param name="compileHeaderFlag">If true, includes header compilation in the process.</param>
         /// <returns>The processed StringBuilder instance containing the compiled template.</returns>
-        public StringBuilder CompileIndex(bool compileheader)
+        public StringBuilder CompileIndex(bool compileHeaderFlag)
         {
-            if (compileheader) {
+            if (compileHeaderFlag) {
                 GetIndexHeader();
                 ReplaceTag(_header);
             }
