@@ -7,6 +7,9 @@ using System.Reflection;
 
 namespace RoutesList.Build.Extensions
 {
+    /// <summary>
+    /// Provides extension methods for working with enum types.
+    /// </summary>
     public static class EnumExtension
     {
         /// <summary>

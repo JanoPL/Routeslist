@@ -7,10 +7,18 @@ using RoutesList.Build.Models;
 
 namespace RoutesList.Build.Services
 {
+    /// <summary>
+    /// Provides functionality for retrieving and processing Blazor component routes.
+    /// </summary>
     public static class RoutesComponent
     {
 #if NETCOREAPP3_1
         
+        /// <summary>
+        /// Retrieves all routable components from the specified assembly and converts them to route information models.
+        /// </summary>
+        /// <param name="assembly">The assembly to scan for routable components.</param>
+        /// <returns>A collection of route information models representing the routable components.</returns>
         public static IEnumerable<RoutesInformationModel> GetRoutesToRender(Assembly assembly)
         {
             if (assembly == null) {
@@ -28,6 +36,11 @@ namespace RoutesList.Build.Services
 #endif
 
 #if NET5_0_OR_GREATER
+        /// <summary>
+        /// Retrieves a collection of route information models for Blazor components within the specified assembly.
+        /// </summary>
+        /// <param name="assembly">The assembly to inspect for routable Blazor components.</param>
+        /// <returns>A collection of <see cref="RoutesInformationModel"/> representing the routes found in the assembly, or an empty collection if no routes are found or the assembly is null.</returns>
         public static IEnumerable<RoutesInformationModel> GetRoutesToRender(Assembly assembly)
         {
             if (assembly == null) {
@@ -46,6 +59,12 @@ namespace RoutesList.Build.Services
         }
 #endif
 
+        /// <summary>
+        /// Extracts route information from a component type.
+        /// </summary>
+        /// <param name="component">The component type to extract route information from.</param>
+        /// <returns>A route information model if the component is routable; otherwise, null.</returns>
+        /// <exception cref="ArgumentException">Thrown when route template is empty or contains route values.</exception>
         private static RoutesInformationModel GetRouteFromComponent(Type component)
         {
             var attributes = component.GetCustomAttributes(inherit: true);

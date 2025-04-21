@@ -114,6 +114,11 @@ namespace RoutesList.Build.Services.RoutesBuilder
             return this;
         }
 
+        /// <summary>
+        /// Sets the flag indicating whether the page action descriptor is compiled.
+        /// </summary>
+        /// <param name="isCompiled">A boolean value indicating if the page action descriptor is compiled.</param>
+        /// <returns>An instance of the builder with the specified compiled setting applied.</returns>
         public IBuilder IsCompiledPageActionDescriptior(bool isCompiled)
         {
             _model.IsCompiledPageActionDescriptor = isCompiled;

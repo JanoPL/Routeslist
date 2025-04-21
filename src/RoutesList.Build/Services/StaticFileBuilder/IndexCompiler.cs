@@ -6,7 +6,7 @@ using RoutesList.Build.Models;
 namespace RoutesList.Build.Services.StaticFileBuilder
 {
     /// <summary>
-    /// Template engine
+    /// Compiles and processes HTML template files by replacing placeholder tags with actual content.
     /// </summary>
     public class IndexCompiler
     {
@@ -16,9 +16,21 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         private Dictionary<string, string> _footer;
         private Dictionary<string, string> _classes;
         private readonly RoutesListOptions _options;
+        /// <summary>
+        /// Gets or sets the content to be inserted into the body section of the template.
+        /// </summary>
         public string BodyContent { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Gets or sets additional content to be inserted into the header section of the template.
+        /// </summary>
         public string AdditionalHeader { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IndexCompiler"/> class.
+        /// </summary>
+        /// <param name="stringBuilder">The StringBuilder instance used for template processing.</param>
+        /// <param name="options">The options containing configuration for template compilation.</param>
         public IndexCompiler(StringBuilder stringBuilder, RoutesListOptions options)
         {
             _stringBuilder = stringBuilder;
@@ -26,6 +38,11 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         }
 
 
+        /// <summary>
+        /// Compiles the template with optional header compilation.
+        /// </summary>
+        /// <param name="compileheader">If true, includes header compilation in the process.</param>
+        /// <returns>The processed StringBuilder instance containing the compiled template.</returns>
         public StringBuilder CompileIndex(bool compileheader)
         {
             if (compileheader) {
@@ -36,6 +53,12 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             return _stringBuilder;
         }
 
+        /// <summary>
+        /// Compiles the template with optional header and body compilation.
+        /// </summary>
+        /// <param name="compileHeader">If true, includes header compilation in the process.</param>
+        /// <param name="compileBody">If true, includes body compilation in the process.</param>
+        /// <returns>The processed StringBuilder instance containing the compiled template.</returns>
         public StringBuilder CompileIndex(bool compileHeader, bool compileBody)
         {
             if (compileHeader) {
@@ -51,6 +74,13 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             return _stringBuilder;
         }
 
+        /// <summary>
+        /// Compiles the template with optional header, body, and footer compilation.
+        /// </summary>
+        /// <param name="compileHeader">If true, includes header compilation in the process.</param>
+        /// <param name="compileBody">If true, includes body compilation in the process.</param>
+        /// <param name="compileFooter">If true, includes footer compilation in the process.</param>
+        /// <returns>The processed StringBuilder instance containing the compiled template.</returns>
         public StringBuilder CompileIndex(bool compileHeader, bool compileBody, bool compileFooter)
         {
             if (compileHeader) {
@@ -70,6 +100,14 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             return _stringBuilder;
         }
 
+        /// <summary>
+        /// Compiles the template with optional header, body, footer, and CSS classes compilation.
+        /// </summary>
+        /// <param name="compileHeader">If true, includes header compilation in the process.</param>
+        /// <param name="compileBody">If true, includes body compilation in the process.</param>
+        /// <param name="compileFooter">If true, includes footer compilation in the process.</param>
+        /// <param name="compileClasses">If true, includes CSS classes compilation in the process.</param>
+        /// <returns>The processed StringBuilder instance containing the compiled template.</returns>
         public StringBuilder CompileIndex(
             bool compileHeader,
             bool compileBody,

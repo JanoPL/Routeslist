@@ -7,13 +7,25 @@ using RoutesList.Build.Services.StaticFileBuilder.HtmlStructures;
 
 namespace RoutesList.Build.Services.StaticFileBuilder
 {
+    /// <summary>
+    /// A builder class responsible for generating static HTML file content from route data.
+    /// Implements the <see cref="IBuilder"/> interface.
+    /// </summary>
     public class Builder : IBuilder
     {
         readonly StringBuilder _stringBuilder;
         RoutesListOptions _options;
         IndexCompiler _indexCompiler;
         private string BodyContent { get; set; }
+        /// <summary>
+        /// Gets or sets the final HTML content after the build process is complete.
+        /// </summary>
         public string Result { get; set; }
+
+        /// <summary>
+        /// A builder class responsible for generating static HTML file content from route data.
+        /// Implements the <see cref="IBuilder"/> interface.
+        /// </summary>
         public Builder()
         {
             var stream = this.GetType().Assembly.GetManifestResourceStream("RoutesList.Build.Resources.StaticFile.index.html");
@@ -24,6 +36,9 @@ namespace RoutesList.Build.Services.StaticFileBuilder
 
             _stringBuilder = new StringBuilder(new StreamReader(stream).ReadToEnd());
         }
+        /// <summary>
+        /// Builds the HTML head section of the document.
+        /// </summary>
         private void BuildHead()
         {
             if (_indexCompiler == null) {
@@ -33,6 +48,9 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             _indexCompiler.CompileIndex(true);
         }
 
+        /// <summary>
+        /// Builds the HTML body section of the document using the provided body content.
+        /// </summary>
         private void BuildBody()
         {
             if (_indexCompiler == null) {
@@ -44,11 +62,17 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             _indexCompiler.CompileIndex(false, true);
         }
 
+        /// <summary>
+        /// Builds the meta information section of the HTML document.
+        /// </summary>
         private void BuildMeta()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Builds the footer section of the HTML document.
+        /// </summary>
         private void BuildFooter()
         {
             if (_indexCompiler == null) {
@@ -58,6 +82,9 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             _indexCompiler.CompileIndex(false, false, true);
         }
 
+        /// <summary>
+        /// Builds the class-specific section of the HTML document.
+        /// </summary>
         private void BuildClass()
         {
             if (_indexCompiler == null) {
@@ -68,6 +95,11 @@ namespace RoutesList.Build.Services.StaticFileBuilder
         }
 
 #nullable enable
+        /// <summary>
+        /// Builds the complete HTML content using the provided table data and options.
+        /// </summary>
+        /// <param name="table">The console table containing route data to be rendered.</param>
+        /// <param name="options">Configuration options for the routes list generation.</param>
         public void Build(ConsoleTable? table, RoutesListOptions options)
         {
             if (table == null || options == null) {
@@ -101,6 +133,12 @@ namespace RoutesList.Build.Services.StaticFileBuilder
             Result = _stringBuilder.ToString();
         }
 
+        /// <summary>
+        /// Creates the HTML structure for the body content using the provided factory and table data.
+        /// </summary>
+        /// <param name="factory">The factory for creating HTML structures.</param>
+        /// <param name="tableStringBuilder">The string builder containing table template.</param>
+        /// <returns>The generated HTML table content as a string.</returns>
         private string HtmlStructureBodyCreator(
             IHtmlStructuresFactory factory,
             StringBuilder tableStringBuilder
