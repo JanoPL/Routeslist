@@ -41,7 +41,7 @@ jobs:
             ${{ runner.os }}-${{ github.workflow }}-${{ matrix.configuration }}-${{ matrix.dotnet-version }}-nuget-${{ hashFiles('**/packages.lock.json') }}
 
       - name: Setup .NET Core SDKs
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: |
             3.1.x
@@ -92,22 +92,22 @@ jobs:
             export DYLD_LIBRARY_PATH="/usr/local/opt/openssl@3/lib:$DYLD_LIBRARY_PATH"
 
       - name: Setup .NET Core SDK net6.0
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 6.0.x
 
       - name: Setup .NET Core SDK net7.0
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 7.0.x
 
       - name: Setup .NET Core SDK net8.0
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 8.0.x
        
       - name: Setup .NET Core SDK net9.0
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 9.0.x
 
