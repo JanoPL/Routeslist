@@ -10,7 +10,7 @@ jobs:
     name: Build Release Packages & Publish to NuGet
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Cache NuGet packages
         uses: actions/cache@v4
@@ -21,7 +21,7 @@ jobs:
             ${{ runner.os }}-nuget-packages-
 
       - name: Setup .NET SDK Environments
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: |
             3.1.x
