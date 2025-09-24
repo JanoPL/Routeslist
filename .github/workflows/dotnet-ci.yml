@@ -5,10 +5,8 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  push:
-    branches-ignore: [ master, main ]
   pull_request:
-    branches: [ master, main ]
+    branches: [ master, main, dev ]
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+' #semantic version format
   workflow_dispatch:
