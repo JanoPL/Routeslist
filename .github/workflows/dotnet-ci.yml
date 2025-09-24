@@ -128,7 +128,7 @@ jobs:
         run: dotnet test --no-restore --verbosity minimal --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }} --collect "XPlat Code Coverage"
 
       - name: Rename and move Cobertura test to ${{ github.workspace }}/coverage directory
-        if: ${{ matrix.dotnet-version == 'net9.0' }}
+        if: ${{ matrix.dotnet-version == 'net9.0' && matrix.configuration == 'Release' }}
         run: |
           mkdir -p ${{ github.workspace }}/coverage
           for i in {1..5}; do
@@ -144,15 +144,9 @@ jobs:
           done
           ls ${{ github.workspace }}/coverage || echo "No coverage files found"
 
-      - name: Send coverage reports to Codacy 
-        if: ${{ matrix.dotnet-version == 'net9.0' }}
-        run: |
-          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage1.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
-          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage2.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
-          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage3.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
-          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage4.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
-          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage5.xml -t ${{ secrets.CODACY_PROJECT_SECRET }} --partial --language CSharp --force-coverage-parser Cobertura
-
-      - name: Finalize codacy reporter
-        if: ${{ matrix.dotnet-version == 'net9.0' }}
-        run: bash <(curl -Ls https://coverage.codacy.com/get.sh) final -t ${{ secrets.CODACY_PROJECT_SECRET }}
+      - name: Upload coverage report
+        if: ${{ matrix.dotnet-version == 'net9.0' && matrix.configuration == 'Release' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: ${{ github.workspace }}/coverage
