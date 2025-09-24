@@ -21,7 +21,7 @@ jobs:
             ${{ runner.os }}-nuget-packages-
 
       - name: Setup .NET SDK Environments
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: |
             3.1.x
