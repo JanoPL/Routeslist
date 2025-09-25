@@ -26,6 +26,11 @@ namespace RoutesList.Build.Services.Strategies
         /// </value>
         protected int Id { get; }
 
+
+        /// <summary>
+        /// Initializes a new instance of the RouteProcessingStrategyBase class.
+        /// </summary>
+        /// <param name="id">The unique identifier for this strategy instance.</param>
         protected RouteProcessingStrategyBase(int id)
         {
             Id = id;
@@ -36,7 +41,6 @@ namespace RoutesList.Build.Services.Strategies
         /// </summary>
         /// <param name="descriptor">The action descriptor to check.</param>
         /// <returns>True if the descriptor is of type TDescriptor; otherwise, false.</returns>
-        /// <inheritdoc/>
         public bool CanProcess(ActionDescriptor descriptor)
         {
             return descriptor is TDescriptor;

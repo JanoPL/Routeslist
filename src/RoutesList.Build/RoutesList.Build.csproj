@@ -5,96 +5,66 @@
     
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
     
-    <AssemblyVersion>1.2</AssemblyVersion>
-    <FileVersion>1.2</FileVersion>
-    <Version>1.2</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+    <Version>$(Version)</Version>
     
     <Authors>JanoPL</Authors>
     <Company>JanoPL</Company>
-    <Copyright>JanoPL</Copyright>
+    <Copyright>Copyright © $([System.DateTime]::Now.Year) JanoPL</Copyright>
     
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-
-    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <Title>RoutesList - ASP.NET Route Analyzer (Build Component)</Title>
+    <Description>
+      RoutesList is a powerful .NET tool for visualizing and analyzing all routes in your application with clarity and precision.
+      
+      Key Features:
+      • Comprehensive inspection of HTTP methods, URIs, controllers, actions, middleware and routing configurations
+      • Customizable output formats for flexible integration
+      • Detailed filtering options to focus on specific routes
+      • Complete route information display for debugging and documentation
+      
+      Compatible with .NET Core 3.1, .NET 5.0, .NET 6.0, .NET 7.0, .NET 8.0, .NET 9.0 and supports Razor Pages, ASP.NET MVC, and Blazor Server applications.
+    </Description>
     
-    <Description>Routing debugger for DotNet Core applications - Builder</Description>    
-    <RepositoryUrl>https://github.com/JanoPL/Routeslist</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageTags>Route list, Analizer Route, Debugging, Debugger, debug, development, dev, tools, route, routes, list, RoutesList, developing</PackageTags>
-    <NeutralLanguage>en</NeutralLanguage>
-    <PackageProjectUrl>https://github.com/JanoPL/Routeslist</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    <PackageIcon>logo.jpg</PackageIcon>
+    
+    <PackageProjectUrl>https://github.com/JanoPL/Routeslist</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/JanoPL/Routeslist</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryBranch>main</RepositoryBranch>
+    
+    <PackageTags>routes routing analyzer debugging development tools aspnetcore netcore razor blazor mvc</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
     
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-
+    
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
-    <Optimize>False</Optimize>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net5.0|AnyCPU'">
-    <Optimize>False</Optimize>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
     <Optimize>False</Optimize>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0|AnyCPU'">
-    <Optimize>False</Optimize>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0|AnyCPU'">
-    <Optimize>False</Optimize>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0|AnyCPU'">
-    <Optimize>False</Optimize>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
-    <Optimize>True</Optimize>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net5.0|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <Optimize>True</Optimize>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
-    <Optimize>True</Optimize>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0|AnyCPU'">
-    <Optimize>True</Optimize>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0|AnyCPU'">
-    <Optimize>True</Optimize>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0|AnyCPU'">
-    <Optimize>True</Optimize>
-    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\StaticFile\index.html" />
     <None Remove="Resources\StaticFile\TablePartialView.html" />
+    <None Include="..\..\assets\logo.jpg" Pack="true" PackagePath="assets\" Visible="false" />
+    <None Include="..\..\Readme.md" Pack="true" PackagePath="docs\" Visible="false" />
   </ItemGroup>
 
   <ItemGroup>

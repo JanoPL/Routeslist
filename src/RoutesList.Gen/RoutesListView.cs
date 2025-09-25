@@ -7,15 +7,17 @@ using RoutesList.Gen.Extensions;
 
 namespace RoutesList.Gen
 {
+    /// <summary>
+    /// Provides extension methods for configuring and using RoutesList in ASP.NET Core applications.
+    /// </summary>
     public static class RoutesListView
     {
-        private static IApplicationBuilder UseRoutesList(
-            this IApplicationBuilder app,
-            RoutesListOptions options)
-        {
-            return app;
-        }
-
+        /// <summary>
+        /// Adds RoutesList middleware to the application pipeline with custom configuration options.
+        /// </summary>
+        /// <param name="app">The application builder instance.</param>
+        /// <param name="routesListOptions">Action to configure the RoutesList options.</param>
+        /// <returns>The application builder instance.</returns>
         public static IApplicationBuilder UseRoutesList(
             this IApplicationBuilder app,
             Action<RoutesListOptions> routesListOptions)
@@ -31,9 +33,14 @@ namespace RoutesList.Gen
                 endpoints.MapRouteList($"{options.Endpoint}/json", options);
             });
 
-            return app.UseRoutesList(options);
+            return app;
         }
 
+        /// <summary>
+        /// Adds RoutesList middleware to the application pipeline with default configuration.
+        /// </summary>
+        /// <param name="app">The application builder instance.</param>
+        /// <returns>The application builder instance.</returns>
         public static IApplicationBuilder UseRoutesList(this IApplicationBuilder app)
         {
             RoutesListOptions options;
@@ -47,7 +54,7 @@ namespace RoutesList.Gen
                 endpoints.MapRouteList($"{options.Endpoint}/json", options);
             });
 
-            return app.UseRoutesList(options);
+            return app;
         }
     }
 }

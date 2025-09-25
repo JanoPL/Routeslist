@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using RoutesList.Build.Models;
+using RoutesList.Gen.Middlewares;
 
 namespace RoutesList.Gen.Extensions
 {

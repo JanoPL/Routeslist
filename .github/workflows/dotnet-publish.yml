@@ -2,7 +2,7 @@ name: Net RoutesList - Release & NuGet Publishing
 
 on:
   release:
-    types: [ published ]
+    types: [published]
 
 jobs:
   build-and-publish:
@@ -31,14 +31,26 @@ jobs:
             8.0.x
             9.0.x
 
-      - name: Build solution in Release mode
-        run: dotnet build RoutesList.sln -c Release
+      - name: Restore dependencies
+        run: dotnet restore RoutesList.sln
 
-      - name: Create NuGet packages with symbols
-        run: dotnet pack RoutesList.sln -c Release --no-build --include-symbols -p:SymbolPackageFormat=snupkg
+      - name: Build solution in Release mode
+        run: dotnet build RoutesList.sln -c Release --no-restore
+
+      - name: Pack projects
+        run: |
+          for proj in $(find . -name "*.csproj" -not -path "./tests/*"); do
+            dotnet pack "$proj" -c Release --no-build --include-symbols -p:SymbolPackageFormat=snupkg
+          done
 
       - name: Publish main packages to NuGet.org
-        run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGETKEY }} --skip-duplicate
+        run: |
+          for pkg in $(find . -name "*.nupkg" -not -name "*.snupkg"); do
+            dotnet nuget push "$pkg" --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGETKEY }} --skip-duplicate
+          done
 
       - name: Publish debug symbols to NuGet.org
-        run: dotnet nuget push **/*.snupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGETKEY }} --skip-duplicate
+        run: |
+          for sym in $(find . -name "*.snupkg"); do
+            dotnet nuget push "$sym" --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGETKEY }} --skip-duplicate
+          done

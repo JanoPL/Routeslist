@@ -23,42 +23,37 @@ on:
           - diagnostic
 
 jobs:
-  build-windows:
-    runs-on: windows-latest
-    strategy:
-      matrix:
-        configuration: [ 'Debug', 'Release' ]
-        dotnet-version: [ 'netcoreapp3.1', 'net5.0', 'net6.0', 'net7.0', 'net8.0', 'net9.0' ]
+  report-coverage:
+    runs-on: ubuntu-latest
+    needs:
+      - build-linux
     steps:
-      - uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v5
 
-      - name: store cache packages
-        uses: actions/cache@v4
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v4
         with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-${{ github.workflow }}-${{ matrix.configuration }}-${{ matrix.dotnet-version }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ github.workflow }}-${{ matrix.configuration }}-${{ matrix.dotnet-version }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          name: coverage
+          path: ${{ github.workspace }}/coverage
+          
+      - name: list coverage files
+        run: |
+          ls ${{ github.workspace }} || echo "No coverage files found"
 
-      - name: Setup .NET Core SDKs
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: |
-            3.1.x
-            5.0.x
-            6.0.x
-            7.0.x
-            8.0.x
-            9.0.x
-      
-      - name: Install dependencies
-        run: dotnet restore
-      
-      - name: Build
-        run: dotnet build --configuration ${{ matrix.configuration }} --no-restore
-      
-      - name: Test
-        run: dotnet test --no-restore --verbosity ${{ github.event.inputs.verbosity || 'minimal' }} --configuration ${{ matrix.configuration }} -f ${{ matrix.dotnet-version }}
+      - name: Send coverage reports to Codacy
+        run: |
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage1.xml -t ${{ secrets.CODACY_PROJECT_TOKEN }} --partial --language CSharp --force-coverage-parser Cobertura
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage2.xml -t ${{ secrets.CODACY_PROJECT_TOKEN }} --partial --language CSharp --force-coverage-parser Cobertura
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage3.xml -t ${{ secrets.CODACY_PROJECT_TOKEN }} --partial --language CSharp --force-coverage-parser Cobertura
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage4.xml -t ${{ secrets.CODACY_PROJECT_TOKEN }} --partial --language CSharp --force-coverage-parser Cobertura
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage5.xml -t ${{ secrets.CODACY_PROJECT_TOKEN }} --partial --language CSharp --force-coverage-parser Cobertura
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage6.xml -t ${{ secrets.CODACY_PROJECT_TOKEN }} --partial --language CSharp --force-coverage-parser Cobertura
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage7.xml -t ${{ secrets.CODACY_PROJECT_TOKEN }} --partial --language CSharp --force-coverage-parser Cobertura
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ${{ github.workspace }}/coverage/coverage8.xml -t ${{ secrets.CODACY_PROJECT_TOKEN }} --partial --language CSharp --force-coverage-parser Cobertura
+
+      - name: Finalize codacy reporter
+        run: bash <(curl -Ls https://coverage.codacy.com/get.sh) final -t ${{ secrets.CODACY_PROJECT_TOKEN }}
   
   build-linux:
     runs-on: ubuntu-latest
@@ -94,22 +89,11 @@ jobs:
       - name: Setup .NET Core SDK net6.0
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: 6.0.x
-
-      - name: Setup .NET Core SDK net7.0
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: 7.0.x
-
-      - name: Setup .NET Core SDK net8.0
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: 8.0.x
-       
-      - name: Setup .NET Core SDK net9.0
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: 9.0.x
+          dotnet-version: |
+            6.0.x
+            7.0.x
+            8.0.x
+            9.0.x
 
       - name: Install dependencies
         run: dotnet restore
@@ -129,7 +113,7 @@ jobs:
         if: ${{ matrix.dotnet-version == 'net9.0' && matrix.configuration == 'Release' }}
         run: |
           mkdir -p ${{ github.workspace }}/coverage
-          for i in {1..5}; do
+          for i in {1..8}; do
             source=""
             case $i in
               1) source="tests/UnitTests/TestResults" ;;
@@ -137,6 +121,9 @@ jobs:
               3) source="tests/RouteList.IntegrationTest/TestResults" ;;
               4) source="tests/RoutesList.Integration.Razor/TestResults" ;;
               5) source="tests/RoutesLIst.Integration.Blazor/TestResults" ;;
+              6) source="tests/RoutesList.Integration.RazorPages/TestResults" ;;
+              7) source="tests/RoutesList.Tests.Services/TestResults" ;;
+              8) source="tests/Test.WebApplication.factory/TestResults" ;;
             esac
             cp ${{ github.workspace }}/$source/**/coverage.cobertura.xml ${{ github.workspace }}/coverage/coverage$i.xml || echo "Warning: Coverage file $i not found"
           done
