@@ -1,4 +1,4 @@
-﻿name: Net RoutesList CI
+name: Net RoutesList CI
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -131,7 +131,7 @@ jobs:
 
       - name: Upload coverage report
         if: ${{ matrix.dotnet-version == 'net9.0' && matrix.configuration == 'Release' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: coverage
           path: ${{ github.workspace }}/coverage
