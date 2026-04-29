@@ -1,4 +1,4 @@
-﻿name: Net RoutesList CI Windows
+name: Net RoutesList CI Windows
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -27,7 +27,7 @@ jobs:
         configuration: [ 'Debug', 'Release' ]
         dotnet-version: [ 'netcoreapp3.1', 'net5.0', 'net6.0', 'net7.0', 'net8.0', 'net9.0' ]
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: store cache packages
         uses: actions/cache@v4
