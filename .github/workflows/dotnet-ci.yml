@@ -37,9 +37,20 @@ jobs:
           name: coverage
           path: ${{ github.workspace }}/coverage
           
+      - name: Verify coverage files
+        shell: bash
+        run: |
+          if compgen -G "${{ github.workspace }}/coverage/*.xml" > /dev/null; then
+            echo "Coverage files found:"
+            ls -la "${{ github.workspace }}/coverage"
+          else
+            echo "No coverage XML files found"
+            exit 1
+          fi
+          
       - name: list coverage files
         run: |
-          ls ${{ github.workspace }} || echo "No coverage files found"
+          ls ${{ github.workspace }}/coverage || echo "No coverage files found"
 
       - name: Send coverage reports to Codacy
         run: |
