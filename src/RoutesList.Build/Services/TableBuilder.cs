@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using ConsoleTables;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Newtonsoft.Json;
+using System.Text.Json;
 using RoutesList.Build.Enums;
 using RoutesList.Build.Extensions;
 using RoutesList.Build.Interfaces;
@@ -23,6 +22,11 @@ namespace RoutesList.Build.Services
         private readonly IRoutes _routes;
         private readonly IBuilder _builder;
         private readonly IActionDescriptorCollectionProvider _actionDescriptorCollectionProvider;
+
+        private static readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            WriteIndented = true,
+        };
 
         private IList<RoutesInformationModel> ListRoutes { get; set; } = new List<RoutesInformationModel>();
 
@@ -54,16 +58,6 @@ namespace RoutesList.Build.Services
         }
 
         /// <summary>
-        /// Asynchronously generates a table of routes with optional JSON formatting.
-        /// </summary>
-        /// <param name="json">If true, outputs routes in JSON format</param>
-        /// <returns>A string representation of the routes</returns>
-        public Task<string> AsyncGenerateTable(bool json)
-        {
-            return GenerateTable(json, null);
-        }
-
-        /// <summary>
         /// Asynchronously generates a table of routes with JSON formatting and custom options.
         /// </summary>
         /// <param name="isJson">If true, outputs routes in JSON format</param>
@@ -72,28 +66,6 @@ namespace RoutesList.Build.Services
         public Task<string> AsyncGenerateTable(bool isJson, RoutesListOptions options)
         {
             return GenerateTable(isJson, options);
-        }
-
-        /// <summary>
-        /// Determines if all routes in the list are controller action descriptors.
-        /// </summary>
-        /// <returns>True if all routes are controller actions, false otherwise</returns>
-        private bool IsControllerActionDescriptor()
-        {
-            List<bool> result = ListRoutes.Select(route => route.IsCompiledPageActionDescriptor == false).ToList();
-
-            return result.TrueForAll(x => x);
-        }
-
-        /// <summary>
-        /// Determines if all routes in the list are compiled page action descriptors.
-        /// </summary>
-        /// <returns>True if all routes are compiled pages, false otherwise</returns>
-        private bool IsCompiledPageActionDescriptor()
-        {
-            List<bool> result = ListRoutes.Select(route => route.IsCompiledPageActionDescriptor).ToList();
-
-            return result.TrueForAll(x => x);
         }
 
         /// <summary>
@@ -132,40 +104,44 @@ namespace RoutesList.Build.Services
 
             if (!isJson)
             {
-                return await Task.FromResult("");
+                return await Task.FromResult(string.Empty);
             }
             
-            var serialize = new StringBuilder();
-
-            if (IsCompiledPageActionDescriptor()) {
-                serialize.AppendLine(JsonConvert.SerializeObject(
-                    ListRoutes.Select(x => {
-                        return new {
+            var listRoutes = ListRoutes
+                .Where(x => x != null)
+                .Select<RoutesInformationModel, object?>(x =>
+                {
+                    if (x.IsCompiledPageActionDescriptor)
+                    {
+                        return new
+                        {
                             x.RelativePath,
                             x.ViewEnginePath,
                             x.DisplayName,
                             x.Template,
                         };
-                    })
-                ));
-            }
+                    }
 
-            if (IsControllerActionDescriptor()) {
-                serialize.AppendLine(JsonConvert.SerializeObject(
-                    ListRoutes.Select(x => {
-                        return new {
+                    if (!x.IsCompiledPageActionDescriptor)
+                    {
+                        return new
+                        {
                             x.DisplayName,
                             x.ControllerName,
                             x.Template,
                             x.ActionName,
                             x.MethodName,
                         };
-                    })
-                ));
-            }
+                    }
 
-            return await Task.FromResult(serialize.ToString());
+                    return null;
+                })
+                .Where(x => x != null)
+                .ToList();
+            
+            var json = JsonSerializer.Serialize(listRoutes, _jsonOptions);
 
+            return await Task.FromResult(json);
         }
 #nullable disable
 

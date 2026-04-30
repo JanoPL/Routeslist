@@ -460,8 +460,7 @@
       "routeslist.build": {
         "type": "Project",
         "dependencies": {
-          "ConsoleTables": "[2.7.0, )",
-          "Newtonsoft.Json": "[13.0.4, )"
+          "ConsoleTables": "[2.7.0, )"
         }
       },
       "routeslist.gen": {
@@ -942,8 +941,7 @@
       "routeslist.build": {
         "type": "Project",
         "dependencies": {
-          "ConsoleTables": "[2.7.0, )",
-          "Newtonsoft.Json": "[13.0.4, )"
+          "ConsoleTables": "[2.7.0, )"
         }
       },
       "routeslist.gen": {
@@ -1448,8 +1446,7 @@
       "routeslist.build": {
         "type": "Project",
         "dependencies": {
-          "ConsoleTables": "[2.7.0, )",
-          "Newtonsoft.Json": "[13.0.4, )"
+          "ConsoleTables": "[2.7.0, )"
         }
       },
       "routeslist.gen": {
@@ -1920,8 +1917,7 @@
       "routeslist.build": {
         "type": "Project",
         "dependencies": {
-          "ConsoleTables": "[2.7.0, )",
-          "Newtonsoft.Json": "[13.0.4, )"
+          "ConsoleTables": "[2.7.0, )"
         }
       },
       "routeslist.gen": {

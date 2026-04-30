@@ -78,7 +78,6 @@
 
   <ItemGroup>
     <PackageReference Include="ConsoleTables" />
-    <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>
 
 </Project>

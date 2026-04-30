@@ -28,4 +28,24 @@ public class WebApplicationTest
             response?.Content?.Headers?.ContentType?.ToString()
         );
     }
+    
+    [Fact]
+    public async Task ResponseTest_with_json_format()
+    {
+        var client = _application.CreateClient();
+        var response = await client.GetAsync("/routes/json");
+            
+        response.EnsureSuccessStatusCode();
+        var json = await response.Content.ReadAsStringAsync();
+        Assert.NotNull(json);
+        Assert.NotEmpty(json);
+
+        // Check CamelCase
+        Assert.Contains("\"displayName\":", json);
+        Assert.Contains("\"relativePath\":", json);
+        Assert.Contains("\"viewEnginePath\":", json);
+        
+        // Ensure no PascalCase keys
+        Assert.DoesNotContain("\"DisplayName\":", json);
+    }
 }

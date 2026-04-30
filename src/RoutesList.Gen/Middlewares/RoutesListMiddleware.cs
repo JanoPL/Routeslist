@@ -90,7 +90,7 @@ namespace RoutesList.Gen.Middlewares
             response.StatusCode = 200;
             response.ContentType = "text/html";
 
-            var htmlBuilderResult = _tableBuilder.AsyncGenerateTable(_options).GetAwaiter().GetResult();
+            var htmlBuilderResult = await _tableBuilder.AsyncGenerateTable(_options);
 
             await response.WriteAsync(htmlBuilderResult, Encoding.UTF8);
         }
@@ -105,7 +105,7 @@ namespace RoutesList.Gen.Middlewares
             response.StatusCode = 200;
             response.ContentType = "application/json; charset=utf-8";
 
-            var htmlBuilderResult = _tableBuilder.AsyncGenerateTable(true, _options).GetAwaiter().GetResult();
+            var htmlBuilderResult = await _tableBuilder.AsyncGenerateTable(true, _options);
 
             await response.WriteAsync(htmlBuilderResult, Encoding.UTF8);
         }

@@ -33,5 +33,26 @@ namespace RoutesLIst.Integration.Blazor
                 response?.Content?.Headers?.ContentType?.ToString()
             );
         }
+        
+        [Fact]
+        public async Task ResponseTest_with_json_format()
+        {
+            using var client = _application.CreateClient();
+            using var response = await client.GetAsync("/routes/json");
+            
+            response.EnsureSuccessStatusCode();
+            
+            var json = await response.Content.ReadAsStringAsync();
+            Assert.NotNull(json);
+            Assert.NotEmpty(json);
+
+            // Check CamelCase
+            Assert.Contains("\"relativePath\":", json);
+            Assert.Contains("\"viewEnginePath\":", json);
+            Assert.Contains("\"displayName\":", json);
+            
+            // Ensure no PascalCase keys
+            Assert.DoesNotContain("\"RelativePath\":", json);
+        }
     }
 }

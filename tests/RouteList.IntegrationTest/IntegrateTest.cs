@@ -37,5 +37,25 @@ namespace RouteList.IntegrationTest
                 response?.Content?.Headers?.ContentType?.ToString()
             );
         }
+
+        [Fact]
+        public async Task ResponseTest_with_json_format()
+        {
+            var client = _factory.CreateClient();
+            var response = await client.GetAsync("/routes/json");
+            
+            response.EnsureSuccessStatusCode();
+            var json = await response.Content.ReadAsStringAsync();
+            Assert.NotNull(json);
+            Assert.NotEmpty(json);
+
+            // Check CamelCase
+            Assert.Contains("\"controllerName\":", json);
+            Assert.Contains("\"actionName\":", json);
+            Assert.Contains("\"displayName\":", json);
+            
+            // Ensure no PascalCase keys
+            Assert.DoesNotContain("\"ControllerName\":", json);
+        }
     }
 }
