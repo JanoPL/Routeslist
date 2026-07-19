@@ -1,4 +1,4 @@
-﻿name: Net RoutesList CI
+name: Net RoutesList CI
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -98,7 +98,7 @@ jobs:
             export DYLD_LIBRARY_PATH="/usr/local/opt/openssl@3/lib:$DYLD_LIBRARY_PATH"
 
       - name: Setup .NET Core SDK net6.0
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: |
             6.0.x
